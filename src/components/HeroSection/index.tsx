@@ -1,6 +1,6 @@
 import { IoIosArrowForward } from 'react-icons/io'
 
-import { routsNameMain } from '../../../data/routsName'
+import { routsNameMain } from '../../data/routsName'
 import { HeroContainerStyles } from './styles'
 
 interface IHeroSection {

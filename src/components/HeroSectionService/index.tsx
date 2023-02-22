@@ -1,7 +1,7 @@
 import { IoIosArrowForward } from 'react-icons/io'
 
-import { routsNameMain } from '../../../data/routsName'
-import { defaultTheme } from '../../../themes/default'
+import { routsNameMain } from '../../data/routsName'
+import { defaultTheme } from '../../themes/default'
 import ButtonBase from '../buttons/ButtonBase'
 import { HeroContainerStyles } from './styles'
 
