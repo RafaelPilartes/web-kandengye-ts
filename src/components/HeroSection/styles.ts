@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { NavLink } from '../../NavLink'
 
 interface IHero {
   backgroundImage: string
