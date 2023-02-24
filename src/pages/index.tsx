@@ -51,27 +51,25 @@ import heroBg3 from '../assets/background/hero_bg_2_3-4.jpg'
 import ButtonSeeMore from '../components/buttons/ButtonSeeMore'
 import RenderServices from '../components/RenderServices'
 import RenderVeicules from '../components/RenderVeicules'
+import btnGoogle from '../../public/images/download/google.png'
+import btnApple from '../../public/images/download/App-Store.png'
 
 function Home() {
   const router = useNavigate()
 
   useEffect(() => {}, [])
 
-  const date = new Date()
-
   function solicitation() {}
 
   const responsive = {
     0: { items: 1 },
-    250: { items: 2 },
-    500: { items: 3 },
-    750: { items: 4 },
-    1000: { items: 5 }
+    500: { items: 2 },
+    1000: { items: 3 }
   }
   const responsiveCars = {
     0: { items: 1 },
-    250: { items: 2 },
-    500: { items: 3 }
+    500: { items: 2 },
+    1000: { items: 3 }
   }
 
   const docService = [
@@ -326,6 +324,11 @@ function Home() {
               </h1>
 
               <div className="contentDescriptions">
+                <p>
+                  Entre no banco do motorista e seja pago. Dirija na plataforma
+                  com a maior rede de passeios ativos
+                </p>
+
                 <ul>
                   <li>
                     <BsFillCheckCircleFill />
@@ -476,6 +479,44 @@ function Home() {
               src="https://mid.curitiba.pr.gov.br/2018/capa/00221449.jpg"
               alt=""
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="weAreReady">
+        <div className="contentWeAreReady">
+          <div className="coverBackground"></div>
+
+          <div className="containerImg">
+            <img src="images/mokup/mokup1.png" alt="" />
+          </div>
+
+          <div className="contentInfo">
+            <h1>KANGENGYE vai até onde desejares...!</h1>
+
+            <div>
+              <ul>
+                <li>
+                  <BsFillCheckCircleFill />O taxi mais Bbrato
+                </li>
+                <li>
+                  <BsFillCheckCircleFill />
+                  Chegue ao seu destino rapidamente
+                </li>
+                <li>
+                  <BsFillCheckCircleFill />É só baixar e instalar
+                </li>
+              </ul>
+
+              <div className="containerBtn">
+                <a href="">
+                  <img src={btnGoogle} alt="" />
+                </a>
+                <a href="">
+                  <img src={btnApple} alt="" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

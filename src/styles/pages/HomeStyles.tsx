@@ -127,6 +127,32 @@ export const ContainerHome = styled.div`
           transform: skew(20deg);
         }
       }
+
+      @media (max-width: 815px) {
+        h1 {
+          font-size: 2.8rem;
+        }
+
+        span {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 665px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        span {
+          font-size: 1rem;
+          display: none;
+        }
+      }
+      @media (max-width: 510px) {
+        h1 {
+          font-size: 1.6rem;
+        }
+      }
     }
 
     .shadow {
@@ -823,6 +849,121 @@ export const ContainerHome = styled.div`
 
   .security {
     margin: 4rem 0;
+  }
+
+  .weAreReady {
+    .contentWeAreReady {
+      position: relative;
+
+      width: 100%;
+      padding: 5rem 4rem 0rem 4rem;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5rem;
+
+      background-color: transparent;
+      background-image: linear-gradient(
+        270deg,
+        ${props => props.theme.colors['brand-primary']} 0%,
+        ${props => props.theme.colors['brand-secondary-dark']} 100%
+      );
+
+      .coverBackground {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background-image: url('https://images4.alphacoders.com/590/590571.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.15;
+      }
+
+      .containerImg {
+        position: relative;
+        display: block;
+
+        max-height: 30rem;
+        max-width: 20rem;
+
+        object-fit: cover;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          vertical-align: middle;
+          display: inline-block;
+        }
+      }
+
+      .contentInfo {
+        flex: 1;
+        min-width: 16rem;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2rem;
+
+        z-index: 20;
+
+        h1 {
+          color: ${({ theme }) => theme.colors['base-white']};
+          font-size: 2.6rem;
+          font-weight: 700;
+        }
+
+        div {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          flex-direction: column;
+          gap: 1.6rem;
+
+          ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            li {
+              font-size: 1rem;
+              color: ${({ theme }) => theme.colors['base-white']};
+              font-weight: 500;
+
+              display: flex;
+              flex-direction: row;
+              gap: 0.6rem;
+
+              svg {
+                /* color: ${({ theme }) =>
+                  theme.colors['brand-secondary-dark']}; */
+              }
+            }
+          }
+
+          .containerBtn {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: row;
+            gap: 1.6rem;
+
+            img {
+              width: 12rem;
+              height: 4rem;
+            }
+          }
+        }
+      }
+    }
   }
 
   .ourVeicules {

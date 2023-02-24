@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 
 import { MenuContainer, SLink, SLinkContainer } from './styles'
-import { AiOutlineClose } from 'react-icons/ai'
+import { AiFillCar, AiOutlineClose } from 'react-icons/ai'
 import { routsNameMain } from '../../data/routsName'
+import { FaDownload } from 'react-icons/fa'
 
 interface ModalMenuMobileInterface {
   menuIsVisible: boolean
@@ -15,24 +16,20 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
 }): JSX.Element => {
   const menu = [
     {
-      label: 'Casa',
-      to: routsNameMain.home
+      label: 'Inicio',
+      to: ''
     },
     {
-      label: 'Sobre',
-      to: routsNameMain.about
+      label: 'Sobre nós',
+      to: ''
     },
     {
       label: 'Serviços',
-      to: routsNameMain.service
+      to: ''
     },
     {
-      label: 'Blog',
-      to: routsNameMain.blog
-    },
-    {
-      label: 'Contactos',
-      to: routsNameMain.contact
+      label: 'Agendamento',
+      to: ''
     }
   ]
 
@@ -59,7 +56,19 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
     <MenuContainer isVisible={menuIsVisible}>
       <AiOutlineClose size={45} onClick={closeMenu} />
       <SLinkContainer>
-        <ul>{mapLinks}</ul>
+        <ul>
+          {mapLinks}
+          <button className="btn-background">
+            <a href="">
+              <AiFillCar /> Torna-se estafeta
+            </a>
+          </button>
+          <button className="btn-border">
+            <a href="">
+              <FaDownload /> Baixar App
+            </a>
+          </button>
+        </ul>
       </SLinkContainer>
     </MenuContainer>
   )

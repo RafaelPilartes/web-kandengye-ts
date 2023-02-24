@@ -83,6 +83,10 @@ export const HeaderContainerStyles = styled.header`
       font-size: 0.92rem;
       font-weight: 500;
     }
+
+    @media (max-width: 945px) {
+      display: none;
+    }
   }
 
   .containerButton {
@@ -90,6 +94,7 @@ export const HeaderContainerStyles = styled.header`
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 1rem;
 
@@ -108,6 +113,7 @@ export const HeaderContainerStyles = styled.header`
 
       img {
         width: 100%;
+        min-width: 10 rem;
         height: auto;
       }
     }
@@ -169,6 +175,11 @@ export const HeaderContainerStyles = styled.header`
 
         a {
           color: ${({ theme }) => theme.colors['base-white']};
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
         }
         :hover {
           background-color: ${({ theme }) =>
@@ -189,6 +200,10 @@ export const HeaderContainerStyles = styled.header`
           color: ${({ theme }) => theme.colors['brand-primary']};
         }
       }
+
+      @media (max-width: 1380px) {
+        display: none;
+      }
     }
     .containerRight {
       align-items: center;
@@ -196,6 +211,11 @@ export const HeaderContainerStyles = styled.header`
       gap: 2.2rem;
 
       a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+
         padding: 0.8rem 1.4rem;
 
         border: none;
@@ -213,6 +233,18 @@ export const HeaderContainerStyles = styled.header`
         border: 0.16rem solid ${({ theme }) => theme.colors['brand-primary']};
         color: ${({ theme }) => theme.colors['brand-primary']};
       }
+    }
+  }
+
+  .containerIconMenu {
+    display: none;
+
+    svg {
+      font-size: 2.6rem;
+    }
+
+    @media (max-width: 1380px) {
+      display: inline;
     }
   }
 `

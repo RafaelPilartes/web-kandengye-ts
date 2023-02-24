@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import { MdEmail, MdAccessTimeFilled } from 'react-icons/md'
 import { BsFacebook, BsInstagram, BsTwitter, BsWhatsapp } from 'react-icons/bs'
 import { BiMenuAltLeft, BiPhoneCall, BiSearchAlt } from 'react-icons/bi'
+import { FaDownload } from 'react-icons/fa'
 
 // Toastify
 import { ToastContainer, toast } from 'react-toastify'
@@ -30,6 +31,7 @@ import ModalMenuMobile from '../ModalMenuMobile'
 import imgLogoSemNOme from '../../../public/it_logo_name.svg'
 import { GiGps } from 'react-icons/gi'
 import { IoLocation } from 'react-icons/io5'
+import { AiFillCar } from 'react-icons/ai'
 
 function HeaderMain() {
   const { menuIsVisible, setMenuIsVisible } = useContext(AppContext)
@@ -87,19 +89,28 @@ function HeaderMain() {
 
           <nav className="containerCenter">
             <a href="">Inicio</a>
-            <a href="">Passageiro</a>
-            <a href="">Condutor</a>
-            <a href="">Termos & Condições</a>
+            <a href="">Sobre nós</a>
+            <a href="">Serviços</a>
+            <a href="">Agendamento</a>
 
             <button className="btn-background">
-              <a href="">Tornar-se motorista</a>
+              <a href="">
+                <AiFillCar /> Torna-se estafeta
+              </a>
             </button>
+
             <button className="btn-border">
-              <a href="">Baixar App</a>
+              <a href="">
+                <FaDownload /> Baixar App
+              </a>
             </button>
           </nav>
 
           <div className="containerRight">
+            <span className="containerIconMenu">
+              <BiMenuAltLeft className="iconsMenu" onClick={openMenu} />
+            </span>
+
             <a className="btn-background" href="">
               Entrar
             </a>

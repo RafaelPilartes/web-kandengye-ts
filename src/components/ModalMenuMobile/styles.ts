@@ -21,8 +21,8 @@ export const MenuContainer = styled.section<IBtn>`
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
-    rgba(9, 39, 121, 1) 53%,
-    rgba(0, 0, 255, 1) 95%
+    rgb(121, 9, 9) 53%,
+    rgb(255, 0, 0) 95%
   );
 
   opacity: 0;
@@ -46,7 +46,7 @@ export const MenuContainer = styled.section<IBtn>`
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.8rem;
     transform: scale(0.7);
     transition: 0.7s ease;
 
@@ -55,8 +55,62 @@ export const MenuContainer = styled.section<IBtn>`
 
       a {
         color: ${props => props.theme.colors['base-white']};
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: 600;
+      }
+    }
+
+    button {
+      border: none;
+      border-radius: 0.4rem;
+
+      transform: skew(-20deg);
+
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+
+      a {
+        position: relative;
+        padding: -0.2rem 0;
+        font-size: 1rem;
+        font-weight: 500;
+
+        display: inline-block;
+        transform: skew(20deg);
+      }
+    }
+
+    .btn-background {
+      background-color: ${({ theme }) => theme.colors['brand-primary']};
+      color: ${({ theme }) => theme.colors['base-white']};
+      transition: 0.4s ease;
+
+      a {
+        color: ${({ theme }) => theme.colors['base-white']};
+        font-size: 1.6rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      :hover {
+        background-color: ${({ theme }) => theme.colors['brand-primary-dark']};
+      }
+
+      :active {
+        background-color: ${({ theme }) => theme.colors['brand-primary-light']};
+      }
+    }
+    .btn-border {
+      background-color: ${({ theme }) => theme.colors['base-white']};
+      border: 0.16rem solid ${({ theme }) => theme.colors['brand-primary']};
+      color: ${({ theme }) => theme.colors['brand-primary']};
+
+      a {
+        color: ${({ theme }) => theme.colors['brand-primary']};
+        font-size: 1.6rem;
       }
     }
   }
@@ -94,7 +148,7 @@ export const SLinkContainer = styled.div`
       bottom: 0;
       left: 0;
       width: 0;
-      height: 0.11rem;
+      height: 0.31rem;
       background-color: ${({ theme }) => theme.colors['brand-primary']};
 
       transition: 0.4s ease;

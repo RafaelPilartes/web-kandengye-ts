@@ -29,7 +29,7 @@ function RenderServices({ services }: servicesType) {
             </div>
 
             <ButtonSeeMore
-              value={'Ver mais projetos'}
+              value={'Detalhes do serviço'}
               onClick={() => null}
               colorBase={defaultTheme.colors['brand-primary']}
               colorSecondary={defaultTheme.colors['brand-super-dark']}
