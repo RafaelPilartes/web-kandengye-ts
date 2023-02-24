@@ -954,6 +954,7 @@ export const ContainerHome = styled.div`
             align-items: flex-start;
             justify-content: center;
             flex-direction: row;
+            flex-wrap: wrap;
             gap: 1.6rem;
 
             img {
