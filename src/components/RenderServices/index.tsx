@@ -1,43 +1,29 @@
 import React, { useContext, useState } from 'react'
-import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
-import { FaShareAlt } from 'react-icons/fa'
-import { routsNameMain } from '../../data/routsName'
 import { servicesType } from '../../models/types/servicesType'
-import { defaultTheme } from '../../themes/default'
-import ButtonSeeMore from '../buttons/ButtonSeeMore'
-import { ServiceContainer } from './styles'
+
+import { CardContainer } from './styles'
+
+interface RenderServicesInterface {
+  imgUrl: string
+  title: string
+  description: string
+  icon: any
+}
 
 function RenderServices({ services }: servicesType) {
   return (
-    <ServiceContainer>
-      <a
-        href={`${routsNameMain.otherPages.team.details as string}${
-          services._id
-        }/${services.name}`}
-      >
-        <div className="containerContent">
-          <div className="containerImgMember">
-            <img src={services.imgUrl} alt="" />
-
-            <div className="shadow"></div>
-          </div>
-
-          <div className="containerInfo">
-            <div className="content">
-              <h2> {services.name} </h2>
-              <p> {services.role} </p>
-            </div>
-
-            <ButtonSeeMore
-              value={'Detalhes do serviço'}
-              onClick={() => null}
-              colorBase={defaultTheme.colors['brand-primary']}
-              colorSecondary={defaultTheme.colors['brand-super-dark']}
-            />
-          </div>
+    <CardContainer>
+      <div className="containerImg">
+        <img src={services.imgUrl} alt="" />
+        <div className="shadow"></div>
+      </div>
+      <div className="containerFloat">
+        <div className="containerInfo">
+          <h2> {services.name} </h2>
+          <p> {services.role} </p>
         </div>
-      </a>
-    </ServiceContainer>
+      </div>
+    </CardContainer>
   )
 }
 

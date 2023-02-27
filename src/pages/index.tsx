@@ -119,13 +119,13 @@ function Home() {
       _id: 'thw46h46hwthhyh',
       imgUrl: 'images/cars/car3.svg',
       name: 'Modo preferencial',
-      role: 'Leve sua corrida a um novo nível com mais espaço para as pernas, carros mais novos, os motoristas mais bem-avaliados .'
+      role: 'Leve sua corrida a um novo nível com mais espaço para as pernas, carros mais novos, os Motoqueiros mais bem-avaliados .'
     },
     {
       _id: 'f43gyh37h6jj6j',
       imgUrl: 'images/cars/car4.png',
       name: 'Kandengye Lux',
-      role: 'Experimente uma corrida de luxo privativa com os motoristas mais bem-avaliados, serviço de alta qualidade e espaço adicional para as pernas.'
+      role: 'Experimente uma corrida de luxo privativa com os Motoqueiros mais bem-avaliados, serviço de alta qualidade e espaço adicional para as pernas.'
     }
   ]
   const listVeicules = docVeicules.map((item, index) => (
@@ -156,8 +156,8 @@ function Home() {
           <SwiperSlide>
             <div className="description">
               <span data-aos="fade-down">
-                Serviço de reserva de táxi on-line 24 horas por dia, 7 dias por
-                semana
+                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
+                por semana
               </span>
               <h1 data-aos="fade-down">
                 Desfrutando Confortável <br /> Viagem Com Kandengye
@@ -180,8 +180,8 @@ function Home() {
           <SwiperSlide>
             <div className="description">
               <span data-aos="fade-down">
-                Serviço de reserva de táxi on-line 24 horas por dia, 7 dias por
-                semana
+                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
+                por semana
               </span>
               <h1 data-aos="fade-down">
                 Desfrutando Confortável <br /> Viagem Com Kandengye
@@ -204,8 +204,8 @@ function Home() {
           <SwiperSlide>
             <div className="description">
               <span data-aos="fade-down">
-                Serviço de reserva de táxi on-line 24 horas por dia, 7 dias por
-                semana
+                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
+                por semana
               </span>
               <h1 data-aos="fade-down">
                 Desfrutando Confortável <br /> Viagem Com Kandengye
@@ -243,7 +243,7 @@ function Home() {
             <div className="contentRight" data-aos="fade-up">
               <div className="containerTitleSection">
                 <h4>Sobre nossa empresa</h4>
-                <h1>EMPRESA DE TÁXI MAIS CONFIÁVEL EM ANGOLA</h1>
+                <h1>EMPRESA DE Moto-Táxi MAIS CONFIÁVEL EM ANGOLA</h1>
               </div>
 
               <p>

@@ -16,22 +16,7 @@ export const routsNameMain = {
     faq: `/faq`
   },
   about: `/about`,
-  service: {
-    index: `/service`,
-    website: `/service/website/`,
-    eCommerce: `/service/eCommerce/`,
-    mobile: `/service/mobile/category/`,
-    system: `/service/system/`,
-    socialMediaManagement: `/service/socialMediaManagement/`,
-    seoAndWebsiteOptimization: `/service/seoAndWebsiteOptimization/`,
-    googleAds: `/service/googleAds/`,
-    sponsoredLinks: `/service/sponsoredLinks/`,
-    contentMarketing: `/service/contentMarketing/`,
-    domain: `/service/domain/`,
-    accommodation: `/service/accommodation/`,
-    brandAndDesign: `/service/brandAndDesign/`,
-    emailProfessional: `/service/emailProfessional/`
-  },
+  services: `/services`,
   blog: {
     index: `/blog`,
     tag: `/blog/search/tag/`,

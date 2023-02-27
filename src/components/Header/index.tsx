@@ -88,9 +88,9 @@ function HeaderMain() {
           </a>
 
           <nav className="containerCenter">
-            <a href="">Inicio</a>
-            <a href="">Sobre nós</a>
-            <a href="">Serviços</a>
+            <a href={routsNameMain.home}>Inicio</a>
+            <a href={routsNameMain.about}>Sobre nós</a>
+            <a href={routsNameMain.services}>Serviços</a>
             <a href="">Agendamento</a>
 
             <button className="btn-background">

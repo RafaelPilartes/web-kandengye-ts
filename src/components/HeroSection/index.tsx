@@ -23,6 +23,8 @@ function HeroSection({
   return (
     <HeroContainerStyles backgroundImage={backgroundImage}>
       <div className="infoHero">
+        <h1 data-aos="zoom-in-up">{title}</h1>
+
         <div className="path">
           <a href={routsNameMain.home as string}>Casa</a>
           {base1 && (
@@ -58,8 +60,6 @@ function HeroSection({
             </>
           )}
         </div>
-
-        <h1 data-aos="zoom-in-up">{title}</h1>
       </div>
       <div className="shadow"></div>
     </HeroContainerStyles>

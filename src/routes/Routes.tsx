@@ -4,8 +4,10 @@ import { routsNameMain } from '../data/routsName'
 import RootLayout from '../Layout/RootLayout'
 import FourOhFour from '../pages/404'
 import Loading from '../pages/loading'
+import Services from '../pages/services'
 
 const Home = React.lazy(() => import('../pages/'))
+const About = React.lazy(() => import('../pages/about'))
 
 export function Router() {
   return (
@@ -22,6 +24,23 @@ export function Router() {
             }
           />
           {/* About */}
+          <Route
+            path={routsNameMain.about}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <About />
+              </React.Suspense>
+            }
+          />
+          {/* Services */}
+          <Route
+            path={routsNameMain.services}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Services />
+              </React.Suspense>
+            }
+          />
         </Route>
 
         <Route
