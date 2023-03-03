@@ -366,7 +366,7 @@ function About() {
               Conheça a nossa <strong>equipe</strong>
             </h1>
 
-            <div className="containerRowServices" data-aos="fade-left">
+            <div className="containerRowMemberTeam" data-aos="fade-left">
               {listTeam}
             </div>
           </div>

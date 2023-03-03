@@ -91,9 +91,10 @@ function HeaderMain() {
             <a href={routsNameMain.home}>Inicio</a>
             <a href={routsNameMain.about}>Sobre nós</a>
             <a href={routsNameMain.services}>Serviços</a>
+            <a href={routsNameMain.contact}>Contactos</a>
 
             <button className="btn-background">
-              <a href="">
+              <a href={routsNameMain.home}>
                 <AiFillCar /> Torna-se estafeta
               </a>
             </button>

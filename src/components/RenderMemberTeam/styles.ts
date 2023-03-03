@@ -1,17 +1,14 @@
 import styled, { keyframes } from 'styled-components'
 
 export const CardContainer = styled.div`
+  flex: 1;
   width: 100%;
   height: auto;
 
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  padding: 1rem 2rem;
+  flex-direction: column;
 
   position: relative;
-  max-width: 20rem;
 
   border-radius: 0.8rem;
 
@@ -20,10 +17,11 @@ export const CardContainer = styled.div`
 
   transition: ease 0.46s;
 
-  min-width: 24rem;
+  max-width: 26rem;
+  min-width: 255px;
 
   .containerImg {
-    width: 6rem;
+    width: 100%;
     min-width: 6rem;
     height: auto;
 
@@ -35,16 +33,6 @@ export const CardContainer = styled.div`
       width: 100%;
 
       transition: 0.4s ease;
-    }
-
-    .shadow {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 0%;
-      background-color: #0f0f0f42;
-      transition: ease 0.46s;
     }
   }
 
@@ -62,10 +50,9 @@ export const CardContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 0.4rem;
+    padding: 1rem 2rem;
 
     background-color: ${({ theme }) => theme.colors['base-white']};
-
-    padding: 0rem 1rem;
 
     transition: ease 0.5s;
 

@@ -730,12 +730,11 @@ export const ContainerAbout = styled.div`
         }
       }
 
-      .containerRowServices {
+      .containerRowMemberTeam {
         width: 100%;
 
         display: flex;
         flex-direction: row;
-        align-items: center;
         gap: 2rem;
         flex-wrap: wrap;
       }
