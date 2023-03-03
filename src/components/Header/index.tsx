@@ -91,7 +91,6 @@ function HeaderMain() {
             <a href={routsNameMain.home}>Inicio</a>
             <a href={routsNameMain.about}>Sobre nós</a>
             <a href={routsNameMain.services}>Serviços</a>
-            <a href="">Agendamento</a>
 
             <button className="btn-background">
               <a href="">

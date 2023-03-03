@@ -76,19 +76,13 @@ function Home() {
     {
       _id: 'g56rbe685j68r67',
       imgUrl: 'images/services/service-4-1.jpg',
-      name: 'transporte municipal',
+      name: 'Moto-Táxi',
       role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
     },
     {
       _id: 'efWEFRQ3GGRGshh',
       imgUrl: 'images/services/service-4-2.jpg',
-      name: 'Transporte de bagagem',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
-    },
-    {
-      _id: 'thw46h46hwthhyh',
-      imgUrl: 'images/services/service-4-3.jpg',
-      name: 'Marcação online',
+      name: 'Entrega de produtos',
       role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
     },
     {
@@ -107,7 +101,7 @@ function Home() {
       _id: 'g56rbe685j68r67',
       imgUrl: 'images/cars/car1.svg',
       name: 'Espere e Economize',
-      role: 'Sem pressa para embarcar? Garanta um preço mais baixo com facilidade. O/A melhor motorista para sua rota e local de embarque.'
+      role: 'Sem pressa para embarcar? Garanta um preço mais baixo com facilidade. O/A melhor motoqueiro para sua rota e local de embarque.'
     },
     {
       _id: 'efWEFRQ3GGRGshh',
@@ -124,7 +118,7 @@ function Home() {
     {
       _id: 'f43gyh37h6jj6j',
       imgUrl: 'images/cars/car4.png',
-      name: 'Kandengye Lux',
+      name: 'Kandengue Lux',
       role: 'Experimente uma corrida de luxo privativa com os Motoqueiros mais bem-avaliados, serviço de alta qualidade e espaço adicional para as pernas.'
     }
   ]
@@ -243,27 +237,27 @@ function Home() {
             <div className="contentRight" data-aos="fade-up">
               <div className="containerTitleSection">
                 <h4>Sobre nossa empresa</h4>
-                <h1>EMPRESA DE Moto-Táxi MAIS CONFIÁVEL EM ANGOLA</h1>
+                <h1>KA EMPRESA DE Moto-Táxi MAIS CONFIÁVEL EM ANGOLA</h1>
               </div>
 
               <p>
-                Simplifique com autoridade os recursos de código aberto via
-                back-end, visualize os mercados eletrônicos de negócios antes da
-                convergência paralela, otimize o compartilhamento de ideias e o
-                compartilhamento em vez de soluções exclusivas.
+                Kandengue Atrevido ou simplesmente KA é uma organização criada
+                totalmente por jovens estudantes que ambicionam atingir o
+                sucesso no mundo dos negócios juntamente com a sua plataforma, é
+                uma organização que visa automatizar a vida do pacato cidadão
               </p>
 
               <ul>
                 <li>
                   <BsFillCheckCircleFill /> Soluções fáceis e de emergência a
-                  qualquer hora
+                  qualquer hora.
                 </li>
                 <li>
-                  <BsFillCheckCircleFill /> Obtendo preço acessível até 2 anos
+                  <BsFillCheckCircleFill /> Obtendo preço acessível até 2 anos.
                 </li>
                 <li>
                   <BsFillCheckCircleFill /> Equipes mais confiáveis ​​e
-                  experientes
+                  experientes.
                 </li>
               </ul>
 
@@ -325,7 +319,7 @@ function Home() {
 
               <div className="contentDescriptions">
                 <p>
-                  Entre no banco do motorista e seja pago. Dirija na plataforma
+                  Entre no banco do motoqueiro e seja pago. Dirija na plataforma
                   com a maior rede de passeios ativos
                 </p>
 
@@ -344,8 +338,8 @@ function Home() {
                     <p>
                       <strong>Um horário flexível:</strong>
                       <br />
-                      Seja seu próprio chefe e dirija quando for mais
-                      conveniente para você.
+                      Faça o seu dinheiro, sem precisar de se preocupar com o
+                      horário, Seja seu próprio chefe;.
                     </p>
                   </li>
                   <li>
@@ -393,11 +387,7 @@ function Home() {
                     poucos minutos
                   </li>
                   <li>
-                    <BsFillCheckCircleFill /> Agende a sua corrida com
-                    antecedência
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill /> Saiba que seu motorista está
+                    <BsFillCheckCircleFill /> Saiba que seu Motoqueiro está
                     usando uma máscara
                   </li>
                 </ul>
@@ -492,19 +482,19 @@ function Home() {
           </div>
 
           <div className="contentInfo">
-            <h1>KANGENGYE vai até onde desejares...!</h1>
+            <h1>KANGENGUE vai até onde desejares...!</h1>
 
             <div>
               <ul>
                 <li>
-                  <BsFillCheckCircleFill />O taxi mais Bbrato
+                  <BsFillCheckCircleFill />O serviço de Moto-Táxi mais Barato
                 </li>
                 <li>
                   <BsFillCheckCircleFill />
-                  Chegue ao seu destino rapidamente
+                  Chegue ao seu destino rapidamente.
                 </li>
                 <li>
-                  <BsFillCheckCircleFill />É só baixar e instalar
+                  <BsFillCheckCircleFill />É só baixar e instalar.
                 </li>
               </ul>
 

@@ -31,6 +31,7 @@ import imgProcess6 from '../../public/process/process6.png'
 import { useNavigate } from 'react-router-dom'
 import { AiFillStar, AiFillCode } from 'react-icons/ai'
 import RenderSolutions from '../components/RenderSolutions'
+import RenderMemberTeam from '../components/RenderMemberTeam'
 
 function About() {
   const router = useNavigate()
@@ -76,6 +77,42 @@ function About() {
       title={item.title}
       description={item.description}
       icon={item.icon}
+    />
+  ))
+
+  const docTeam = [
+    {
+      photo:
+        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+      name: 'Mario Soltinho',
+      memberFunction: 'Diretor Geral'
+    },
+    {
+      photo:
+        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+      name: 'Mario Nascimento',
+      memberFunction: ' Diretor Administrativo e Financeiro '
+    },
+    {
+      photo:
+        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+      name: 'Mario Pilartes',
+      memberFunction: 'Diretor de Intercâmbio, imagem e comunicação'
+    },
+    {
+      photo:
+        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
+      name: 'Mario Gomes',
+      memberFunction: 'Diretor de segurança, tecnologia e informação'
+    }
+  ]
+
+  const listTeam = docTeam.map((item, index) => (
+    <RenderMemberTeam
+      key={index}
+      photo={item.photo}
+      name={item.name}
+      memberFunction={item.memberFunction}
     />
   ))
 
@@ -318,6 +355,20 @@ function About() {
               src="https://thumbs.dreamstime.com/b/black-lady-receiving-parcel-courier-scanning-fingerprint-personal-verification-smart-payment-via-digital-tablet-224983338.jpg"
               alt=""
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="team">
+        <div className="containerContent">
+          <div className="teamContainer">
+            <h1 data-aos="fade-up">
+              Conheça a nossa <strong>equipe</strong>
+            </h1>
+
+            <div className="containerRowServices" data-aos="fade-left">
+              {listTeam}
+            </div>
           </div>
         </div>
       </section>

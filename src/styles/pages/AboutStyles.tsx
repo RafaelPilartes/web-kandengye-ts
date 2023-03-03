@@ -707,4 +707,38 @@ export const ContainerAbout = styled.div`
   .driver {
     margin: 4rem 0;
   }
+
+  .team {
+    width: 100%;
+    margin: 5rem 0;
+
+    .teamContainer {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+
+      h1 {
+        color: #0a2338;
+        font-size: 2.8rem;
+        font-weight: 700;
+
+        strong {
+          color: ${({ theme }) => theme.colors['brand-primary']};
+        }
+      }
+
+      .containerRowServices {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+    }
+  }
 `
