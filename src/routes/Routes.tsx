@@ -8,7 +8,7 @@ import Loading from '../pages/loading'
 const Home = React.lazy(() => import('../pages/'))
 const About = React.lazy(() => import('../pages/about'))
 const Services = React.lazy(() => import('../pages/services'))
-const BecomeDriver = React.lazy(() => import('../pages/BecomeDriver'))
+const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
 
 export function Router() {
   return (
