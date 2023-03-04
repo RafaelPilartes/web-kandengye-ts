@@ -11,9 +11,9 @@ function RenderVeicules({ veicules }: veiculesType) {
   return (
     <VeiculesContainer>
       <a
-        href={`${routsNameMain.otherPages.team.details as string}${
-          veicules._id
-        }/${veicules.name}`}
+        href={`${routsNameMain.services as string}${veicules._id}/${
+          veicules.name
+        }`}
       >
         <div className="containerContent">
           <div className="containerInfo">

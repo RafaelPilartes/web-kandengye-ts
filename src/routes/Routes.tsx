@@ -4,10 +4,11 @@ import { routsNameMain } from '../data/routsName'
 import RootLayout from '../Layout/RootLayout'
 import FourOhFour from '../pages/404'
 import Loading from '../pages/loading'
-import Services from '../pages/services'
 
 const Home = React.lazy(() => import('../pages/'))
 const About = React.lazy(() => import('../pages/about'))
+const Services = React.lazy(() => import('../pages/services'))
+const BecomeDriver = React.lazy(() => import('../pages/BecomeDriver'))
 
 export function Router() {
   return (
@@ -38,6 +39,15 @@ export function Router() {
             element={
               <React.Suspense fallback={<Loading />}>
                 <Services />
+              </React.Suspense>
+            }
+          />
+          {/* BecomeDriver */}
+          <Route
+            path={routsNameMain.becomeDriver}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <BecomeDriver />
               </React.Suspense>
             }
           />

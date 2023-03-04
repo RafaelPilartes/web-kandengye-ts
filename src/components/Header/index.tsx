@@ -93,17 +93,17 @@ function HeaderMain() {
             <a href={routsNameMain.services}>Serviços</a>
             <a href={routsNameMain.contact}>Contactos</a>
 
-            <button className="btn-background">
-              <a href={routsNameMain.home}>
-                <AiFillCar /> Torna-se estafeta
-              </a>
-            </button>
+            <a href={routsNameMain.becomeDriver} className="btn btn-background">
+              <span>
+                <AiFillCar /> Candidatar-se
+              </span>
+            </a>
 
-            <button className="btn-border">
-              <a href="">
+            <a href={''} className="btn btn-border">
+              <span>
                 <FaDownload /> Baixar App
-              </a>
-            </button>
+              </span>
+            </a>
           </nav>
 
           <div className="containerRight">

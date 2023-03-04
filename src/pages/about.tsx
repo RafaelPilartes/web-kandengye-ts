@@ -50,7 +50,8 @@ function About() {
       imgUrl:
         'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-01.jpg',
       title: 'Missão',
-      description: 'Simplificar o complexo, desmistificar e gerar sempre valor',
+      description:
+        'Simplificar o complexo, desmistificar o mistério e gerar sempre valor',
       icon: <AiFillStar size={36} />
     },
     {
@@ -304,57 +305,6 @@ function About() {
                 textColor={defaultTheme.colors['base-text-bold']}
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="driver">
-        <div className="containerContent">
-          <div className="section1">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                <strong>Delivers</strong> & <strong>Moto-Táxi</strong>
-              </h1>
-
-              <div className="contentDescriptions">
-                <p>
-                  Empresa de Delivers e Moto-Táxi mais segura de Luanda. Faça a
-                  sua corrida/entrega de forma: rápida, segura e ecónomica
-                </p>
-
-                <ul>
-                  <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Rápida:</strong>
-                      <br />
-                      Várias vezes mais rápido do que outros sistemas.
-                    </p>
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Segura:</strong>
-                      <br />
-                      Higiene e cuidados dos das suas encomendas.
-                    </p>
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Ecónomica:</strong>
-                      <br /> Encomende com facilidade e economize muito mais.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <img
-              data-aos="fade-up-left"
-              src="https://thumbs.dreamstime.com/b/black-lady-receiving-parcel-courier-scanning-fingerprint-personal-verification-smart-payment-via-digital-tablet-224983338.jpg"
-              alt=""
-            />
           </div>
         </div>
       </section>

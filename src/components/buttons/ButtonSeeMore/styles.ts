@@ -9,6 +9,12 @@ interface IBtn {
 
 export const SButton = styled.button<IBtn>`
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
   padding: 0.6rem 1rem;
   border: none;
 

@@ -147,7 +147,7 @@ export const HeaderContainerStyles = styled.header`
         }
       }
 
-      button {
+      .btn {
         border: none;
         border-radius: 0.4rem;
 
@@ -157,7 +157,13 @@ export const HeaderContainerStyles = styled.header`
         font-size: 1rem;
         font-weight: 500;
 
-        a {
+        :hover {
+          ::before {
+            width: 0%;
+          }
+        }
+
+        span {
           position: relative;
           padding: -0.2rem 0;
           font-size: 1rem;
@@ -173,7 +179,7 @@ export const HeaderContainerStyles = styled.header`
         color: ${({ theme }) => theme.colors['base-white']};
         transition: 0.4s ease;
 
-        a {
+        span {
           color: ${({ theme }) => theme.colors['base-white']};
 
           display: flex;
