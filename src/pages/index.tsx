@@ -274,41 +274,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="ourClients">
-        <div className="containerContent">
-          <div className="containerHeader">
-            <div className="containerLeft">
-              <div className="containerTitleSection">
-                <div>
-                  <h4>Nossos Serviços</h4>
-                  <h1>NOSSOS MELHORES SERVIÇOS</h1>
-                </div>
-              </div>
-            </div>
-
-            <div className="containerRight" data-aos="fade-left">
-              <p>
-                Visualize perfeitamente itens de ação de ponta sem liderança
-                oportuna. Visualize de forma conveniente um valor excepcional em
-                relação a imperativos atraentes.
-              </p>
-            </div>
-          </div>
-
-          <div className="containerClientsRow" data-aos="fade-up">
-            <AliceCarousel
-              mouseTracking
-              items={listService}
-              responsive={responsive}
-              autoPlay
-              infinite
-              autoPlayInterval={3000}
-              animationDuration={2000}
-            />
-          </div>
-        </div>
-      </section>
-
       <section className="driver">
         <div className="containerContent">
           <div className="section1">
