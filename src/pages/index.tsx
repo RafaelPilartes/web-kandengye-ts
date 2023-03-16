@@ -510,41 +510,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <section className="ourVeicules">
-        <div className="containerContent">
-          <div className="containerHeader">
-            <div className="containerLeft">
-              <div className="containerTitleSection">
-                <div>
-                  <h4>Nossos veículos</h4>
-                  <h1>VEÍCULOS QUE TEMOS DISPONÍVEIS PARA SI!!</h1>
-                </div>
-              </div>
-            </div>
-
-            <div className="containerRight" data-aos="fade-left">
-              <p>
-                Temos opções para levar você aonde precisa chegar. Escolha uma
-                corrida ou passeio* de acordo com seu humor e com quanto quer
-                gastar.
-              </p>
-            </div>
-          </div>
-
-          <div className="containerVeiculesRow" data-aos="fade-up">
-            <AliceCarousel
-              mouseTracking
-              items={listVeicules}
-              responsive={responsiveCars}
-              autoPlay
-              infinite
-              autoPlayInterval={3000}
-              animationDuration={2000}
-            />
-          </div>
-        </div>
-      </section>
     </ContainerHome>
   )
 }
