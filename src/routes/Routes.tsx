@@ -9,6 +9,7 @@ const Home = React.lazy(() => import('../pages/'))
 const About = React.lazy(() => import('../pages/about'))
 const Services = React.lazy(() => import('../pages/services'))
 const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
+const WorkWithUs = React.lazy(() => import('../pages/workWithUs'))
 
 export function Router() {
   return (
@@ -48,6 +49,15 @@ export function Router() {
             element={
               <React.Suspense fallback={<Loading />}>
                 <BecomeDriver />
+              </React.Suspense>
+            }
+          />
+          {/* WorkWithUs */}
+          <Route
+            path={routsNameMain.workWithUs}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <WorkWithUs />
               </React.Suspense>
             }
           />

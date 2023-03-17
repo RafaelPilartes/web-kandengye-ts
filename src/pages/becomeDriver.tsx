@@ -66,11 +66,24 @@ function BecomeDriver() {
   const [formValues, setFormValues] = useState(initialValues)
   const [isSend, setIsSend] = useState<boolean>(false)
   const [haveError, setHaveError] = useState<boolean>(false)
-  const [fileSelect, setFileSelect] = useState<string>('')
-  const [fileName, setFileName] = useState<string>('')
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target
+  // Photo
+  const [filePhotoSelect, setFilePhotoSelect] = useState<string>(
+    'https://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
+  )
+  // Photo Vehicle
+  const [filePhotoVehicleSelect, setFilePhotoVehicleSelect] = useState<any[]>(
+    []
+  )
+  // CV
+  const [fileCVSelect, setFileCVSelect] = useState<string>('')
+  const [fileCVName, setFileCVName] = useState<string>('')
+  // BI
+  const [filBISelect, setFilBISelect] = useState<string>('')
+  const [filBIName, setFilBIName] = useState<string>('')
+
+  const handleInputChange = (event: any) => {
+    const { name, value } = event.target
 
     setFormValues({
       ...formValues,
@@ -78,11 +91,81 @@ function BecomeDriver() {
     })
   }
 
-  const onImageChange = (e: any) => {
-    const [file] = e.target.files
-    setFileSelect(URL.createObjectURL(file))
-    setFileName(file.name)
+  // Image
+  const onImageChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFilePhotoSelect(URL.createObjectURL(file))
   }
+  const onImageChange = (event: any) => {
+    const [file] = event.target.files
+    setFilePhotoSelect(URL.createObjectURL(file))
+  }
+  // Image
+  const onImageVehicleChangeDrag = (event: any) => {
+    event.preventDefault()
+    console.log(event.dataTransfer.files)
+
+    const files = Array.from(event.dataTransfer.files)
+    setFilePhotoVehicleSelect([...filePhotoVehicleSelect, ...files])
+  }
+  const onImageVehicleChange = (event: any) => {
+    event.preventDefault()
+
+    console.log(event.target.files[0])
+
+    const files = event.target.files
+
+    setFilePhotoVehicleSelect([...filePhotoVehicleSelect, ...files])
+  }
+
+  // CV
+  const onFileCVChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFileCVSelect(URL.createObjectURL(file))
+    setFileCVName(file.name)
+  }
+  const onFileCVChange = (event: any) => {
+    const [file] = event.target.files
+    setFileCVSelect(URL.createObjectURL(file))
+    setFileCVName(file.name)
+  }
+
+  // BI
+  const onFileBIChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFilBISelect(URL.createObjectURL(file))
+    setFilBIName(file.name)
+  }
+  const onFileBIChange = (event: any) => {
+    const [file] = event.target.files
+    setFilBISelect(URL.createObjectURL(file))
+    setFilBIName(file.name)
+  }
+
+  const handleDragOver = (event: any) => {
+    event.preventDefault()
+  }
+  const handleDragLeave = () => {
+    // fazer algo quando o mouse sai da área de soltar
+  }
+
+  const renderPhotos = filePhotoVehicleSelect.map(
+    (file: any, index: number) => {
+      const photo = URL.createObjectURL(file)
+
+      return (
+        <div key={index} className="containerPhotos">
+          <img src={photo} alt="" />
+        </div>
+      )
+    }
+  )
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -118,6 +201,30 @@ function BecomeDriver() {
             </div>
 
             <form onSubmit={handleSubmit}>
+              <div
+                className="sectionPhoto"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onImageChangeDrag}
+              >
+                <label className="containerPhotoUser" htmlFor="photoUser">
+                  <img src={filePhotoSelect} alt="" />
+
+                  <input
+                    hidden
+                    type="file"
+                    id="photoUser"
+                    accept="image"
+                    onChange={onImageChange}
+                    required
+                  />
+                </label>
+                <span className="bigText">Sua fotografia</span>
+                <span className="littleText">
+                  Selecione ou solte as imagens aqui
+                </span>
+              </div>
+
               <div className="row">
                 <TextField
                   name="name"
@@ -184,18 +291,81 @@ function BecomeDriver() {
                 </RadioGroup>
               </div>
 
-              <label className="btnFile" htmlFor="inputTag">
-                <FaDownload />
-                <span>{fileName ? fileName : 'Adicionar seu currículo'}</span>
+              <label
+                htmlFor="inputTagBI"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onFileCVChangeDrag}
+              >
+                <div className="btnFile">
+                  <FaDownload />
+                  <span>
+                    {fileCVName
+                      ? fileCVName
+                      : 'Adicionar seu Bilhete de identidade'}
+                  </span>
 
-                <input
-                  type="file"
-                  id="inputTag"
-                  accept="application/pdf"
-                  // accept="image/"
-                  onChange={onImageChange}
-                  style={{ display: 'none' }}
-                />
+                  <input
+                    type="file"
+                    id="inputTagBI"
+                    accept="application/pdf"
+                    onChange={onFileCVChange}
+                    style={{ display: 'none' }}
+                  />
+                </div>
+                <p className="littleText">ou solte as imagens aqui</p>
+              </label>
+
+              <label
+                htmlFor="inputTagCV"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onFileBIChangeDrag}
+              >
+                <div className="btnFile">
+                  <FaDownload />
+                  <span>
+                    {filBIName ? filBIName : 'Adicionar seu currículo'}
+                  </span>
+
+                  <input
+                    type="file"
+                    hidden
+                    id="inputTagCV"
+                    accept="application/pdf"
+                    onChange={onFileBIChange}
+                  />
+                </div>
+                <p className="littleText">ou solte as imagens aqui</p>
+              </label>
+
+              <label
+                htmlFor="imagesVehicle"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onImageVehicleChangeDrag}
+              >
+                <div className="areaPhotos">
+                  {filePhotoVehicleSelect.length <= 0 && (
+                    <>
+                      <FaDownload />
+                      <span>Fotografia do seu veiculo</span>
+                    </>
+                  )}
+                  {filePhotoVehicleSelect.length >= 1 && renderPhotos}
+
+                  <input
+                    type="file"
+                    hidden
+                    id="imagesVehicle"
+                    accept="image"
+                    multiple
+                    onChange={onImageVehicleChange}
+                  />
+                </div>
+                <span className="littleText">
+                  Selecione ou solte as imagens aqui
+                </span>
               </label>
 
               <BaseButton

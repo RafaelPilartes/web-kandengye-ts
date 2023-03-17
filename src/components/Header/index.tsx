@@ -32,6 +32,7 @@ import imgLogoSemNOme from '../../../public/it_logo_name.svg'
 import { GiGps } from 'react-icons/gi'
 import { IoLocation } from 'react-icons/io5'
 import { AiFillCar } from 'react-icons/ai'
+import { IoIosArrowDown } from 'react-icons/io'
 
 function HeaderMain() {
   const { menuIsVisible, setMenuIsVisible } = useContext(AppContext)
@@ -93,11 +94,20 @@ function HeaderMain() {
             <a href={routsNameMain.services}>Serviços</a>
             <a href={routsNameMain.contact}>Contactos</a>
 
-            <a href={routsNameMain.becomeDriver} className="btn btn-background">
-              <span>
-                <AiFillCar /> Candidatar-se
+            <div className="dropdown">
+              <span className="dropbtn">
+                Candidatar-se
+                <IoIosArrowDown />
               </span>
-            </a>
+              <div className="dropdown-content">
+                <SLink href={routsNameMain.becomeDriver as string}>
+                  Para Motorista
+                </SLink>
+                <SLink href={routsNameMain.workWithUs as string}>
+                  Serviços Geral
+                </SLink>
+              </div>
+            </div>
 
             <a href={''} className="btn btn-border">
               <span>

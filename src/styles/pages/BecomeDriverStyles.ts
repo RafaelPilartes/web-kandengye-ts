@@ -136,18 +136,27 @@ export const ContainerBecomeDriver = styled.div`
 
       form {
         width: 100vw;
-        max-width: 48rem;
+        max-width: 52rem;
+        background-color: #fff;
+        border-radius: 2rem;
+        -webkit-box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.03);
+        box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.03);
 
         display: flex;
         flex-direction: column;
         gap: 2rem;
 
-        padding: 2rem;
+        padding: 4rem;
         margin: 2rem;
 
+        .rowSpace {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+        }
         .btnFile {
-          max-width: 17rem;
-          padding: 0.6rem;
+          max-width: 24rem;
+          padding: 1.6rem;
 
           display: inline-block;
           white-space: nowrap;
@@ -156,7 +165,7 @@ export const ContainerBecomeDriver = styled.div`
 
           gap: 0.6rem;
 
-          border: 0.12rem solid #b9b9b9;
+          border: 0.12rem solid ${({ theme }) => theme.colors['brand-primary']};
           border-radius: 0.4rem;
 
           color: ${({ theme }) => theme.colors['brand-primary']};
@@ -170,6 +179,75 @@ export const ContainerBecomeDriver = styled.div`
           span {
             width: 14rem;
           }
+        }
+
+        .areaPhotos {
+          width: 100%;
+          padding: 1.6rem;
+
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+
+          border: 0.12rem solid ${({ theme }) => theme.colors['brand-primary']};
+          border-radius: 0.4rem;
+
+          color: ${({ theme }) => theme.colors['brand-primary']};
+
+          .containerPhotos {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            img {
+              width: 18rem;
+              height: 14rem;
+              margin: 14px 0;
+              object-fit: cover;
+              margin-left: 16px;
+              border-radius: 2rem;
+
+              border: 0.4rem solid #fff;
+              -webkit-box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.08);
+              box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.08);
+            }
+          }
+        }
+        .sectionPhoto {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+        .containerPhotoUser {
+          position: relative;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          img {
+            width: 12rem;
+            height: 12rem;
+            margin: 14px 0;
+            object-fit: cover;
+            margin-left: 16px;
+            border-radius: 100%;
+
+            border: 0.4rem solid #fff;
+            -webkit-box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.12);
+            box-shadow: 1px 1px 25px -5px rgba(0, 0, 0, 0.12);
+          }
+        }
+
+        .bigText {
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+        .littleText {
+          font-size: 0.9rem;
+          font-weight: 400;
         }
       }
 

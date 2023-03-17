@@ -1,0 +1,215 @@
+import { useEffect, useState } from 'react'
+
+// Modulos do material
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import { Autocomplete } from '@mui/material'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+
+// Modulos de aos animação de scroll
+import Aos from 'aos'
+import 'aos/dist/aos.css'
+
+// Theme
+import { defaultTheme } from '../themes/default'
+
+// Component
+import HeroSection from '../components/HeroSection'
+import BaseButton from '../components/BaseButton'
+
+// Styles
+import { ContainerWorkWithUs } from '../styles/pages/WorkWithUsStyles'
+import { BsCheck2Circle, BsFillCheckCircleFill } from 'react-icons/bs'
+import { GiSmartphone } from 'react-icons/gi'
+import { MdComputer, MdDesignServices } from 'react-icons/md'
+import ButtonSeeMore from '../components/buttons/ButtonSeeMore'
+import { routsNameMain } from '../data/routsName'
+import CountUp from 'react-countup'
+import { NavLink } from '../components/NavLink'
+import { FaDownload } from 'react-icons/fa'
+
+// Images
+
+function WorkWithUs() {
+  const initialValues = {
+    firstName: '',
+    lastName: '',
+    gender: 'male',
+    country: 'Canada',
+    hobby: ''
+  }
+  const top100Films = [
+    { label: 'Benguela', year: 1994 },
+    { label: 'Bié', year: 1972 },
+    { label: 'Bengo', year: 1974 },
+    { label: 'Cabinda', year: 2008 },
+    { label: 'Cuando', year: 2002 },
+    { label: 'Cuanza', year: 1995 },
+    { label: 'Cuanza', year: 1991 },
+    { label: 'Cunene', year: 1946 },
+    { label: 'Huila', year: 1997 },
+    { label: 'Huambo', year: 1995 },
+    { label: 'Lunda Norte', year: 1994 },
+    { label: 'Lunda Sul', year: 2001 },
+    { label: 'Luanda', year: 1998 },
+    { label: 'Malanje', year: 1998 },
+    { label: 'Moxico', year: 1998 },
+    { label: 'Namibe', year: 1998 },
+    { label: 'Uíge', year: 1968 },
+    { label: 'Zaire', year: 1998 }
+  ]
+
+  const [formValues, setFormValues] = useState(initialValues)
+  const [isSend, setIsSend] = useState<boolean>(false)
+  const [haveError, setHaveError] = useState<boolean>(false)
+  const [fileSelect, setFileSelect] = useState<string>('')
+  const [fileName, setFileName] = useState<string>('')
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target
+
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
+  const onImageChange = (e: any) => {
+    const [file] = e.target.files
+    setFileSelect(URL.createObjectURL(file))
+    setFileName(file.name)
+  }
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
+    setIsSend(true)
+
+    console.log(formValues)
+
+    setTimeout(() => {
+      setIsSend(false)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    Aos.init({ duration: 500 })
+  }, [])
+
+  return (
+    <ContainerWorkWithUs>
+      <HeroSection
+        backgroundImage="https://www.companiesmadesimple.com/project/blog/wp-content/uploads/2015/04/unnamed-1.jpg"
+        title="Formulário"
+        base1="Torne-se um motorista"
+      />
+
+      <section className="WorkWithUs">
+        <div className="containerContent">
+          <div className="containerWorkWithUs">
+            <div className="descriptionSection">
+              <h1 data-aos="fade-up">Formulário para candidatar-se</h1>
+              <h1 data-aos="fade-up">
+                á <strong>Moto-Táxi</strong>
+              </h1>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <TextField
+                  name="name"
+                  className="widCem"
+                  required
+                  id="outlined-required"
+                  label="Primeiro Nome"
+                  error={haveError}
+                />
+
+                <TextField
+                  name="name"
+                  className="widCem"
+                  required
+                  id="outlined-required"
+                  label="Ultimo Nome"
+                />
+              </div>
+
+              <TextField
+                name="email"
+                className="widCem"
+                required
+                id="outlined-required"
+                type="email"
+                label="E-mail"
+              />
+
+              <TextField
+                className="widCem"
+                required
+                id="outlined-required"
+                label="Número de telefone"
+                type="number"
+              />
+
+              <Autocomplete
+                disablePortal
+                className="widCem"
+                id="combo-box-demo"
+                options={top100Films}
+                sx={{ width: 300 }}
+                renderInput={params => (
+                  <TextField {...params} label="Província" />
+                )}
+              />
+
+              <div className="col">
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Feminino"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Masculino"
+                  />
+                </RadioGroup>
+              </div>
+
+              <label className="btnFile" htmlFor="inputTag">
+                <FaDownload />
+                <span>{fileName ? fileName : 'Adicionar seu currículo'}</span>
+
+                <input
+                  type="file"
+                  id="inputTag"
+                  accept="application/pdf"
+                  // accept="image/"
+                  onChange={onImageChange}
+                  style={{ display: 'none' }}
+                />
+              </label>
+
+              <BaseButton
+                name="Enviar formulário"
+                isLoading={isSend}
+                colorTxt={defaultTheme.colors['base-white']}
+                colorBg={defaultTheme.colors['brand-primary']}
+              />
+            </form>
+          </div>
+        </div>
+      </section>
+    </ContainerWorkWithUs>
+  )
+}
+
+export default WorkWithUs
