@@ -42,25 +42,25 @@ function BecomeDriver() {
     country: 'Canada',
     hobby: ''
   }
-  const top100Films = [
-    { label: 'Benguela', year: 1994 },
-    { label: 'Bié', year: 1972 },
-    { label: 'Bengo', year: 1974 },
-    { label: 'Cabinda', year: 2008 },
-    { label: 'Cuando', year: 2002 },
-    { label: 'Cuanza', year: 1995 },
-    { label: 'Cuanza', year: 1991 },
-    { label: 'Cunene', year: 1946 },
-    { label: 'Huila', year: 1997 },
-    { label: 'Huambo', year: 1995 },
-    { label: 'Lunda Norte', year: 1994 },
-    { label: 'Lunda Sul', year: 2001 },
-    { label: 'Luanda', year: 1998 },
-    { label: 'Malanje', year: 1998 },
-    { label: 'Moxico', year: 1998 },
-    { label: 'Namibe', year: 1998 },
-    { label: 'Uíge', year: 1968 },
-    { label: 'Zaire', year: 1998 }
+  const provinces = [
+    { label: 'Benguela' },
+    { label: 'Bié' },
+    { label: 'Bengo' },
+    { label: 'Cabinda' },
+    { label: 'Cuando' },
+    { label: 'Cuanza' },
+    { label: 'Cuanza' },
+    { label: 'Cunene' },
+    { label: 'Huila' },
+    { label: 'Huambo' },
+    { label: 'Lunda Norte' },
+    { label: 'Lunda Sul' },
+    { label: 'Luanda' },
+    { label: 'Malanje' },
+    { label: 'Moxico' },
+    { label: 'Namibe' },
+    { label: 'Uíge' },
+    { label: 'Zaire' }
   ]
 
   const [formValues, setFormValues] = useState(initialValues)
@@ -265,7 +265,7 @@ function BecomeDriver() {
                 disablePortal
                 className="widCem"
                 id="combo-box-demo"
-                options={top100Films}
+                options={provinces}
                 sx={{ width: 300 }}
                 renderInput={params => (
                   <TextField {...params} label="Província" />

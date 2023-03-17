@@ -42,35 +42,56 @@ function WorkWithUs() {
     country: 'Canada',
     hobby: ''
   }
-  const top100Films = [
-    { label: 'Benguela', year: 1994 },
-    { label: 'Bié', year: 1972 },
-    { label: 'Bengo', year: 1974 },
-    { label: 'Cabinda', year: 2008 },
-    { label: 'Cuando', year: 2002 },
-    { label: 'Cuanza', year: 1995 },
-    { label: 'Cuanza', year: 1991 },
-    { label: 'Cunene', year: 1946 },
-    { label: 'Huila', year: 1997 },
-    { label: 'Huambo', year: 1995 },
-    { label: 'Lunda Norte', year: 1994 },
-    { label: 'Lunda Sul', year: 2001 },
-    { label: 'Luanda', year: 1998 },
-    { label: 'Malanje', year: 1998 },
-    { label: 'Moxico', year: 1998 },
-    { label: 'Namibe', year: 1998 },
-    { label: 'Uíge', year: 1968 },
-    { label: 'Zaire', year: 1998 }
+  const provinces = [
+    { label: 'Benguela' },
+    { label: 'Bié' },
+    { label: 'Bengo' },
+    { label: 'Cabinda' },
+    { label: 'Cuando' },
+    { label: 'Cuanza' },
+    { label: 'Cuanza' },
+    { label: 'Cunene' },
+    { label: 'Huila' },
+    { label: 'Huambo' },
+    { label: 'Lunda Norte' },
+    { label: 'Lunda Sul' },
+    { label: 'Luanda' },
+    { label: 'Malanje' },
+    { label: 'Moxico' },
+    { label: 'Namibe' },
+    { label: 'Uíge' },
+    { label: 'Zaire' }
+  ]
+  const areas = [
+    { label: 'Administração ' },
+    { label: 'Finanças ' },
+    { label: 'Comunicação e imagem ' },
+    { label: 'Intercâmbio ' },
+    { label: 'Tecnologia e informação ' },
+    { label: 'Serviços gerais' }
   ]
 
   const [formValues, setFormValues] = useState(initialValues)
   const [isSend, setIsSend] = useState<boolean>(false)
   const [haveError, setHaveError] = useState<boolean>(false)
-  const [fileSelect, setFileSelect] = useState<string>('')
-  const [fileName, setFileName] = useState<string>('')
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target
+  // Photo
+  const [filePhotoSelect, setFilePhotoSelect] = useState<string>(
+    'https://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
+  )
+  // Photo Vehicle
+  const [filePhotoVehicleSelect, setFilePhotoVehicleSelect] = useState<any[]>(
+    []
+  )
+  // CV
+  const [fileCVSelect, setFileCVSelect] = useState<string>('')
+  const [fileCVName, setFileCVName] = useState<string>('')
+  // BI
+  const [filBISelect, setFilBISelect] = useState<string>('')
+  const [filBIName, setFilBIName] = useState<string>('')
+
+  const handleInputChange = (event: any) => {
+    const { name, value } = event.target
 
     setFormValues({
       ...formValues,
@@ -78,10 +99,51 @@ function WorkWithUs() {
     })
   }
 
-  const onImageChange = (e: any) => {
-    const [file] = e.target.files
-    setFileSelect(URL.createObjectURL(file))
-    setFileName(file.name)
+  // Image
+  const onImageChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFilePhotoSelect(URL.createObjectURL(file))
+  }
+  const onImageChange = (event: any) => {
+    const [file] = event.target.files
+    setFilePhotoSelect(URL.createObjectURL(file))
+  }
+
+  // CV
+  const onFileCVChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFileCVSelect(URL.createObjectURL(file))
+    setFileCVName(file.name)
+  }
+  const onFileCVChange = (event: any) => {
+    const [file] = event.target.files
+    setFileCVSelect(URL.createObjectURL(file))
+    setFileCVName(file.name)
+  }
+
+  // BI
+  const onFileBIChangeDrag = (event: any) => {
+    event.preventDefault()
+
+    const [file] = event.dataTransfer.files
+    setFilBISelect(URL.createObjectURL(file))
+    setFilBIName(file.name)
+  }
+  const onFileBIChange = (event: any) => {
+    const [file] = event.target.files
+    setFilBISelect(URL.createObjectURL(file))
+    setFilBIName(file.name)
+  }
+
+  const handleDragOver = (event: any) => {
+    event.preventDefault()
+  }
+  const handleDragLeave = () => {
+    // fazer algo quando o mouse sai da área de soltar
   }
 
   const handleSubmit = (event: any) => {
@@ -113,11 +175,35 @@ function WorkWithUs() {
             <div className="descriptionSection">
               <h1 data-aos="fade-up">Formulário para candidatar-se</h1>
               <h1 data-aos="fade-up">
-                á <strong>Moto-Táxi</strong>
+                e <strong>trabalhar connosco</strong>
               </h1>
             </div>
 
             <form onSubmit={handleSubmit}>
+              <div
+                className="sectionPhoto"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onImageChangeDrag}
+              >
+                <label className="containerPhotoUser" htmlFor="photoUser">
+                  <img src={filePhotoSelect} alt="" />
+
+                  <input
+                    hidden
+                    type="file"
+                    id="photoUser"
+                    accept="image"
+                    onChange={onImageChange}
+                    required
+                  />
+                </label>
+                <span className="bigText">Sua fotografia</span>
+                <span className="littleText">
+                  Selecione ou solte as imagens aqui
+                </span>
+              </div>
+
               <div className="row">
                 <TextField
                   name="name"
@@ -158,10 +244,20 @@ function WorkWithUs() {
                 disablePortal
                 className="widCem"
                 id="combo-box-demo"
-                options={top100Films}
+                options={provinces}
                 sx={{ width: 300 }}
                 renderInput={params => (
                   <TextField {...params} label="Província" />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                className="widCem"
+                id="combo-box-demo"
+                options={areas}
+                sx={{ width: 300 }}
+                renderInput={params => (
+                  <TextField {...params} label="Áreas de candidatura" />
                 )}
               />
 
@@ -184,18 +280,52 @@ function WorkWithUs() {
                 </RadioGroup>
               </div>
 
-              <label className="btnFile" htmlFor="inputTag">
-                <FaDownload />
-                <span>{fileName ? fileName : 'Adicionar seu currículo'}</span>
+              <label
+                htmlFor="inputTagBI"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onFileCVChangeDrag}
+              >
+                <div className="btnFile">
+                  <FaDownload />
+                  <span>
+                    {fileCVName
+                      ? fileCVName
+                      : 'Adicionar seu Bilhete de identidade'}
+                  </span>
 
-                <input
-                  type="file"
-                  id="inputTag"
-                  accept="application/pdf"
-                  // accept="image/"
-                  onChange={onImageChange}
-                  style={{ display: 'none' }}
-                />
+                  <input
+                    type="file"
+                    id="inputTagBI"
+                    accept="application/pdf"
+                    onChange={onFileCVChange}
+                    style={{ display: 'none' }}
+                  />
+                </div>
+                <p className="littleText">ou solte as imagens aqui</p>
+              </label>
+
+              <label
+                htmlFor="inputTagCV"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={onFileBIChangeDrag}
+              >
+                <div className="btnFile">
+                  <FaDownload />
+                  <span>
+                    {filBIName ? filBIName : 'Adicionar seu currículo'}
+                  </span>
+
+                  <input
+                    type="file"
+                    hidden
+                    id="inputTagCV"
+                    accept="application/pdf"
+                    onChange={onFileBIChange}
+                  />
+                </div>
+                <p className="littleText">ou solte as imagens aqui</p>
               </label>
 
               <BaseButton
