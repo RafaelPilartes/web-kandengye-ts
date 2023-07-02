@@ -1,35 +1,68 @@
 import axios from 'axios'
 import { BaseURL } from '../utils/urlApi'
 
-// export function saveNewsInformations(data: any): Promise<string> {
-//     return new Promise((resolve, reject) => {
-
-//         const url = `${BaseURL}/save_get_articles.php`;
-//         axios.post(url, data)
-//             .then((resData) => {
-//                 //console.log(resData)
-//                 resolve("save");
-//             })
-//             .catch((error) => {
-//                 console.log(error);
-
-//                 reject("news not save");
-//             });
-//     });
-// }
-
-export function getAllUsers(): Promise<any[]> {
+export function sendCandidacy(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/getUsers.php`
+    const url = `${BaseURL}/candidacy/create`
     axios
-      .get(url)
+      .post(url, dataToSave)
       .then(resData => {
-        resolve(resData.data as any[])
+        resolve(resData.data)
       })
       .catch(error => {
-        console.log(error)
-
-        reject('news not save')
+        reject(error)
+      })
+  })
+}
+export function uploadImageCandidacy(imageToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/image/candidacy`
+    axios
+      .post(url, imageToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function uploadPdfIdentityCard(pdfToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/pdf/identityCard`
+    axios
+      .post(url, pdfToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function uploadPdfCurriculum(pdfToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/pdf/curriculum`
+    axios
+      .post(url, pdfToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function uploadPdfVehicle(imageToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/image/vehicle`
+    axios
+      .post(url, imageToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
       })
   })
 }

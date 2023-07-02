@@ -30,6 +30,13 @@ import { ContainerBecomeDriver } from '../styles/pages/BecomeDriverStyles'
 import { FaDownload } from 'react-icons/fa'
 import { provinces } from '../data/labelProvince'
 import axios from 'axios'
+import {
+  sendCandidacy,
+  uploadImageCandidacy,
+  uploadPdfCurriculum,
+  uploadPdfIdentityCard,
+  uploadPdfVehicle
+} from '../api/server'
 
 // Images
 
@@ -169,124 +176,80 @@ function BecomeDriver() {
     event.preventDefault()
     setIsSend(true)
 
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + ': ' + pair[1])
-    // }
-
     // >> Image candidacy <<
     const imageData = new FormData()
     imageData.append('photoUser', filePhotoSelect)
 
-    await axios
-      .post(
-        'https://api.kandengueatrevido.com/upload/image/candidacy',
-        imageData
-      )
-      .then(async resImage => {
-        const imageUrl = resImage.data.imageUrl
-        const message = resImage.data.msg
+    const resImage = await uploadImageCandidacy(imageData)
 
-        if (resImage.data.error) {
-          toast.error(message, {
+    const imageUrl = resImage.imageUrl
+    const message = resImage.msg
+
+    if (resImage.error) {
+      toast.error(message, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    } else {
+      // >> IdentityCard <<
+      const identityCardData = new FormData()
+      identityCardData.append('identityCardData', filBISelect)
+
+      const resIdentityCard = await uploadPdfIdentityCard(identityCardData)
+
+      const identityCardUrl = resIdentityCard.pdfUrl
+      const messageIdentityCard = resIdentityCard.msg
+
+      if (resIdentityCard.error) {
+        toast.error(messageIdentityCard, {
+          position: toast.POSITION.TOP_RIGHT
+        })
+      } else {
+        // >> Curriculum <<
+        const curriculumData = new FormData()
+        curriculumData.append('curriculumData', fileCVSelect)
+
+        const resCurriculum = await uploadPdfCurriculum(curriculumData)
+
+        const curriculumUrl = resCurriculum.pdfUrl
+        const messageCurriculum = resCurriculum.msg
+
+        if (resCurriculum.error) {
+          toast.error(messageCurriculum, {
             position: toast.POSITION.TOP_RIGHT
           })
         } else {
-          // toast.success(message, {
-          //   position: toast.POSITION.TOP_RIGHT
-          // })
+          // >> Vehicle <<
+          const vehicleData = new FormData()
 
-          // >> IdentityCard <<
-          const identityCardData = new FormData()
-          identityCardData.append('identityCardData', filBISelect)
+          for (let i = 0; i < filePhotoVehicleSelect.length; i++) {
+            vehicleData.append('photosVehicle[]', filePhotoVehicleSelect[i])
+          }
 
-          await axios
-            .post(
-              'https://api.kandengueatrevido.com/upload/pdf/identityCard',
-              identityCardData
-            )
-            .then(async resIdentityCard => {
-              const identityCardUrl = resIdentityCard.data.pdfUrl
-              const messageIdentityCard = resIdentityCard.data.msg
+          const resVehicle = await uploadPdfVehicle(vehicleData)
 
-              if (resIdentityCard.data.error) {
-                toast.error(messageIdentityCard, {
-                  position: toast.POSITION.TOP_RIGHT
-                })
-              } else {
-                // toast.success(messageIdentityCard, {
-                //   position: toast.POSITION.TOP_RIGHT
-                // })
+          const vehicleUrl = resVehicle.imagesUrl as string[]
+          const messageVehicle = resVehicle.msg
 
-                // >> Curriculum <<
-                const curriculumData = new FormData()
-                curriculumData.append('curriculumData', fileCVSelect)
-
-                await axios
-                  .post(
-                    'https://api.kandengueatrevido.com/upload/pdf/curriculum',
-                    curriculumData
-                  )
-                  .then(async resCurriculum => {
-                    const curriculumUrl = resCurriculum.data.pdfUrl
-                    const messageCurriculum = resCurriculum.data.msg
-
-                    if (resCurriculum.data.error) {
-                      toast.error(messageCurriculum, {
-                        position: toast.POSITION.TOP_RIGHT
-                      })
-                    } else {
-                      // toast.success(messageCurriculum, {
-                      //   position: toast.POSITION.TOP_RIGHT
-                      // })
-
-                      // >> Vehicle <<
-                      const vehicleData = new FormData()
-
-                      for (let i = 0; i < filePhotoVehicleSelect.length; i++) {
-                        vehicleData.append(
-                          'photosVehicle[]',
-                          filePhotoVehicleSelect[i]
-                        )
-                      }
-
-                      await axios
-                        .post(
-                          'https://api.kandengueatrevido.com/upload/image/vehicle',
-                          vehicleData
-                        )
-                        .then(async resVehicle => {
-                          const vehicleUrl = resVehicle.data
-                            .imagesUrl as string[]
-                          const messageVehicle = resVehicle.data.msg
-
-                          if (resVehicle.data.error) {
-                            toast.error(messageVehicle, {
-                              position: toast.POSITION.TOP_RIGHT
-                            })
-                          } else {
-                            // toast.success(messageVehicle, {
-                            //   position: toast.POSITION.TOP_RIGHT
-                            // })
-
-                            newCandidacy(
-                              imageUrl,
-                              identityCardUrl,
-                              curriculumUrl,
-                              vehicleUrl.toString()
-                            )
-                          }
-                        })
-
-                      // >> END -> Vehicle <<
-                    }
-                  })
-
-                // >> END -> Curriculum <<
-              }
+          if (resVehicle.error) {
+            toast.error(messageVehicle, {
+              position: toast.POSITION.TOP_RIGHT
             })
-          // >> END -> IdentityCard <<
+          } else {
+            newCandidacy(
+              imageUrl,
+              identityCardUrl,
+              curriculumUrl,
+              vehicleUrl.toString()
+            )
+          }
+
+          // >> END -> Vehicle <<
         }
-      })
+
+        // >> END -> Curriculum <<
+      }
+      // >> END -> IdentityCard <<
+    }
     // >> END -> Image candidacy <<
 
     setTimeout(() => {
@@ -313,28 +276,24 @@ function BecomeDriver() {
       vehicle_photo: vehicle_photo
     }
 
-    console.log(newData)
+    const data = await sendCandidacy(newData)
 
-    try {
-      const response = await axios.post(
-        'https://api.kandengueatrevido.com/candidacy/create',
-        newData
-      )
-      const data = response.data
-      if (data.error) {
-        toast.error(data.msg, {
-          position: toast.POSITION.TOP_RIGHT
-        })
-      } else {
-        toast.success(data.msg, {
-          position: toast.POSITION.TOP_RIGHT
-        })
-      }
+    console.log(data)
 
-      console.log(data)
-    } catch (error) {
-      // Lógica para tratar erros de requisição
-      console.error(error)
+    if (data.error) {
+      toast.error(data.msg, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    } else {
+      toast.success(data.msg, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+
+      setIsSend(false)
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 4000)
     }
   }
 
@@ -576,6 +535,7 @@ function BecomeDriver() {
               <BaseButton
                 name="Enviar formulário"
                 isLoading={isSend}
+                disabled={isSend}
                 colorTxt={defaultTheme.colors['base-white']}
                 colorBg={defaultTheme.colors['brand-primary']}
               />

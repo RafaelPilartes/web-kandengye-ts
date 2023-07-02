@@ -33,6 +33,12 @@ import { ContainerWorkWithUs } from '../styles/pages/WorkWithUsStyles'
 import { FaDownload } from 'react-icons/fa'
 import { provinces } from '../data/labelProvince'
 import axios from 'axios'
+import {
+  sendCandidacy,
+  uploadImageCandidacy,
+  uploadPdfCurriculum,
+  uploadPdfIdentityCard
+} from '../api/server'
 
 function WorkWithUs() {
   const initialValues: CandidacyInterface = {
@@ -143,86 +149,56 @@ function WorkWithUs() {
     // }
 
     // >> Image candidacy <<
+
     const imageData = new FormData()
     imageData.append('photoUser', filePhotoSelect)
 
-    await axios
-      .post(
-        'https://api.kandengueatrevido.com/upload/image/candidacy',
-        imageData
-      )
-      .then(async resImage => {
-        const imageUrl = resImage.data.imageUrl
-        const message = resImage.data.msg
+    const resImage = await uploadImageCandidacy(imageData)
 
-        if (resImage.data.error) {
-          toast.error(message, {
+    const imageUrl = resImage.imageUrl
+    const message = resImage.msg
+
+    if (resImage.error) {
+      toast.error(message, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    } else {
+      // >> IdentityCard <<
+
+      const identityCardData = new FormData()
+      identityCardData.append('identityCardData', filBISelect)
+      const resIdentityCard = await uploadPdfIdentityCard(identityCardData)
+
+      const identityCardUrl = resIdentityCard.pdfUrl
+      const messageIdentityCard = resIdentityCard.msg
+
+      if (resIdentityCard.error) {
+        toast.error(messageIdentityCard, {
+          position: toast.POSITION.TOP_RIGHT
+        })
+      } else {
+        // >> Curriculum <<
+
+        const curriculumData = new FormData()
+        curriculumData.append('curriculumData', fileCVSelect)
+
+        const resCurriculum = await uploadPdfCurriculum(curriculumData)
+
+        const curriculumUrl = resCurriculum.pdfUrl
+        const messageCurriculum = resCurriculum.msg
+
+        if (resCurriculum.error) {
+          toast.error(messageCurriculum, {
             position: toast.POSITION.TOP_RIGHT
           })
         } else {
-          // toast.success(message, {
-          //   position: toast.POSITION.TOP_RIGHT
-          // })
-
-          // >> IdentityCard <<
-          const identityCardData = new FormData()
-          identityCardData.append('identityCardData', filBISelect)
-
-          await axios
-            .post(
-              'https://api.kandengueatrevido.com/upload/pdf/identityCard',
-              identityCardData
-            )
-            .then(async resIdentityCard => {
-              const identityCardUrl = resIdentityCard.data.pdfUrl
-              const messageIdentityCard = resIdentityCard.data.msg
-
-              if (resIdentityCard.data.error) {
-                toast.error(messageIdentityCard, {
-                  position: toast.POSITION.TOP_RIGHT
-                })
-              } else {
-                // toast.success(messageIdentityCard, {
-                //   position: toast.POSITION.TOP_RIGHT
-                // })
-
-                // >> Curriculum <<
-                const curriculumData = new FormData()
-                curriculumData.append('curriculumData', fileCVSelect)
-
-                await axios
-                  .post(
-                    'https://api.kandengueatrevido.com/upload/pdf/curriculum',
-                    curriculumData
-                  )
-                  .then(async resCurriculum => {
-                    const curriculumUrl = resCurriculum.data.pdfUrl
-                    const messageCurriculum = resCurriculum.data.msg
-
-                    if (resCurriculum.data.error) {
-                      toast.error(messageCurriculum, {
-                        position: toast.POSITION.TOP_RIGHT
-                      })
-                    } else {
-                      // toast.success(messageCurriculum, {
-                      //   position: toast.POSITION.TOP_RIGHT
-                      // })
-
-                      newCandidacy(imageUrl, identityCardUrl, curriculumUrl)
-                    }
-                  })
-
-                // >> END -> Curriculum <<
-              }
-            })
-          // >> END -> IdentityCard <<
+          newCandidacy(imageUrl, identityCardUrl, curriculumUrl)
         }
-      })
+        // >> END -> Curriculum <<
+      }
+      // >> END -> IdentityCard <<
+    }
     // >> END -> Image candidacy <<
-
-    setTimeout(() => {
-      setIsSend(false)
-    }, 2000)
   }
 
   async function newCandidacy(
@@ -245,11 +221,8 @@ function WorkWithUs() {
     }
 
     try {
-      const response = await axios.post(
-        'https://api.kandengueatrevido.com/candidacy/create',
-        newData
-      )
-      const data = response.data
+      const { data } = await sendCandidacy(newData)
+
       if (data.error) {
         toast.error(data.msg, {
           position: toast.POSITION.TOP_RIGHT
@@ -258,6 +231,8 @@ function WorkWithUs() {
         toast.success(data.msg, {
           position: toast.POSITION.TOP_RIGHT
         })
+
+        setIsSend(false)
 
         setTimeout(() => {
           window.location.reload()
@@ -495,6 +470,7 @@ function WorkWithUs() {
               <BaseButton
                 name="Enviar formulário"
                 isLoading={isSend}
+                disabled={isSend}
                 colorTxt={defaultTheme.colors['base-white']}
                 colorBg={defaultTheme.colors['brand-primary']}
               />
