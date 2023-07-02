@@ -17,19 +17,19 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
   const menu = [
     {
       label: 'Inicio',
-      to: ''
+      to: routsNameMain.home
     },
     {
       label: 'Sobre nós',
-      to: ''
+      to: routsNameMain.about
     },
     {
       label: 'Serviços',
-      to: ''
+      to: routsNameMain.services
     },
     {
-      label: 'Agendamento',
-      to: ''
+      label: 'Contactos',
+      to: routsNameMain.contact
     }
   ]
 
@@ -59,12 +59,12 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
         <ul>
           {mapLinks}
           <button className="btn-background">
-            <a href="">
+            <a href={routsNameMain.becomeDriver}>
               <AiFillCar /> Torna-se estafeta
             </a>
           </button>
           <button className="btn-border">
-            <a href="">
+            <a href={''}>
               <FaDownload /> Baixar App
             </a>
           </button>

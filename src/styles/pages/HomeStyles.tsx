@@ -84,7 +84,7 @@ export const ContainerHome = styled.div`
       position: absolute;
       left: 50px;
 
-      max-width: 600px;
+      max-width: 1000px;
 
       display: flex;
       align-items: flex-start;

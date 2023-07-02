@@ -86,8 +86,11 @@ function FooterMain() {
             <h3>Contacto</h3>
 
             <ul>
-              <a target="_blank" href="tel:923414621">
-                <IoCall /> +244 923 414 621
+              <a target="_blank" href="tel:929004006">
+                <IoCall /> +244 929 004 006
+              </a>
+              <a target="_blank" href="tel:938624620">
+                <IoCall /> +244 938 624 620
               </a>
               <a target="_blank" href="mailto:kandengye@outlook.com">
                 <MdOutlineEmail /> kandengye@outlook.com

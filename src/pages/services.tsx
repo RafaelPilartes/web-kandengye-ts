@@ -21,32 +21,32 @@ function Services() {
     {
       _id: 'g56rbe685j68r67',
       imgUrl: 'images/services/service-4-1.jpg',
-      name: 'Serviços de entregas',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
+      name: 'SERVIÇOS DE ENTREGAS',
+      role: 'Experimente nosso serviço de entregas e descubra a conveniência e agilidade que você merece, sem sair de casa!.'
     },
     {
       _id: 'efWEFRQ3GGRGshh',
       imgUrl: 'images/services/service-4-2.jpg',
-      name: 'Serviços de Moto-Táxi',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
+      name: 'SERVIÇOS DE MOTO-TÁXI',
+      role: 'Chegue rápido, com segurança e estilo! Experimente o nosso serviço de moto táxi e descubra uma nova maneira de se locomover pela cidade acompanhado do teu kandengue.'
     },
     {
       _id: 'thw46h46hwthhyh',
       imgUrl: 'images/services/service-4-3.jpg',
-      name: 'Serviço de relações públicas',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
+      name: 'SERVIÇO DE RELAÇÕES PÚBLICAS',
+      role: 'Obtenha uma vantagem competitiva através da nossa capacidade de gerar cobertura mediática positiva para a sua empresa.'
     },
     {
       _id: 'f43gyh37h6jj6j',
       imgUrl: 'images/services/service-4-4.jpg',
-      name: 'Aluguel de motorizadas',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
+      name: 'ALUGUEL DE MOTORIZADAS',
+      role: 'Potencialize a mobilidade da sua empresa ou negócio com o nosso serviço de aluguel de motorizada, a escolha inteligente para deslocamentos eficientes e econômicos.'
     },
     {
       _id: 'thw46h46hwthhyh',
       imgUrl: 'images/services/service-4-3.jpg',
-      name: 'Ecommerce (Janelas de compras)',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
+      name: 'ECOMMERCE (JANELAS DE COMPRAS)',
+      role: 'BREVEMENTE.'
     }
   ]
   const listarServices = docServices.map((item, index) => (

@@ -158,7 +158,7 @@ function About() {
               </div>
 
               <p>
-                Kandengue Atrevido (KA) é uma organização cirada totalmente por
+                Kandengue Atrevido (KA) é uma organização criada totalmente por
                 jovens estudantes que ambicionam atingir o sucesso no mundo dos
                 negócios juntamente com a sua plataforma, é uma organização que
                 visa automatizar a vida do pacato cidadão.

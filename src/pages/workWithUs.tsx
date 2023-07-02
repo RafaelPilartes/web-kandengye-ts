@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 
+// toastify
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // Modulos do material
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -21,47 +25,31 @@ import { defaultTheme } from '../themes/default'
 import HeroSection from '../components/HeroSection'
 import BaseButton from '../components/BaseButton'
 
+// Interface
+import { CandidacyInterface } from '../interfaces/ICandidacy'
+
 // Styles
 import { ContainerWorkWithUs } from '../styles/pages/WorkWithUsStyles'
-import { BsCheck2Circle, BsFillCheckCircleFill } from 'react-icons/bs'
-import { GiSmartphone } from 'react-icons/gi'
-import { MdComputer, MdDesignServices } from 'react-icons/md'
-import ButtonSeeMore from '../components/buttons/ButtonSeeMore'
-import { routsNameMain } from '../data/routsName'
-import CountUp from 'react-countup'
-import { NavLink } from '../components/NavLink'
 import { FaDownload } from 'react-icons/fa'
-
-// Images
+import { provinces } from '../data/labelProvince'
+import axios from 'axios'
 
 function WorkWithUs() {
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    gender: 'male',
-    country: 'Canada',
-    hobby: ''
+  const initialValues: CandidacyInterface = {
+    photo: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    province: '',
+    gender: '',
+    identity_card: '',
+    curriculum: '',
+    vehicle_photo: '',
+    application_areas: '',
+    type_candidacy: 'Serviços Geral'
   }
-  const provinces = [
-    { label: 'Benguela' },
-    { label: 'Bié' },
-    { label: 'Bengo' },
-    { label: 'Cabinda' },
-    { label: 'Cuando' },
-    { label: 'Cuanza' },
-    { label: 'Cuanza' },
-    { label: 'Cunene' },
-    { label: 'Huila' },
-    { label: 'Huambo' },
-    { label: 'Lunda Norte' },
-    { label: 'Lunda Sul' },
-    { label: 'Luanda' },
-    { label: 'Malanje' },
-    { label: 'Moxico' },
-    { label: 'Namibe' },
-    { label: 'Uíge' },
-    { label: 'Zaire' }
-  ]
+
   const areas = [
     { label: 'Administração ' },
     { label: 'Finanças ' },
@@ -71,18 +59,17 @@ function WorkWithUs() {
     { label: 'Serviços gerais' }
   ]
 
-  const [formValues, setFormValues] = useState(initialValues)
+  const [formValues, setFormValues] =
+    useState<CandidacyInterface>(initialValues)
   const [isSend, setIsSend] = useState<boolean>(false)
   const [haveError, setHaveError] = useState<boolean>(false)
 
   // Photo
-  const [filePhotoSelect, setFilePhotoSelect] = useState<string>(
-    'https://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
+  const [filePhotoSelect, setFilePhotoSelect] = useState<string>('')
+  const [photoSelect, setPhotoSelect] = useState<string>(
+    'httpss://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
   )
-  // Photo Vehicle
-  const [filePhotoVehicleSelect, setFilePhotoVehicleSelect] = useState<any[]>(
-    []
-  )
+
   // CV
   const [fileCVSelect, setFileCVSelect] = useState<string>('')
   const [fileCVName, setFileCVName] = useState<string>('')
@@ -90,25 +77,22 @@ function WorkWithUs() {
   const [filBISelect, setFilBISelect] = useState<string>('')
   const [filBIName, setFilBIName] = useState<string>('')
 
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target
-
-    setFormValues({
-      ...formValues,
-      [name]: value
-    })
-  }
-
   // Image
   const onImageChangeDrag = (event: any) => {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
-    setFilePhotoSelect(URL.createObjectURL(file))
+
+    setFilePhotoSelect(file)
+
+    setPhotoSelect(URL.createObjectURL(file))
   }
   const onImageChange = (event: any) => {
     const [file] = event.target.files
-    setFilePhotoSelect(URL.createObjectURL(file))
+
+    setFilePhotoSelect(file)
+
+    setPhotoSelect(URL.createObjectURL(file))
   }
 
   // CV
@@ -116,12 +100,14 @@ function WorkWithUs() {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
-    setFileCVSelect(URL.createObjectURL(file))
+
+    setFileCVSelect(file)
     setFileCVName(file.name)
   }
   const onFileCVChange = (event: any) => {
     const [file] = event.target.files
-    setFileCVSelect(URL.createObjectURL(file))
+
+    setFileCVSelect(file)
     setFileCVName(file.name)
   }
 
@@ -130,12 +116,14 @@ function WorkWithUs() {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
-    setFilBISelect(URL.createObjectURL(file))
+
+    setFilBISelect(file)
     setFilBIName(file.name)
   }
   const onFileBIChange = (event: any) => {
     const [file] = event.target.files
-    setFilBISelect(URL.createObjectURL(file))
+
+    setFilBISelect(file)
     setFilBIName(file.name)
   }
 
@@ -146,15 +134,139 @@ function WorkWithUs() {
     // fazer algo quando o mouse sai da área de soltar
   }
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setIsSend(true)
 
-    console.log(formValues)
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ': ' + pair[1])
+    // }
+
+    // >> Image candidacy <<
+    const imageData = new FormData()
+    imageData.append('photoUser', filePhotoSelect)
+
+    await axios
+      .post(
+        'https://api.kandengueatrevido.com/upload/image/candidacy',
+        imageData
+      )
+      .then(async resImage => {
+        const imageUrl = resImage.data.imageUrl
+        const message = resImage.data.msg
+
+        if (resImage.data.error) {
+          toast.error(message, {
+            position: toast.POSITION.TOP_RIGHT
+          })
+        } else {
+          // toast.success(message, {
+          //   position: toast.POSITION.TOP_RIGHT
+          // })
+
+          // >> IdentityCard <<
+          const identityCardData = new FormData()
+          identityCardData.append('identityCardData', filBISelect)
+
+          await axios
+            .post(
+              'https://api.kandengueatrevido.com/upload/pdf/identityCard',
+              identityCardData
+            )
+            .then(async resIdentityCard => {
+              const identityCardUrl = resIdentityCard.data.pdfUrl
+              const messageIdentityCard = resIdentityCard.data.msg
+
+              if (resIdentityCard.data.error) {
+                toast.error(messageIdentityCard, {
+                  position: toast.POSITION.TOP_RIGHT
+                })
+              } else {
+                // toast.success(messageIdentityCard, {
+                //   position: toast.POSITION.TOP_RIGHT
+                // })
+
+                // >> Curriculum <<
+                const curriculumData = new FormData()
+                curriculumData.append('curriculumData', fileCVSelect)
+
+                await axios
+                  .post(
+                    'https://api.kandengueatrevido.com/upload/pdf/curriculum',
+                    curriculumData
+                  )
+                  .then(async resCurriculum => {
+                    const curriculumUrl = resCurriculum.data.pdfUrl
+                    const messageCurriculum = resCurriculum.data.msg
+
+                    if (resCurriculum.data.error) {
+                      toast.error(messageCurriculum, {
+                        position: toast.POSITION.TOP_RIGHT
+                      })
+                    } else {
+                      // toast.success(messageCurriculum, {
+                      //   position: toast.POSITION.TOP_RIGHT
+                      // })
+
+                      newCandidacy(imageUrl, identityCardUrl, curriculumUrl)
+                    }
+                  })
+
+                // >> END -> Curriculum <<
+              }
+            })
+          // >> END -> IdentityCard <<
+        }
+      })
+    // >> END -> Image candidacy <<
 
     setTimeout(() => {
       setIsSend(false)
     }, 2000)
+  }
+
+  async function newCandidacy(
+    photo: string,
+    identity_card: string,
+    curriculum: string
+  ) {
+    const newData: CandidacyInterface = {
+      photo: photo,
+      first_name: formValues.first_name,
+      last_name: formValues.last_name,
+      email: formValues.email,
+      phone: formValues.phone,
+      province: formValues.province,
+      gender: formValues.gender,
+      identity_card: identity_card,
+      curriculum: curriculum,
+      application_areas: formValues.application_areas,
+      type_candidacy: formValues.type_candidacy
+    }
+
+    try {
+      const response = await axios.post(
+        'https://api.kandengueatrevido.com/candidacy/create',
+        newData
+      )
+      const data = response.data
+      if (data.error) {
+        toast.error(data.msg, {
+          position: toast.POSITION.TOP_RIGHT
+        })
+      } else {
+        toast.success(data.msg, {
+          position: toast.POSITION.TOP_RIGHT
+        })
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 4000)
+      }
+    } catch (error) {
+      // Lógica para tratar erros de requisição
+      console.error(error)
+    }
   }
 
   useEffect(() => {
@@ -163,10 +275,12 @@ function WorkWithUs() {
 
   return (
     <ContainerWorkWithUs>
+      <ToastContainer />
+
       <HeroSection
-        backgroundImage="https://www.companiesmadesimple.com/project/blog/wp-content/uploads/2015/04/unnamed-1.jpg"
+        backgroundImage="httpss://www.companiesmadesimple.com/project/blog/wp-content/uploads/2015/04/unnamed-1.jpg"
         title="Formulário"
-        base1="Torne-se um motorista"
+        base1="Trabalhar connosco"
       />
 
       <section className="WorkWithUs">
@@ -187,15 +301,15 @@ function WorkWithUs() {
                 onDrop={onImageChangeDrag}
               >
                 <label className="containerPhotoUser" htmlFor="photoUser">
-                  <img src={filePhotoSelect} alt="" />
+                  <img src={photoSelect} alt="" />
 
                   <input
                     hidden
                     type="file"
                     id="photoUser"
+                    name="photoUser"
                     accept="image"
                     onChange={onImageChange}
-                    required
                   />
                 </label>
                 <span className="bigText">Sua fotografia</span>
@@ -211,6 +325,12 @@ function WorkWithUs() {
                   required
                   id="outlined-required"
                   label="Primeiro Nome"
+                  onChange={e =>
+                    setFormValues({
+                      ...formValues,
+                      first_name: e.target.value
+                    })
+                  }
                   error={haveError}
                 />
 
@@ -220,6 +340,12 @@ function WorkWithUs() {
                   required
                   id="outlined-required"
                   label="Ultimo Nome"
+                  onChange={e =>
+                    setFormValues({
+                      ...formValues,
+                      last_name: e.target.value
+                    })
+                  }
                 />
               </div>
 
@@ -230,6 +356,12 @@ function WorkWithUs() {
                 id="outlined-required"
                 type="email"
                 label="E-mail"
+                onChange={e =>
+                  setFormValues({
+                    ...formValues,
+                    email: e.target.value
+                  })
+                }
               />
 
               <TextField
@@ -238,6 +370,12 @@ function WorkWithUs() {
                 id="outlined-required"
                 label="Número de telefone"
                 type="number"
+                onChange={e =>
+                  setFormValues({
+                    ...formValues,
+                    phone: e.target.value
+                  })
+                }
               />
 
               <Autocomplete
@@ -249,6 +387,12 @@ function WorkWithUs() {
                 renderInput={params => (
                   <TextField {...params} label="Província" />
                 )}
+                onChange={(event, newValue) =>
+                  setFormValues({
+                    ...formValues,
+                    province: newValue?.label as string
+                  })
+                }
               />
               <Autocomplete
                 disablePortal
@@ -259,6 +403,12 @@ function WorkWithUs() {
                 renderInput={params => (
                   <TextField {...params} label="Áreas de candidatura" />
                 )}
+                onChange={(event, newValue) =>
+                  setFormValues({
+                    ...formValues,
+                    application_areas: newValue?.label as string
+                  })
+                }
               />
 
               <div className="col">
@@ -271,11 +421,23 @@ function WorkWithUs() {
                     value="female"
                     control={<Radio />}
                     label="Feminino"
+                    onClick={() =>
+                      setFormValues({
+                        ...formValues,
+                        gender: 'Feminino'
+                      })
+                    }
                   />
                   <FormControlLabel
                     value="male"
                     control={<Radio />}
                     label="Masculino"
+                    onClick={() =>
+                      setFormValues({
+                        ...formValues,
+                        gender: 'Masculino'
+                      })
+                    }
                   />
                 </RadioGroup>
               </div>
@@ -284,48 +446,50 @@ function WorkWithUs() {
                 htmlFor="inputTagBI"
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={onFileCVChangeDrag}
+                onDrop={onFileBIChangeDrag}
               >
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileCVName
-                      ? fileCVName
+                    {filBIName
+                      ? filBIName
                       : 'Adicionar seu Bilhete de identidade'}
                   </span>
 
                   <input
                     type="file"
+                    hidden
                     id="inputTagBI"
                     accept="application/pdf"
-                    onChange={onFileCVChange}
-                    style={{ display: 'none' }}
+                    onChange={onFileBIChange}
                   />
                 </div>
-                <p className="littleText">ou solte as imagens aqui</p>
+                <p className="littleText">
+                  ou solte o seu Bilhete de identidade aqui
+                </p>
               </label>
 
               <label
                 htmlFor="inputTagCV"
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={onFileBIChangeDrag}
+                onDrop={onFileCVChangeDrag}
               >
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {filBIName ? filBIName : 'Adicionar seu currículo'}
+                    {fileCVName ? fileCVName : 'Adicionar seu currículo'}
                   </span>
 
                   <input
                     type="file"
-                    hidden
                     id="inputTagCV"
                     accept="application/pdf"
-                    onChange={onFileBIChange}
+                    onChange={onFileCVChange}
+                    style={{ display: 'none' }}
                   />
                 </div>
-                <p className="littleText">ou solte as imagens aqui</p>
+                <p className="littleText">ou solte o seu currículo aqui</p>
               </label>
 
               <BaseButton

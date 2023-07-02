@@ -25,7 +25,7 @@ import { AiFillCode, AiFillStar } from 'react-icons/ai'
 import { TfiWorld } from 'react-icons/tfi'
 
 // Modulos de aos animação de scroll
-import Aos from 'aos'
+import Aos, { init } from 'aos'
 import 'aos/dist/aos.css'
 
 // AliceCarousel
@@ -53,6 +53,8 @@ import RenderServices from '../components/RenderServices'
 import RenderVeicules from '../components/RenderVeicules'
 import btnGoogle from '../../public/images/download/google.png'
 import btnApple from '../../public/images/download/App-Store.png'
+import { getAllUsers } from '../api/server'
+import { log } from 'console'
 
 function Home() {
   const router = useNavigate()
@@ -129,8 +131,14 @@ function Home() {
   function goTo(path: string) {
     router(path)
   }
+  async function getData(name: string) {
+    // const {  } = await getAllUsers('rafael')
+    // console.log(resUserData)
+  }
 
   useEffect(() => {
+    getData('123')
+
     Aos.init({ duration: 1500 })
   }, [])
 
@@ -154,7 +162,8 @@ function Home() {
                 por semana
               </span>
               <h1 data-aos="fade-down">
-                Desfrutando Confortável <br /> Viagem Com Kandengye
+                Deixe-nos cuidar das duas entregas <br /> enquanto você cuida
+                do seu negócio
               </h1>
               <span data-aos="fade-up">
                 Escale dramaticamente os portais compatíveis com versões
@@ -221,7 +230,7 @@ function Home() {
         </Swiper>
       </div>
 
-      <section className="aboutUs">
+      {/* <section className="aboutUs">
         <div className="containerContent">
           <div className="containerAboutUs">
             <div className="contentLeft">
@@ -272,14 +281,15 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="driver">
         <div className="containerContent">
           <div className="section1">
             <div className="descriptionSection">
               <h1 data-aos="fade-up">
-                Faça seu próprio horário <strong>Ganhe do seu jeito</strong>
+                Se torne um kandengue e{' '}
+                <strong>ganhe o teu kumbu numa boa</strong>
               </h1>
 
               <div className="contentDescriptions">
@@ -331,12 +341,12 @@ function Home() {
         </div>
       </section>
 
-      <section className="rider">
+      {/* <section className="rider">
         <div className="containerContent">
           <div className="section3">
             <div className="descriptionSection">
               <h1 data-aos="fade-up">
-                Às suas marcas, preparar, já com apenas alguns toques rápidos
+                Às suas marcas, preparar, já com apenas alguns toques rápidos{' '}
                 <strong>Sempre</strong>
               </h1>
 
@@ -370,7 +380,7 @@ function Home() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="freeConsulting">
         <div className="containerLinesLeft" data-aos="fade-up">
@@ -447,7 +457,7 @@ function Home() {
           </div>
 
           <div className="contentInfo">
-            <h1>KANGENGUE vai até onde desejares...!</h1>
+            <h1>KANDENGUE vai até onde desejares...!</h1>
 
             <div>
               <ul>
