@@ -464,17 +464,25 @@ export const ContainerAbout = styled.div`
     margin: 0 0 6rem 0;
 
     .containerCountUpRow {
+      position: relative;
+      padding: 6rem 1.4rem;
+
       width: 100%;
 
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: 2rem 1.6rem;
+      gap: 6rem 2rem;
 
       .contentCountUp {
         position: relative;
+
+        flex: 1;
+        width: 100%;
+        height: auto;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -482,6 +490,7 @@ export const ContainerAbout = styled.div`
         gap: 0.4rem;
 
         max-width: 14rem;
+        min-width: 8rem;
 
         object-fit: cover;
         overflow: hidden;
@@ -510,6 +519,7 @@ export const ContainerAbout = styled.div`
         h3 {
           color: ${({ theme }) => theme.colors['brand-primary']};
           font-size: 1rem;
+          text-align: center;
           text-transform: uppercase;
         }
       }

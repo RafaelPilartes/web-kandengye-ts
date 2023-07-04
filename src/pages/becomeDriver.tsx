@@ -29,7 +29,8 @@ import { CandidacyInterface } from '../interfaces/ICandidacy'
 import { ContainerBecomeDriver } from '../styles/pages/BecomeDriverStyles'
 import { FaDownload } from 'react-icons/fa'
 import { provinces } from '../data/labelProvince'
-import axios from 'axios'
+
+// Api
 import {
   sendCandidacy,
   uploadImageCandidacy,

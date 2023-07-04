@@ -10,6 +10,7 @@ const About = React.lazy(() => import('../pages/about'))
 const Services = React.lazy(() => import('../pages/services'))
 const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
 const WorkWithUs = React.lazy(() => import('../pages/workWithUs'))
+const Contacts = React.lazy(() => import('../pages/contacts'))
 
 export function Router() {
   return (
@@ -40,6 +41,15 @@ export function Router() {
             element={
               <React.Suspense fallback={<Loading />}>
                 <Services />
+              </React.Suspense>
+            }
+          />
+          {/* Contacts */}
+          <Route
+            path={routsNameMain.contact}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Contacts />
               </React.Suspense>
             }
           />

@@ -53,8 +53,6 @@ import RenderServices from '../components/RenderServices'
 import RenderVeicules from '../components/RenderVeicules'
 import btnGoogle from '../../public/images/download/google.png'
 import btnApple from '../../public/images/download/App-Store.png'
-import { getAllUsers } from '../api/server'
-import { log } from 'console'
 
 function Home() {
   const router = useNavigate()

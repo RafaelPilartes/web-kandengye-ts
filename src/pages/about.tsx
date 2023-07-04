@@ -84,27 +84,27 @@ function About() {
   const docTeam = [
     {
       photo:
-        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-      name: 'Mario Soltinho',
-      memberFunction: 'Diretor Geral'
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
+      name: 'Geovani Nascimento',
+      memberFunction: 'Diretor geral'
     },
     {
       photo:
-        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-      name: 'Mario Nascimento',
-      memberFunction: ' Diretor Administrativo e Financeiro '
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
+      name: 'Nataniel Mário',
+      memberFunction: 'Diretor administrativo financeiro'
     },
     {
       photo:
-        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-      name: 'Mario Pilartes',
-      memberFunction: 'Diretor de Intercâmbio, imagem e comunicação'
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
+      name: 'Higino de Menezes',
+      memberFunction: 'Diretor de intercâmbio, imagem e comunicação'
     },
     {
       photo:
-        'https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png',
-      name: 'Mario Gomes',
-      memberFunction: 'Diretor de segurança, tecnologia e informação'
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
+      name: 'Sebastião Gomes',
+      memberFunction: 'Diretor de segurança, tecnologia e informação'
     }
   ]
 
@@ -298,7 +298,7 @@ function About() {
 
             <div data-aos="fade-left">
               <ButtonSeeMore
-                value={'Kandengye'}
+                value={'Kandengue'}
                 onClick={() => goTo(routsNameMain.home)}
                 colorBase={defaultTheme.colors['base-white']}
                 colorSecondary={defaultTheme.colors['brand-secondary']}

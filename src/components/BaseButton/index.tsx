@@ -27,13 +27,15 @@ function BaseButton({
       onClick={onClickButton}
       disabled={disabled}
     >
-      {isLoading ? (
-        <>
-          <BeatLoader size={10} color={defaultTheme.colors['base-white']} />
-        </>
-      ) : (
-        <span>{name}</span>
-      )}
+      <div>
+        {isLoading ? (
+          <>
+            <BeatLoader size={10} color={defaultTheme.colors['base-white']} />
+          </>
+        ) : (
+          <span>{name}</span>
+        )}
+      </div>
     </BaseBtnContainer>
   )
 }

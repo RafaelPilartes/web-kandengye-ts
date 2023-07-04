@@ -4,7 +4,7 @@ export const ContainerHome = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: hidsn;
 
   .whatsappButton {
     width: 68px;
@@ -128,13 +128,35 @@ export const ContainerHome = styled.div`
         }
       }
 
-      @media (max-width: 815px) {
+      @media (max-width: 1066px) {
         h1 {
           font-size: 2.8rem;
         }
 
         span {
           font-size: 1rem;
+          max-width: 40rem;
+        }
+      }
+
+      @media (max-width: 815px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        span {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 720px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        span {
+          font-size: 1rem;
+          max-width: 34rem;
         }
       }
 
@@ -148,9 +170,14 @@ export const ContainerHome = styled.div`
           display: none;
         }
       }
-      @media (max-width: 510px) {
+      @media (max-width: 592px) {
         h1 {
           font-size: 1.6rem;
+        }
+      }
+      @media (max-width: 500px) {
+        h1 {
+          font-size: 1.1rem;
         }
       }
     }

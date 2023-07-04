@@ -9,12 +9,12 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
-  /* 
+  
     html {
       overflow-x: hidden;
       scroll-behavior: smooth;
     } 
-  */
+ 
   
   body {
     background: ${({ theme }) => theme.colors['base-background']};

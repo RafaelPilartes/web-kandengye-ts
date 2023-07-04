@@ -127,6 +127,7 @@ export const ContainerWorkWithUs = styled.div`
           color: #0a2338;
           font-size: 2.8rem;
           font-weight: 700;
+          text-align: center;
 
           strong {
             color: ${({ theme }) => theme.colors['brand-primary']};

@@ -66,3 +66,17 @@ export function uploadPdfVehicle(imageToSave: any): Promise<any> {
       })
   })
 }
+
+export function sendMessage(dataToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/message/send`
+    axios
+      .post(url, dataToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
