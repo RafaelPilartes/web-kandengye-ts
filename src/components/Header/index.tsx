@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { FaTiktok } from 'react-icons/fa'
 
 // Mui
 import AppBar from '@mui/material/AppBar'
@@ -92,23 +93,43 @@ function HeaderMain() {
             <li> | </li>
             <li>
               <a href="">
-                <IoLocation /> Angola, Luanda, Benfica, Av. 21 de Janeiro
+                <IoLocation /> Angola, Luanda, Nova Vida, Rua 16
               </a>
             </li>
             <li> | </li>
             <li>
               <a href="">
-                <MdEmail /> info@kandengue.com
+                <MdEmail /> info@kandengueatrevido.com
               </a>
             </li>
           </ul>
 
           <div className="containerRight">
             Siga-nos:
-            <BsFacebook />
-            <BsInstagram />
-            <BsWhatsapp />
-            <BsTwitter />
+            <a
+              href="https://www.facebook.com/profile.php?id=100068921798475&mibextid=LQQJ4d"
+              target="_blank"
+              style={{ color: 'white' }}
+            >
+              <BsFacebook />
+            </a>
+            <a
+              href="https://instagram.com/kandengue_atrevido_transporte?utm_source=qr&igshid=MThlNWY1MzQwNA=="
+              target="_blank"
+              style={{ color: 'white' }}
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="https://wa.me/244938624620"
+              target="_blank"
+              style={{ color: 'white' }}
+            >
+              <BsWhatsapp />
+            </a>
+            <a href="" target="_blank" style={{ color: 'white' }}>
+              <FaTiktok />
+            </a>
           </div>
         </div>
 

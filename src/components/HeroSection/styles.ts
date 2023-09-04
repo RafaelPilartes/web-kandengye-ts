@@ -13,9 +13,9 @@ export const HeroContainerStyles = styled.section<IHero>`
     css`
       background-image: url(${backgroundImage});
     `}
-
+  background-repeat: no-repeat;
+  background-size: cover;
   /* background-image: url('https://themerange.net/wp/montro/wp-content/uploads/2022/05/1.jpg'); */
-
   .infoHero {
     width: 100%;
     height: 100%;

@@ -40,6 +40,9 @@ import {
   uploadPdfIdentityCard
 } from '../api/server'
 
+// Images
+import heroBg4 from '../assets/header/hero_bg_1.jpg'
+
 function WorkWithUs() {
   const initialValues: CandidacyInterface = {
     photo: '',
@@ -262,7 +265,7 @@ function WorkWithUs() {
       <ToastContainer />
 
       <HeroSection
-        backgroundImage="httpss://www.companiesmadesimple.com/project/blog/wp-content/uploads/2015/04/unnamed-1.jpg"
+        backgroundImage={heroBg4}
         title="Formulário"
         base1="Trabalhar connosco"
       />

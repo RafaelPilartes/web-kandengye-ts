@@ -104,7 +104,8 @@ export const FooterContainerStyles = styled.footer`
         flex-direction: row;
         gap: 1.2rem;
 
-        span {
+        span,
+        a {
           width: 2.4rem;
           height: 2.4rem;
           background-color: red;

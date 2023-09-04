@@ -271,15 +271,22 @@ export const ContainerAbout = styled.div`
 
           .containerImg1 {
             position: relative;
-            display: block;
+            display: flex;
+            align-items: end;
+            justify-content: center;
 
-            width: 100%;
+            width: 30rem;
+            height: 30rem;
             max-height: 26rem;
 
             object-fit: cover;
             overflow: hidden;
 
             img {
+              position: absolute;
+              width: 100%;
+              height: auto;
+
               vertical-align: middle;
               display: inline-block;
             }
@@ -289,7 +296,7 @@ export const ContainerAbout = styled.div`
             position: absolute;
             max-width: 20rem;
             max-height: 20rem;
-            top: 8rem;
+            top: 16rem;
             right: -7rem;
             display: block;
 
@@ -452,6 +459,50 @@ export const ContainerAbout = styled.div`
                 vertical-align: middle;
                 display: inline-block;
               }
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 520px) {
+      .containerAboutUs {
+        .contentLeft {
+          .containerImagesTop {
+            .containerImg1 {
+              height: 25rem;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 470px) {
+      .containerAboutUs {
+        .contentLeft {
+          .containerImagesTop {
+            .containerImg1 {
+              height: 20rem;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 400px) {
+      .containerAboutUs {
+        .contentLeft {
+          .containerImagesTop {
+            .containerImg1 {
+              height: 16rem;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 340px) {
+      .containerAboutUs {
+        .contentLeft {
+          .containerImagesTop {
+            .containerImg1 {
+              height: 14rem;
             }
           }
         }

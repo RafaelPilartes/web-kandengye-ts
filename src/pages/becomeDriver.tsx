@@ -40,6 +40,7 @@ import {
 } from '../api/server'
 
 // Images
+import heroBg4 from '../assets/header/hero_bg_1.jpg'
 
 function BecomeDriver() {
   const initialValues: CandidacyInterface = {
@@ -307,7 +308,7 @@ function BecomeDriver() {
       <ToastContainer />
 
       <HeroSection
-        backgroundImage="httpss://www.companiesmadesimple.com/project/blog/wp-content/uploads/2015/04/unnamed-1.jpg"
+        backgroundImage={heroBg4}
         title="Formulário"
         base1="Torne-se um motorista"
       />

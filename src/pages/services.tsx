@@ -16,35 +16,43 @@ import {
 import HeroSection from '../components/HeroSection'
 import RenderServices from '../components/RenderServices'
 
+// Images
+import heroBg4 from '../assets/header/hero_bg_1.jpg'
+import driverBlack3 from '../assets/photos/driverBlack3.jpg'
+import driverBlackAndRed3 from '../assets/photos/driverBlackAndRed3.jpg'
+import driverRed3 from '../assets/photos/driverRed3.jpg'
+import driverBlack4 from '../assets/photos/driverBlack4.jpg'
+import motoRed from '../assets/photos/motoRed.png'
+
 function Services() {
   const docServices = [
     {
       _id: 'g56rbe685j68r67',
-      imgUrl: 'images/services/service-4-1.jpg',
+      imgUrl: driverBlack3,
       name: 'SERVIÇOS DE ENTREGAS',
       role: 'Experimente nosso serviço de entregas e descubra a conveniência e agilidade que você merece, sem sair de casa!.'
     },
     {
       _id: 'efWEFRQ3GGRGshh',
-      imgUrl: 'images/services/service-4-2.jpg',
+      imgUrl: driverBlackAndRed3,
       name: 'SERVIÇOS DE MOTO-TÁXI',
       role: 'Chegue rápido, com segurança e estilo! Experimente o nosso serviço de moto táxi e descubra uma nova maneira de se locomover pela cidade acompanhado do teu kandengue.'
     },
     {
       _id: 'thw46h46hwthhyh',
-      imgUrl: 'images/services/service-4-3.jpg',
+      imgUrl: driverRed3,
       name: 'SERVIÇO DE RELAÇÕES PÚBLICAS',
       role: 'Obtenha uma vantagem competitiva através da nossa capacidade de gerar cobertura mediática positiva para a sua empresa.'
     },
     {
       _id: 'f43gyh37h6jj6j',
-      imgUrl: 'images/services/service-4-4.jpg',
+      imgUrl: motoRed,
       name: 'ALUGUEL DE MOTORIZADAS',
       role: 'Potencialize a mobilidade da sua empresa ou negócio com o nosso serviço de aluguel de motorizada, a escolha inteligente para deslocamentos eficientes e econômicos.'
     },
     {
       _id: 'thw46h46hwthhyh',
-      imgUrl: 'images/services/service-4-3.jpg',
+      imgUrl: driverBlack4,
       name: 'ECOMMERCE (JANELAS DE COMPRAS)',
       role: 'BREVEMENTE.'
     }
@@ -60,7 +68,7 @@ function Services() {
   return (
     <ContainerServices>
       <HeroSection
-        backgroundImage="https://angfuzsoft.com/wordpress/taxseco/wp-content/uploads/2022/10/breadcumb-bg-4-1-3.jpg"
+        backgroundImage={heroBg4}
         title="Nossos Serviços"
         base1="Serviços"
       />

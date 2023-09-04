@@ -1,6 +1,7 @@
 // Icons
 import { MdOutlineEmail, MdGpsFixed } from 'react-icons/md'
-import { BsFacebook, BsInstagram, BsTwitter, BsWhatsapp } from 'react-icons/bs'
+import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs'
+import { FaTiktok } from 'react-icons/fa'
 import { IoCall, IoCallOutline, IoSend } from 'react-icons/io5'
 
 // Themes
@@ -13,7 +14,7 @@ import { FooterContainerStyles } from './styles'
 import { routsNameMain } from '../../data/routsName'
 
 // Images
-import imgLogoSemNOme from '../../../public/it_logo_name_light.svg'
+import imgLogoSemNome from '../../../public/it_logo.svg'
 
 function FooterMain() {
   return (
@@ -21,29 +22,36 @@ function FooterMain() {
       <FooterContainerStyles>
         <div className="containerTop">
           <div className="containerInfoTchossy">
-            <img src={imgLogoSemNOme} alt="Tchossy" />
+            <img
+              src={imgLogoSemNome}
+              alt="Tchossy"
+              style={{ maxWidth: '100px' }}
+            />
 
-            <p>
-              Trabalhamos com paixão de enfrentar desafios e criar soluções
-              inovadoras.
-            </p>
+            <p>Kandengue atrevido, chegar atrasado? Duvido!</p>
 
             <div className="containerSocialMedia">
-              <span>
+              <a
+                href="https://www.facebook.com/profile.php?id=100068921798475&mibextid=LQQJ4d"
+                target="_blank"
+              >
                 <BsFacebook />
-              </span>
+              </a>
 
-              <span>
+              <a
+                href="https://instagram.com/kandengue_atrevido_transporte?utm_source=qr&igshid=MThlNWY1MzQwNA=="
+                target="_blank"
+              >
                 <BsInstagram />
-              </span>
+              </a>
 
-              <span>
+              <a href="https://wa.me/244938624620" target="_blank">
                 <BsWhatsapp />
-              </span>
+              </a>
 
-              <span>
-                <BsTwitter />
-              </span>
+              <a href="">
+                <FaTiktok />
+              </a>
             </div>
           </div>
 
@@ -53,7 +61,7 @@ function FooterMain() {
             <ul>
               <a href={routsNameMain.about}>Sobre nós</a>
               <a href={routsNameMain.services}>Serviço</a>
-              <a href={routsNameMain.becomeDriver}>Tornar-se motorista</a>
+              <a href={routsNameMain.becomeDriver}>Tornar-se estafeta</a>
 
               <a href={routsNameMain.contact}>Contacto</a>
             </ul>
@@ -87,21 +95,27 @@ function FooterMain() {
               <a target="_blank" href="tel:938624620">
                 <IoCall /> +244 938 624 620
               </a>
-              <a target="_blank" href="tel:929004006">
-                <IoCall /> +244 929 004 006
-              </a>
-              <a target="_blank" href="mailto:info@kandengue.com">
-                <MdOutlineEmail /> info@kandengue.com
+              <a target="_blank" href="mailto:info@kandengueatrevido.com">
+                <MdOutlineEmail /> info@kandengueatrevido.com
               </a>
               <a target="_blank" href="https://goo.gl/maps/1Uvj3cRqNQPEKzoB7">
-                <MdGpsFixed /> Luanda, Benfica, Avenida 21 de Janeiro
+                <MdGpsFixed /> Angola, Luanda, Nova Vida, Rua 16
               </a>
             </ul>
           </div>
         </div>
 
         <div className="containerBottom">
-          <p>Almeida & Menezes @ Todos direitos reservados 2023</p>
+          <p>
+            <a
+              href="https://rafaelpilartes.com/"
+              target="_blank"
+              style={{ color: '#C5161D', fontWeight: 600 }}
+            >
+              Dev RP❤️
+            </a>
+            - Almeida & Menezes @ Todos direitos reservados 2023
+          </p>
         </div>
       </FooterContainerStyles>
     </>

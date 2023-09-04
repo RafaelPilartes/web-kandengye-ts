@@ -48,6 +48,11 @@ import { NavLink } from '../components/NavLink'
 import heroBg1 from '../assets/background/hero_bg_2_1-4.jpg'
 import heroBg2 from '../assets/background/hero_bg_2_2-4.jpg'
 import heroBg3 from '../assets/background/hero_bg_2_3-4.jpg'
+
+import driverPhoto1 from '../assets/photos/driverBlack.jpg'
+import rider1 from '../assets/photos/riderBlack.jpg'
+import driverPhoto2 from '../assets/photos/driverRed.jpg'
+
 import ButtonSeeMore from '../components/buttons/ButtonSeeMore'
 import RenderServices from '../components/RenderServices'
 import RenderVeicules from '../components/RenderVeicules'
@@ -183,7 +188,8 @@ function Home() {
                 por semana
               </span> */}
               <h1 data-aos="fade-down">
-                Desfrutando Confortável <br /> Viagem Com kandengue
+                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
+                do seu negócio
               </h1>
               <span data-aos="fade-up">
                 Kandengue atrevido, chegar atrasado? Duvido!
@@ -205,7 +211,8 @@ function Home() {
                 por semana
               </span> */}
               <h1 data-aos="fade-down">
-                Desfrutando Confortável <br /> Viagem Com kandengue
+                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
+                do seu negócio
               </h1>
               <span data-aos="fade-up">
                 Kandengue atrevido, chegar atrasado? Duvido!
@@ -327,11 +334,7 @@ function Home() {
               </div>
             </div>
 
-            <img
-              data-aos="fade-up-left"
-              src="https://broadwaycab.com/wp-content/uploads/2018/04/now-hiring-drivers.jpg"
-              alt=""
-            />
+            <img data-aos="fade-up-left" src={driverPhoto1} alt="" />
           </div>
         </div>
       </section>
@@ -410,11 +413,7 @@ function Home() {
               </div>
             </div>
 
-            <img
-              data-aos="fade-up-left"
-              src="https://covertrip.com/wp-content/uploads/2022/02/taxi-safety.png"
-              alt=""
-            />
+            <img data-aos="fade-up-left" src={rider1} alt="" />
           </div>
         </div>
       </section>
@@ -441,11 +440,7 @@ function Home() {
               </div>
             </div>
 
-            <img
-              data-aos="fade-up-left"
-              src="https://mid.curitiba.pr.gov.br/2018/capa/00221449.jpg"
-              alt=""
-            />
+            <img data-aos="fade-up-left" src={driverPhoto2} alt="" />
           </div>
         </div>
       </section>

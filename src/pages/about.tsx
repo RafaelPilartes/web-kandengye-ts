@@ -33,6 +33,13 @@ import { AiFillStar, AiFillCode } from 'react-icons/ai'
 import RenderSolutions from '../components/RenderSolutions'
 import RenderMemberTeam from '../components/RenderMemberTeam'
 
+import heroBg4 from '../assets/header/hero_bg_1.jpg'
+import driverPhoto3 from '../assets/photos/driverBlackAndRed.jpg'
+import driverPhoto4 from '../assets/photos/driverBlackPay.jpg'
+import driverRed2 from '../assets/photos/driverRed2.jpg'
+import driverBlack2 from '../assets/photos/driverBlack2.jpg'
+import driverBlackAndRed2 from '../assets/photos/driverBlackAndRed2.jpg'
+
 function About() {
   const router = useNavigate()
 
@@ -47,24 +54,21 @@ function About() {
 
   const docSolutions = [
     {
-      imgUrl:
-        'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-01.jpg',
+      imgUrl: driverRed2,
       title: 'Missão',
       description:
         'Oferecer soluções logísticas e eficientes para os nossos clientes, garantindo entregas rápidas e seguras, com o compromisso de conectar pessoas e negócios em toda Angola',
       icon: <AiFillStar size={36} />
     },
     {
-      imgUrl:
-        'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-03.jpg',
+      imgUrl: driverBlack2,
       title: 'Visão',
       description:
         'Ser reconhecida como empresa lider em soluções de logísticas de entregas, superando as expectativas dos clientes com eficiência, confiabilidade e inovação, contribuindo para o crescimento e sucesso dos nossos parceiros de negocio',
       icon: <MdDesignServices size={36} />
     },
     {
-      imgUrl:
-        'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-02.jpg',
+      imgUrl: driverBlackAndRed2,
       title: 'Valores',
       description:
         'Promover a humildde, semear o respeito, estimular a pontualidade e servir com qualidade',
@@ -117,11 +121,7 @@ function About() {
 
   return (
     <ContainerAbout>
-      <HeroSection
-        backgroundImage="https://angfuzsoft.com/wordpress/taxseco/wp-content/uploads/2022/10/breadcumb-bg-4-1-3.jpg"
-        title="Sobre nós"
-        base1="Sobre"
-      />
+      <HeroSection backgroundImage={heroBg4} title="Sobre nós" base1="Sobre" />
 
       <section className="aboutUs">
         <div className="containerContent">
@@ -129,16 +129,10 @@ function About() {
             <div className="contentLeft">
               <div className="containerImagesTop">
                 <div className="containerImg1" data-aos="fade-right">
-                  <img
-                    src="https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/left-about-company-aboutUs.jpg"
-                    alt=""
-                  />
+                  <img src={driverPhoto3} alt="" />
                 </div>
                 <div className="containerImg2">
-                  <img
-                    src="https://angfuzsoft.com/wordpress/taxseco/wp-content/uploads/2022/09/about_4_1-4.jpg"
-                    alt="Logo Tchossy"
-                  />
+                  <img src={driverPhoto4} alt="Logo Tchossy" />
                 </div>
               </div>
             </div>
