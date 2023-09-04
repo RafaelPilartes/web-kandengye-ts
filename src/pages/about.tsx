@@ -175,7 +175,7 @@ function About() {
                   <BsCheck2Circle /> Funcionalidade confiável.
                 </li>
                 <li>
-                  <BsCheck2Circle /> Aproveite a terceirização sinestésica
+                  <BsCheck2Circle /> Terceirização de serviços
                 </li>
               </ul>
             </div>

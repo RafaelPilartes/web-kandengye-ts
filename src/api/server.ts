@@ -1,11 +1,50 @@
 import axios from 'axios'
 import { BaseURL } from '../utils/urlApi'
 
+export function loginUser(dataToLogin: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/user/login`
+    axios
+      .post(url, dataToLogin)
+      .then(resData => {
+        resolve(resData)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function sendUser(dataToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/user/register`
+    axios
+      .post(url, dataToSave)
+      .then(resData => {
+        resolve(resData)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
 export function sendCandidacy(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
     const url = `${BaseURL}/candidacy/create`
     axios
       .post(url, dataToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function uploadImageUser(imageToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/image/user`
+    axios
+      .post(url, imageToSave)
       .then(resData => {
         resolve(resData.data)
       })

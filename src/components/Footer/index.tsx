@@ -51,13 +51,11 @@ function FooterMain() {
             <h3>Links</h3>
 
             <ul>
-              <a href="">Sobre nós</a>
-              <a href="">Serviço</a>
-              <a href="">Motorista</a>
-              <a href="">Táxi</a>
-              <a href="">Reservando Passeio</a>
+              <a href={routsNameMain.about}>Sobre nós</a>
+              <a href={routsNameMain.services}>Serviço</a>
+              <a href={routsNameMain.becomeDriver}>Tornar-se motorista</a>
 
-              <a href="">Contato</a>
+              <a href={routsNameMain.contact}>Contacto</a>
             </ul>
           </div>
 
@@ -86,14 +84,14 @@ function FooterMain() {
             <h3>Contacto</h3>
 
             <ul>
-              <a target="_blank" href="tel:929004006">
-                <IoCall /> +244 929 004 006
-              </a>
               <a target="_blank" href="tel:938624620">
                 <IoCall /> +244 938 624 620
               </a>
-              <a target="_blank" href="mailto:kandengye@outlook.com">
-                <MdOutlineEmail /> kandengye@outlook.com
+              <a target="_blank" href="tel:929004006">
+                <IoCall /> +244 929 004 006
+              </a>
+              <a target="_blank" href="mailto:info@kandengue.com">
+                <MdOutlineEmail /> info@kandengue.com
               </a>
               <a target="_blank" href="https://goo.gl/maps/1Uvj3cRqNQPEKzoB7">
                 <MdGpsFixed /> Luanda, Benfica, Avenida 21 de Janeiro
@@ -103,7 +101,7 @@ function FooterMain() {
         </div>
 
         <div className="containerBottom">
-          <p>kandengye @ Todos direitos reservados 2023</p>
+          <p>Almeida & Menezes @ Todos direitos reservados 2023</p>
         </div>
       </FooterContainerStyles>
     </>

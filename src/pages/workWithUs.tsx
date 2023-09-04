@@ -199,6 +199,8 @@ function WorkWithUs() {
       // >> END -> IdentityCard <<
     }
     // >> END -> Image candidacy <<
+
+    setIsSend(false)
   }
 
   async function newCandidacy(
@@ -220,8 +222,14 @@ function WorkWithUs() {
       type_candidacy: formValues.type_candidacy
     }
 
+    if (newData.application_areas == '') {
+      toast.error('Não selecionou a sua áreas de candidatura', {
+        position: toast.POSITION.TOP_RIGHT
+      })
+    }
+
     try {
-      const { data } = await sendCandidacy(newData)
+      const data = await sendCandidacy(newData)
 
       if (data.error) {
         toast.error(data.msg, {
@@ -245,6 +253,7 @@ function WorkWithUs() {
   }
 
   useEffect(() => {
+    setIsSend(false)
     Aos.init({ duration: 500 })
   }, [])
 
@@ -435,7 +444,7 @@ function WorkWithUs() {
                     type="file"
                     hidden
                     id="inputTagBI"
-                    accept="application/pdf"
+                    accept="image/*,.pdf"
                     onChange={onFileBIChange}
                   />
                 </div>
@@ -459,7 +468,7 @@ function WorkWithUs() {
                   <input
                     type="file"
                     id="inputTagCV"
-                    accept="application/pdf"
+                    accept="image/*,.pdf"
                     onChange={onFileCVChange}
                     style={{ display: 'none' }}
                   />

@@ -1,9 +1,12 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { routsNameMain } from '../data/routsName'
 import RootLayout from '../Layout/RootLayout'
 import FourOhFour from '../pages/404'
 import Loading from '../pages/loading'
+import Register from '../pages/register'
+import Login from '../pages/login'
+import { AppContext } from '../provider/AppProvider'
 
 const Home = React.lazy(() => import('../pages/'))
 const About = React.lazy(() => import('../pages/about'))
@@ -11,6 +14,20 @@ const Services = React.lazy(() => import('../pages/services'))
 const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
 const WorkWithUs = React.lazy(() => import('../pages/workWithUs'))
 const Contacts = React.lazy(() => import('../pages/contacts'))
+
+type Props = {
+  children: JSX.Element
+}
+
+function PrivateLogin({ children }: Props) {
+  const { user } = useContext(AppContext)
+
+  if (user != null) {
+    return <Navigate to={'/'} />
+  }
+
+  return children
+}
 
 export function Router() {
   return (
@@ -50,6 +67,28 @@ export function Router() {
             element={
               <React.Suspense fallback={<Loading />}>
                 <Contacts />
+              </React.Suspense>
+            }
+          />
+          {/* register */}
+          <Route
+            path={routsNameMain.register}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <PrivateLogin>
+                  <Register />
+                </PrivateLogin>
+              </React.Suspense>
+            }
+          />
+          {/* Login */}
+          <Route
+            path={routsNameMain.login}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <PrivateLogin>
+                  <Login />
+                </PrivateLogin>
               </React.Suspense>
             }
           />

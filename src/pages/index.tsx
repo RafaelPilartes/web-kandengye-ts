@@ -155,23 +155,21 @@ function Home() {
         >
           <SwiperSlide>
             <div className="description">
-              <span data-aos="fade-down">
+              {/* <span data-aos="fade-down">
                 Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
                 por semana
-              </span>
+              </span> */}
               <h1 data-aos="fade-down">
-                Deixe-nos cuidar das duas entregas <br /> enquanto você cuida
+                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
                 do seu negócio
               </h1>
               <span data-aos="fade-up">
-                Escale dramaticamente os portais compatíveis com versões
-                anteriores depois que os produtos de posicionamento de mercado
-                predominarem servidamente.
+                Kandengue atrevido, chegar atrasado? Duvido!
               </span>
 
               <button data-aos="fade-up">
                 {' '}
-                <a href="">Saber mais</a>
+                <a href={routsNameMain.about}>Saber mais</a>
               </button>
             </div>
             <img src={heroBg1} />
@@ -180,21 +178,19 @@ function Home() {
 
           <SwiperSlide>
             <div className="description">
-              <span data-aos="fade-down">
+              {/* <span data-aos="fade-down">
                 Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
                 por semana
-              </span>
+              </span> */}
               <h1 data-aos="fade-down">
-                Desfrutando Confortável <br /> Viagem Com Kandengye
+                Desfrutando Confortável <br /> Viagem Com kandengue
               </h1>
               <span data-aos="fade-up">
-                Escale dramaticamente os portais compatíveis com versões
-                anteriores depois que os produtos de posicionamento de mercado
-                predominarem servidamente.
+                Kandengue atrevido, chegar atrasado? Duvido!
               </span>
 
               <button data-aos="fade-up">
-                <a href="">Saber mais</a>
+                <a href={routsNameMain.about}>Saber mais</a>
               </button>
             </div>
 
@@ -204,22 +200,20 @@ function Home() {
 
           <SwiperSlide>
             <div className="description">
-              <span data-aos="fade-down">
+              {/* <span data-aos="fade-down">
                 Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
                 por semana
-              </span>
+              </span> */}
               <h1 data-aos="fade-down">
-                Desfrutando Confortável <br /> Viagem Com Kandengye
+                Desfrutando Confortável <br /> Viagem Com kandengue
               </h1>
               <span data-aos="fade-up">
-                Escale dramaticamente os portais compatíveis com versões
-                anteriores depois que os produtos de posicionamento de mercado
-                predominarem servidamente.
+                Kandengue atrevido, chegar atrasado? Duvido!
               </span>
 
               <button data-aos="fade-up">
                 {' '}
-                <a href="">Saber mais</a>
+                <a href={routsNameMain.about}>Saber mais</a>
               </button>
             </div>
             <img src={heroBg3} />
@@ -325,7 +319,9 @@ function Home() {
                 </ul>
 
                 <button className="btn-background">
-                  <a href="">Cadastre-se para dirigir</a>
+                  <a href={routsNameMain.workWithUs}>
+                    Cadastre-se para dirigir
+                  </a>
                 </button>
               </div>
             </div>

@@ -7,5 +7,7 @@ export const routsNameMain = {
   services: `/services`,
   becomeDriver: `/becomeDriver`,
   workWithUs: `/workWithUs`,
-  contact: `/contact`
+  contact: `/contact`,
+  login: `/login`,
+  register: `/register`
 }

@@ -404,6 +404,29 @@ export const HeaderContainerStyles = styled.header`
       display: inline;
     }
   }
+
+  .optionContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .containerBaseInfo {
+      display: flex;
+      margin: 0 16px;
+      flex-direction: column;
+
+      cursor: pointer;
+
+      h4 {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+      p {
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+    }
+  }
 `
 
 export const SLinkContainer = styled.div`

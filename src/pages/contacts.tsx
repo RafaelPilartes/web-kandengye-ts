@@ -184,7 +184,7 @@ const Contacts: React.FC = (): JSX.Element => {
               <strong>
                 <FiPhoneCall /> Telefone :
               </strong>
-              <a href="tel:929004006">(+244) 929 004 006</a>
+              <a href="tel:938624620">(+244) 938 624 620</a>
             </div>
 
             <div className="field">

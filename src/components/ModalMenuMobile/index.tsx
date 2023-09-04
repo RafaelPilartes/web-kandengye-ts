@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { MenuContainer, SLink, SLinkContainer } from './styles'
 import { AiFillCar, AiOutlineClose } from 'react-icons/ai'
 import { routsNameMain } from '../../data/routsName'
-import { FaDownload } from 'react-icons/fa'
+import { FaDownload, FaMotorcycle } from 'react-icons/fa'
 
 interface ModalMenuMobileInterface {
   menuIsVisible: boolean
@@ -60,7 +60,7 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
           {mapLinks}
           <button className="btn-background">
             <a href={routsNameMain.becomeDriver}>
-              <AiFillCar /> Torna-se estafeta
+              <FaMotorcycle /> Torna-se estafeta
             </a>
           </button>
           <button className="btn-border">

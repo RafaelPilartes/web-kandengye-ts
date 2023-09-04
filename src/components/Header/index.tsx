@@ -1,5 +1,18 @@
 import { useContext, useEffect, useState } from 'react'
 
+// Mui
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+
 // Moludos de Icons
 import { MdEmail, MdAccessTimeFilled } from 'react-icons/md'
 import { BsFacebook, BsInstagram, BsTwitter, BsWhatsapp } from 'react-icons/bs'
@@ -33,12 +46,28 @@ import { GiGps } from 'react-icons/gi'
 import { IoLocation } from 'react-icons/io5'
 import { AiFillCar } from 'react-icons/ai'
 import { IoIosArrowDown } from 'react-icons/io'
+import { ListItemIcon } from '@material-ui/core'
+import { FiLogOut } from 'react-icons/fi'
+
+const settings = ['P', 'Account', 'Dashboard', 'Logout']
 
 function HeaderMain() {
-  const { menuIsVisible, setMenuIsVisible } = useContext(AppContext)
+  const { menuIsVisible, setMenuIsVisible, user, logoutAccunt } =
+    useContext(AppContext)
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget)
+  }
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
+  }
   const openMenu = () => {
     setMenuIsVisible(true)
+  }
+
+  function logout() {
+    logoutAccunt()
   }
 
   useEffect(() => {}, [])
@@ -57,7 +86,7 @@ function HeaderMain() {
           <ul className="containerLeft">
             <li>
               <a href="tel:929004006">
-                <BiPhoneCall /> (+244) 929 004 006
+                <BiPhoneCall /> (+244) 938 624 620
               </a>
             </li>
             <li> | </li>
@@ -121,12 +150,60 @@ function HeaderMain() {
               <BiMenuAltLeft className="iconsMenu" onClick={openMenu} />
             </span>
 
-            <a className="btn-background" href="">
-              Entrar
-            </a>
-            <a className="btn-border" href="">
-              Registrar
-            </a>
+            {!user && (
+              <>
+                <a
+                  className="btn-background"
+                  href={routsNameMain.login as string}
+                >
+                  Entrar
+                </a>
+                <a
+                  className="btn-border"
+                  href={routsNameMain.register as string}
+                >
+                  Registrar
+                </a>
+              </>
+            )}
+            {user && (
+              <Box sx={{ flexGrow: 0 }}>
+                <div className="optionContainer">
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <Avatar alt="Remy Sharp" src={user.photo} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    <MenuItem onClick={logout}>
+                      <ListItemIcon>
+                        <FiLogOut size={20} />
+                      </ListItemIcon>
+                      Sair
+                    </MenuItem>
+                  </Menu>
+                  <div className="containerBaseInfo">
+                    <h4>{` ${user.name}`}</h4>
+                    <p>{user.email}</p>
+                  </div>
+                </div>
+              </Box>
+            )}
           </div>
         </div>
       </HeaderContainerStyles>

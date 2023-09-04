@@ -318,7 +318,7 @@ function BecomeDriver() {
             <div className="descriptionSection">
               <h1 data-aos="fade-up">Formulário para candidatar-se</h1>
               <h1 data-aos="fade-up">
-                á <strong>Moto-Táxi</strong>
+                á <strong>Estafeta</strong>
               </h1>
             </div>
 
@@ -472,7 +472,7 @@ function BecomeDriver() {
                     type="file"
                     hidden
                     id="inputTagBI"
-                    accept="application/pdf"
+                    accept="image/*,.pdf"
                     onChange={onFileBIChange}
                   />
                 </div>
@@ -490,18 +490,22 @@ function BecomeDriver() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileCVName ? fileCVName : 'Adicionar seu currículo'}
+                    {fileCVName
+                      ? fileCVName
+                      : 'Adicionar documento da motorizada'}
                   </span>
 
                   <input
                     type="file"
                     id="inputTagCV"
-                    accept="application/pdf"
+                    accept="image/*,.pdf"
                     onChange={onFileCVChange}
                     style={{ display: 'none' }}
                   />
                 </div>
-                <p className="littleText">ou solte o seu currículo aqui</p>
+                <p className="littleText">
+                  ou solte o documento da motorizada aqui
+                </p>
               </label>
 
               <label
@@ -523,7 +527,7 @@ function BecomeDriver() {
                     type="file"
                     hidden
                     id="imagesVehicle"
-                    accept="image"
+                    accept="image/png, image/jpeg, image/jpg"
                     multiple
                     onChange={onImageVehicleChange}
                   />

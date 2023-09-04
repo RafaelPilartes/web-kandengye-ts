@@ -1,14 +1,17 @@
 import { Gender } from '../models/enum/GenderTypes'
 
 export type UserInterface = {
-  _id: string
-  first_name: string
-  last_name: string
-  photo_profile: string
+  id?: string
+  photo: string
+  name: string
+  number: string
   email: string
-  password?: string
-  gender?: Gender
-  birth_day?: Gender
-  createdAt?: Date
-  updatedAt?: Date
+  province: string
+  gender: string
+  password: string
+  date_create?: string
+}
+export type UserCredencialInterface = {
+  email: string
+  password: string
 }
