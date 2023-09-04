@@ -271,9 +271,8 @@ function WorkWithUs() {
         <div className="containerContent">
           <div className="containerWorkWithUs">
             <div className="descriptionSection">
-              <h1 data-aos="fade-up">Formulário para candidatar-se</h1>
               <h1 data-aos="fade-up">
-                e <strong>trabalhar connosco</strong>
+                <strong>CANDIDATURA GERAL</strong>
               </h1>
             </div>
 

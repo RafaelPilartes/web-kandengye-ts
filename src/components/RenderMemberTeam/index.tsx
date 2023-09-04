@@ -19,7 +19,7 @@ const RenderMemberTeam: React.FC<RenderMemberTeamInterface> = ({
         <img src={photo} alt="" />
       </div>
       <div className="containerRight">
-        <h2> {name} </h2>
+        {/* <h2> {name} </h2> */}
         <p> {memberFunction} </p>
       </div>
     </CardContainer>

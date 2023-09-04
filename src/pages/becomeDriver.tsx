@@ -316,9 +316,8 @@ function BecomeDriver() {
         <div className="containerContent">
           <div className="containerBecomeDriver">
             <div className="descriptionSection">
-              <h1 data-aos="fade-up">Formulário para candidatar-se</h1>
               <h1 data-aos="fade-up">
-                á <strong>Estafeta</strong>
+                <strong>CANDIDATURA À ESTAFETA</strong>
               </h1>
             </div>
 

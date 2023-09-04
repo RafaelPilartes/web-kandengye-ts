@@ -51,7 +51,7 @@ function About() {
         'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-01.jpg',
       title: 'Missão',
       description:
-        'Simplificar o complexo, desmistificar o mistério e gerar sempre valor',
+        'Oferecer soluções logísticas e eficientes para os nossos clientes, garantindo entregas rápidas e seguras, com o compromisso de conectar pessoas e negócios em toda Angola',
       icon: <AiFillStar size={36} />
     },
     {
@@ -59,7 +59,7 @@ function About() {
         'https://demo.ovatheme.com/infetech/wp-content/uploads/2022/03/service1-03.jpg',
       title: 'Visão',
       description:
-        'Solucionar os problemas da sociedade com transparência, segurança e simplicidade',
+        'Ser reconhecida como empresa lider em soluções de logísticas de entregas, superando as expectativas dos clientes com eficiência, confiabilidade e inovação, contribuindo para o crescimento e sucesso dos nossos parceiros de negocio',
       icon: <MdDesignServices size={36} />
     },
     {
@@ -82,12 +82,6 @@ function About() {
   ))
 
   const docTeam = [
-    {
-      photo:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
-      name: 'Geovani Nascimento',
-      memberFunction: 'Diretor geral'
-    },
     {
       photo:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png',
@@ -158,24 +152,33 @@ function About() {
               </div>
 
               <p>
-                Kandengue Atrevido (KA) é uma organização criada totalmente por
-                jovens estudantes que ambicionam atingir o sucesso no mundo dos
-                negócios juntamente com a sua plataforma, é uma organização que
-                visa automatizar a vida do pacato cidadão.
+                Kandengue Atrevido (KA) é uma empresa jovem e inovadora que foi
+                criada com o objetivo se oferecer serviços de transporte,
+                especialmente no ramo de entregas. Com uma equipe de jovens
+                empreendedores, a empresa busca trazer uma abordagem fresca e
+                ousada para o sector.
+              </p>
+              <p>
+                O diferencial da Kandengue Atrevido (KA) está na sua dedicação
+                em prestar serviço de qualidade, rápido e eficiente. A empresa
+                entende a importância de atender as demandas dos clientes de
+                forma ágil, e garantir que as entras sejam feitas com segurança
+                e qualidade.
+              </p>
+              <p>
+                Com uma visão empreendedora e uma equipe dedicada, a Kandengue
+                Atrevido (KA) tem conquistado cada vez mais clientes satisfeitos
+                e se estabelecido como uma referencia no ramo da entrega. Se
+                você procura um serviço de transporte agil, seguro e com um
+                toque de ousadia, a Kandengue Atrevido é a escolha certa!
               </p>
 
               <ul>
                 <li>
-                  <BsCheck2Circle /> Continuamente a ligação total para frente
+                  <BsCheck2Circle /> Transporte rápido, seguro e eficaz.
                 </li>
                 <li>
-                  <BsCheck2Circle /> Aplicativo multifunctional
-                </li>
-                <li>
-                  <BsCheck2Circle /> Funcionalidade confiável.
-                </li>
-                <li>
-                  <BsCheck2Circle /> Terceirização de serviços
+                  <BsCheck2Circle /> Serviço multifunctional
                 </li>
               </ul>
             </div>
@@ -292,14 +295,15 @@ function About() {
         <div className="containerContent">
           <div className="contentExploreUs">
             <div data-aos="fade-right">
-              <h3>KANGENGYE vai até onde desejares!</h3>
+              <h3>KANDENGUE te leva até onde desejares!</h3>
               <h1>Só precisas dizer para onde vais!</h1>
             </div>
 
             <div data-aos="fade-left">
               <ButtonSeeMore
                 value={'Kandengue'}
-                onClick={() => goTo(routsNameMain.home)}
+                onClick={() => null}
+                // onClick={() => goTo(routsNameMain.home)}
                 colorBase={defaultTheme.colors['base-white']}
                 colorSecondary={defaultTheme.colors['brand-secondary']}
                 textColor={defaultTheme.colors['base-text-bold']}
@@ -316,8 +320,35 @@ function About() {
               Conheça a nossa <strong>equipe</strong>
             </h1>
 
-            <div className="containerRowMemberTeam" data-aos="fade-left">
-              {listTeam}
+            <div className="containerRowMember">
+              <div className="containerRowMemberTeamTop">
+                <RenderMemberTeam
+                  photo={
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png'
+                  }
+                  name={'Geovani Nascimento'}
+                  memberFunction={'Presidente do conselho administrativo'}
+                />
+              </div>
+              <div className="containerRowMemberTeamTop">
+                <RenderMemberTeam
+                  photo={
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png'
+                  }
+                  name={'Geovani Nascimento'}
+                  memberFunction={'Administrador'}
+                />
+                <RenderMemberTeam
+                  photo={
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Blank_portrait%2C_male_%28rectangular%29.png/463px-Blank_portrait%2C_male_%28rectangular%29.png'
+                  }
+                  name={'Geovani Nascimento'}
+                  memberFunction={'Administrador'}
+                />
+              </div>
+              <div className="containerRowMemberTeam" data-aos="fade-left">
+                {listTeam}
+              </div>
             </div>
           </div>
         </div>

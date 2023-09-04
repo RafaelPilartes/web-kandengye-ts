@@ -24,6 +24,7 @@ export const CardContainer = styled.div`
     width: 100%;
     min-width: 6rem;
     height: auto;
+    max-height: 20rem;
 
     position: relative;
     object-fit: cover;

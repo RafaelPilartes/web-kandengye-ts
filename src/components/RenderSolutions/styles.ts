@@ -97,7 +97,7 @@ export const CardContainer = styled.div`
         text-overflow: ellipsis;
       }
       p {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         text-align: center;
 
         visibility: hidden;
@@ -111,7 +111,7 @@ export const CardContainer = styled.div`
         p {
           visibility: visible;
           opacity: 1;
-          height: 4rem;
+          height: auto;
         }
       }
 
@@ -124,7 +124,7 @@ export const CardContainer = styled.div`
           p {
             visibility: visible;
             opacity: 1;
-            height: 5.4rem;
+            height: auto;
           }
         }
       }
@@ -133,7 +133,7 @@ export const CardContainer = styled.div`
           p {
             visibility: visible;
             opacity: 1;
-            height: 4rem;
+            height: auto;
           }
         }
       }

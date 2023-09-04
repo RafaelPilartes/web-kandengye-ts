@@ -22,7 +22,6 @@ const RenderServices: React.FC<RenderServicesInterface> = ({
         <div className="shadow"></div>
       </div>
       <div className="containerFloat">
-        <span>{icon}</span>
         <div className="containerInfo">
           <h2> {title} </h2>
           <p> {description} </p>

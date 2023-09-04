@@ -740,6 +740,26 @@ export const ContainerAbout = styled.div`
         }
       }
 
+      .containerRowMember {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 4rem;
+        flex-wrap: wrap;
+      }
+      .containerRowMemberTeamTop {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
       .containerRowMemberTeam {
         width: 100%;
 

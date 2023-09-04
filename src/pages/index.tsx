@@ -222,7 +222,8 @@ function Home() {
         </Swiper>
       </div>
 
-      {/* <section className="aboutUs">
+      {/*  
+      <section className="aboutUs">
         <div className="containerContent">
           <div className="containerAboutUs">
             <div className="contentLeft">
@@ -273,7 +274,8 @@ function Home() {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
+      */}
 
       <section className="driver">
         <div className="containerContent">
@@ -286,18 +288,17 @@ function Home() {
 
               <div className="contentDescriptions">
                 <p>
-                  Entre no banco do motoqueiro e seja pago. Dirija na plataforma
-                  com a maior rede de passeios ativos
+                  Vem correndo e habilita-se a faturar mais de 300 Paus no mês
                 </p>
 
                 <ul>
                   <li>
                     <BsFillCheckCircleFill />
                     <p>
-                      <strong>Ganhos confiáveis:</strong>
+                      <strong>Kumbu na hora:</strong>
                       <br />
-                      Ganhe dinheiro, fique com suas gorjetas e resgate tudo
-                      quando quiser.
+                      Ganhe kumbu, fique com suas gorjetas e pegue tudo quando
+                      quiser.
                     </p>
                   </li>
                   <li>
@@ -305,17 +306,17 @@ function Home() {
                     <p>
                       <strong>Um horário flexível:</strong>
                       <br />
-                      Faça o seu dinheiro, sem precisar de se preocupar com o
-                      horário, Seja seu próprio chefe;.
+                      Faça o seu kumbo, sem precisar de se preocupar com o
+                      horário, seja seu próprio boss.
                     </p>
                   </li>
-                  <li>
+                  {/* <li>
                     <BsFillCheckCircleFill />
                     <p>
                       <strong>Receba instantaneamente:</strong>
                       <br /> Resgate seus ganhos quando quiser.
                     </p>
-                  </li>
+                  </li> */}
                 </ul>
 
                 <button className="btn-background">
@@ -334,47 +335,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* <section className="rider">
-        <div className="containerContent">
-          <div className="section3">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                Às suas marcas, preparar, já com apenas alguns toques rápidos{' '}
-                <strong>Sempre</strong>
-              </h1>
-
-              <div className="contentDescriptions">
-                <p data-aos="fade-right">
-                  Qualquer que seja seu destino, levaremos você aonde você
-                  precisa chegar
-                </p>
-
-                <ul>
-                  <li>
-                    <BsFillCheckCircleFill /> Encontre uma corrida confiável em
-                    poucos minutos
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill /> Saiba que seu Motoqueiro está
-                    usando uma máscara
-                  </li>
-                </ul>
-
-                <button className="btn-background">
-                  <a href="">Solicitar uma corrida</a>
-                </button>
-              </div>
-            </div>
-
-            <img
-              data-aos="fade-up-left"
-              src="https://covertrip.com/wp-content/uploads/2022/02/taxi-safety.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </section> */}
 
       <section className="freeConsulting">
         <div className="containerLinesLeft" data-aos="fade-up">
@@ -395,18 +355,17 @@ function Home() {
         <div className="containerContent">
           <div className="contentFreeConsulting">
             <div data-aos="fade-right">
-              <h1>Para onde vamos hoje?</h1>
+              <h1>Torne-se parceiro</h1>
               <h3>
-                Uma corrida é muito mais do que apenas uma corrida. É a porta de
-                entrada para oportunidades ou empregos. Uma conexão com a
-                comunidade.
+                Trabalhe com quem entende de entregas! Parceria com a kandengue
+                Atrevido é sinônimo de qualidade e confiança.
               </h3>
             </div>
 
             <div data-aos="fade-left">
               <ButtonSeeMore
-                value={'Escolher destino'}
-                onClick={() => goTo(routsNameMain.home)}
+                value={'Contactar'}
+                onClick={() => goTo(routsNameMain.contact)}
                 colorBase={defaultTheme.colors['base-white']}
                 colorSecondary={defaultTheme.colors['brand-secondary']}
                 textColor={defaultTheme.colors['base-text-bold']}
@@ -416,19 +375,68 @@ function Home() {
         </div>
       </section>
 
+      <section className="rider">
+        <div className="containerContent">
+          <div className="section3">
+            <div className="descriptionSection">
+              <h1 data-aos="fade-up">
+                Vantagens de ser <strong>Parceiro</strong>
+              </h1>
+
+              <div className="contentDescriptions">
+                <p data-aos="fade-right">
+                  Oferecemos uma estragai de marketing inovadora que ira
+                  impulsionar suas vendas! Com o nosso aplicatico simplificado e
+                  atendimento diferenciado, proporcionamos uma experiência
+                  pratica e uma comodidade ímpar para os seus e nossos clientes
+                  .
+                </p>
+
+                <ul>
+                  <li>
+                    <BsFillCheckCircleFill /> Relatório de venda
+                  </li>
+                  <li>
+                    <BsFillCheckCircleFill /> Entrega rápida e segura
+                  </li>
+                  <li>
+                    <BsFillCheckCircleFill /> Divulgação dos produtos
+                  </li>
+                </ul>
+
+                <button className="btn-background">
+                  <a href="">Contactar-nos</a>
+                </button>
+              </div>
+            </div>
+
+            <img
+              data-aos="fade-up-left"
+              src="https://covertrip.com/wp-content/uploads/2022/02/taxi-safety.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </section>
+
       <section className="security">
         <div className="containerContent">
           <div className="section1">
             <div className="descriptionSection">
               <h1 data-aos="fade-up">
-                Sua segurança em primeiro lugar <strong>Sempre</strong>
+                Segurança em primeiro lugar <strong>Sempre</strong>
               </h1>
 
               <div className="contentDescriptions">
                 <p data-aos="fade-right">
-                  Nós cuidamos de você antes, durante e depois de cada corrida.
-                  E monitoramos todas as corridas para ajudar você a chegar ao
-                  seu destino. Caso precise, estamos prontos para ajudar.
+                  Simplifique sua vida com a kandengue Atrevido, a entrega que
+                  vai além das expectativas .
+                </p>
+                <p data-aos="fade-right">
+                  Nós cuidamos de você e sua encomenda antes, durante e depois
+                  de cada corrida. E monitoramos todas as corridas para ajudar a
+                  chegar ao seu destino. Caso precise, estamos prontos para
+                  ajudar.
                 </p>
               </div>
             </div>
