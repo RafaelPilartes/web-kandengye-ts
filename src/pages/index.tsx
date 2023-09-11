@@ -388,11 +388,10 @@ function Home() {
 
               <div className="contentDescriptions">
                 <p data-aos="fade-right">
-                  Oferecemos uma estragai de marketing inovadora que ira
-                  impulsionar suas vendas! Com o nosso aplicatico simplificado e
+                  Oferecemos uma estratégia de marketing inovadora que ira
+                  impulsionar suas vendas! Com o nosso aplicativo simplificado e
                   atendimento diferenciado, proporcionamos uma experiência
-                  pratica e uma comodidade ímpar para os seus e nossos clientes
-                  .
+                  prática e uma ímpar para os seus e nossos clientes.
                 </p>
 
                 <ul>

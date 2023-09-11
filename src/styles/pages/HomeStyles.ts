@@ -512,13 +512,6 @@ export const ContainerHome = styled.div`
 
     padding: 2rem 1.4rem;
 
-    @media only screen and (max-width: 1077px) {
-      flex-direction: column-reverse;
-      img {
-        width: 100%;
-      }
-    }
-
     .descriptionSection {
       display: flex;
       flex-direction: column;
@@ -623,6 +616,33 @@ export const ContainerHome = styled.div`
 
       :hover {
         /* animation: vibration 1.6s none; */
+      }
+    }
+
+    @media only screen and (max-width: 1077px) {
+      flex-direction: column-reverse;
+      img {
+        width: 100%;
+      }
+    }
+    @media only screen and (max-width: 420px) {
+      align-items: start;
+
+      img {
+        width: 80%;
+        max-height: auto;
+      }
+    }
+    @media only screen and (max-width: 400px) {
+      .descriptionSection {
+        h1 {
+          font-size: 1.6rem;
+        }
+      }
+
+      img {
+        width: 70%;
+        max-height: auto;
       }
     }
   }
