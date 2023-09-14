@@ -99,7 +99,7 @@ export const CardContainer = styled.div`
         text-overflow: ellipsis;
       }
       p {
-        font-size: 1.1rem;
+        font-size: 1rem;
         text-align: center;
 
         visibility: hidden;
@@ -122,8 +122,9 @@ export const CardContainer = styled.div`
       box-shadow: 0px 9px 31px -11px rgba(0, 0, 0, 0.29);
 
       @media (max-width: 1075px) {
-        :hover {
-          p {
+        p {
+          font-size: 0.9rem;
+          :hover {
             visibility: visible;
             opacity: 1;
             height: 5.4rem;
@@ -131,8 +132,19 @@ export const CardContainer = styled.div`
         }
       }
       @media (max-width: 934px) {
-        :hover {
-          p {
+        p {
+          font-size: 0.86rem;
+          :hover {
+            visibility: visible;
+            opacity: 1;
+            height: 4rem;
+          }
+        }
+      }
+      @media (max-width: 470px) {
+        p {
+          font-size: 0.8rem;
+          :hover {
             visibility: visible;
             opacity: 1;
             height: 4rem;

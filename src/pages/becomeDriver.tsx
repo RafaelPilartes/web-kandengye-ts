@@ -34,7 +34,7 @@ import { provinces } from '../data/labelProvince'
 import {
   sendCandidacy,
   uploadImageCandidacy,
-  uploadPdfCurriculum,
+  uploadPdfVehicleDoc,
   uploadPdfIdentityCard,
   uploadPdfVehicle
 } from '../api/server'
@@ -52,7 +52,7 @@ function BecomeDriver() {
     province: '',
     gender: '',
     identity_card: '',
-    curriculum: '',
+    vehicle_Doc: '',
     vehicle_photo: '',
     type_candidacy: 'Motorista'
   }
@@ -74,9 +74,9 @@ function BecomeDriver() {
     []
   )
 
-  // CV
-  const [fileCVSelect, setFileCVSelect] = useState<string>('')
-  const [fileCVName, setFileCVName] = useState<string>('')
+  // DocVehicle
+  const [fileDocVehicleSelect, setFileDocVehicleSelect] = useState<string>('')
+  const [fileDocVehicleName, setFileDocVehicleName] = useState<string>('')
   // BI
   const [filBISelect, setFilBISelect] = useState<string>('')
   const [filBIName, setFilBIName] = useState<string>('')
@@ -119,20 +119,20 @@ function BecomeDriver() {
     }
   }
 
-  // CV
-  const onFileCVChangeDrag = (event: any) => {
+  // DocVehicle
+  const onFileDocVehicleChangeDrag = (event: any) => {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
 
-    setFileCVSelect(file)
-    setFileCVName(file.name)
+    setFileDocVehicleSelect(file)
+    setFileDocVehicleName(file.name)
   }
-  const onFileCVChange = (event: any) => {
+  const onFileDocVehicleChange = (event: any) => {
     const [file] = event.target.files
 
-    setFileCVSelect(file)
-    setFileCVName(file.name)
+    setFileDocVehicleSelect(file)
+    setFileDocVehicleName(file.name)
   }
 
   // BI
@@ -201,22 +201,24 @@ function BecomeDriver() {
       const identityCardUrl = resIdentityCard.pdfUrl
       const messageIdentityCard = resIdentityCard.msg
 
+      console.log('resIdentityCard => ', resIdentityCard)
+
       if (resIdentityCard.error) {
         toast.error(messageIdentityCard, {
           position: toast.POSITION.TOP_RIGHT
         })
       } else {
-        // >> Curriculum <<
-        const curriculumData = new FormData()
-        curriculumData.append('curriculumData', fileCVSelect)
+        // >> VehicleDoc <<
+        const docVehicle = new FormData()
+        docVehicle.append('docVehicle', fileDocVehicleSelect)
 
-        const resCurriculum = await uploadPdfCurriculum(curriculumData)
+        const resVehicleDoc = await uploadPdfVehicleDoc(docVehicle)
 
-        const curriculumUrl = resCurriculum.pdfUrl
-        const messageCurriculum = resCurriculum.msg
+        const curriculumUrl = resVehicleDoc.pdfUrl
+        const messageVehicleDoc = resVehicleDoc.msg
 
-        if (resCurriculum.error) {
-          toast.error(messageCurriculum, {
+        if (resVehicleDoc.error) {
+          toast.error(messageVehicleDoc, {
             position: toast.POSITION.TOP_RIGHT
           })
         } else {
@@ -248,7 +250,7 @@ function BecomeDriver() {
           // >> END -> Vehicle <<
         }
 
-        // >> END -> Curriculum <<
+        // >> END -> VehicleDoc <<
       }
       // >> END -> IdentityCard <<
     }
@@ -262,7 +264,7 @@ function BecomeDriver() {
   async function newCandidacy(
     photo: string,
     identity_card: string,
-    curriculum: string,
+    vehicle_Doc: string,
     vehicle_photo: string
   ) {
     const newData = {
@@ -273,8 +275,9 @@ function BecomeDriver() {
       phone: driverData.phone,
       province: driverData.province,
       gender: driverData.gender,
+      type_candidacy: driverData.type_candidacy,
       identity_card: identity_card,
-      curriculum: curriculum,
+      vehicle_Doc: vehicle_Doc,
       vehicle_photo: vehicle_photo
     }
 
@@ -482,24 +485,24 @@ function BecomeDriver() {
               </label>
 
               <label
-                htmlFor="inputTagCV"
+                htmlFor="inputTagDocVehicle"
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={onFileCVChangeDrag}
+                onDrop={onFileDocVehicleChangeDrag}
               >
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileCVName
-                      ? fileCVName
+                    {fileDocVehicleName
+                      ? fileDocVehicleName
                       : 'Adicionar documento da motorizada'}
                   </span>
 
                   <input
                     type="file"
-                    id="inputTagCV"
+                    id="inputTagDocVehicle"
                     accept="image/*,.pdf"
-                    onChange={onFileCVChange}
+                    onChange={onFileDocVehicleChange}
                     style={{ display: 'none' }}
                   />
                 </div>

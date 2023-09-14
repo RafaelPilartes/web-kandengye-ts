@@ -147,7 +147,7 @@ function About() {
 
               <p>
                 Kandengue Atrevido (KA) é uma empresa jovem e inovadora que foi
-                criada com o objetivo de oferecer serviços de transporte,
+                criada com o objectivo de oferecer serviços de transporte,
                 especialmente no ramo de entregas. Com uma equipe de jovens
                 empreendedores, a empresa busca trazer uma abordagem fresca e
                 ousada para o sector.

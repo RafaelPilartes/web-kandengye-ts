@@ -1,16 +1,20 @@
 import { Gender } from '../models/enum/GenderTypes'
 
 export type CandidacyInterface = {
-  photo: string
+  id?: string
+  photo?: string
   first_name: string
   last_name: string
   email: string
   phone: string
   province: string
-  gender: 'Masculino' | 'Feminino' | ''
-  identity_card: string
-  curriculum: string
+  gender: string
+  identity_card?: string
+  curriculum?: string
+  vehicle_Doc?: string
   vehicle_photo?: string
   application_areas?: string
-  type_candidacy: 'Motorista' | 'Serviços Geral' | ''
+  type_candidacy?: string
+  date_create?: string
+  date_update?: string
 }

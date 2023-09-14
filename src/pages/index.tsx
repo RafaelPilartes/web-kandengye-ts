@@ -165,7 +165,7 @@ function Home() {
                 por semana
               </span> */}
               <h1 data-aos="fade-down">
-                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
+                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
                 do seu negócio
               </h1>
               <span data-aos="fade-up">
@@ -188,7 +188,7 @@ function Home() {
                 por semana
               </span> */}
               <h1 data-aos="fade-down">
-                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
+                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
                 do seu negócio
               </h1>
               <span data-aos="fade-up">
@@ -211,7 +211,7 @@ function Home() {
                 por semana
               </span> */}
               <h1 data-aos="fade-down">
-                Deixe-nos cuidar das duas entregas <br /> enquanto cuidas
+                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
                 do seu negócio
               </h1>
               <span data-aos="fade-up">
@@ -388,7 +388,7 @@ function Home() {
 
               <div className="contentDescriptions">
                 <p data-aos="fade-right">
-                  Oferecemos uma estratégia de marketing inovadora que ira
+                  Oferecemos uma estratégia de marketing inovadora que irá
                   impulsionar suas vendas! Com o nosso aplicativo simplificado e
                   atendimento diferenciado, proporcionamos uma experiência
                   prática e uma ímpar para os seus e nossos clientes.

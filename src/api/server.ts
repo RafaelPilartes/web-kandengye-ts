@@ -16,7 +16,7 @@ export function loginUser(dataToLogin: any): Promise<any> {
 }
 export function sendUser(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/user/register`
+    const url = `${BaseURL}/user/create`
     axios
       .post(url, dataToSave)
       .then(resData => {
@@ -66,11 +66,11 @@ export function uploadImageCandidacy(imageToSave: any): Promise<any> {
       })
   })
 }
-export function uploadPdfIdentityCard(pdfToSave: any): Promise<any> {
+export function uploadPdfIdentityCard(docToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/pdf/identityCard`
+    const url = `${BaseURL}/upload/doc/identityCard`
     axios
-      .post(url, pdfToSave)
+      .post(url, docToSave)
       .then(resData => {
         resolve(resData.data)
       })
@@ -79,11 +79,11 @@ export function uploadPdfIdentityCard(pdfToSave: any): Promise<any> {
       })
   })
 }
-export function uploadPdfCurriculum(pdfToSave: any): Promise<any> {
+export function uploadPdfCurriculum(docToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/pdf/curriculum`
+    const url = `${BaseURL}/upload/doc/curriculum`
     axios
-      .post(url, pdfToSave)
+      .post(url, docToSave)
       .then(resData => {
         resolve(resData.data)
       })
@@ -95,6 +95,19 @@ export function uploadPdfCurriculum(pdfToSave: any): Promise<any> {
 export function uploadPdfVehicle(imageToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
     const url = `${BaseURL}/upload/image/vehicle`
+    axios
+      .post(url, imageToSave)
+      .then(resData => {
+        resolve(resData.data)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  })
+}
+export function uploadPdfVehicleDoc(imageToSave: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const url = `${BaseURL}/upload/doc/docVehicle`
     axios
       .post(url, imageToSave)
       .then(resData => {
