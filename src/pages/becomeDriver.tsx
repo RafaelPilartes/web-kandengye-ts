@@ -75,11 +75,10 @@ function BecomeDriver() {
   )
 
   // DocVehicle
-  const [fileDocVehicleSelect, setFileDocVehicleSelect] = useState<string>('')
-  const [fileDocVehicleName, setFileDocVehicleName] = useState<string>('')
+  const [fileDocVehicleSelect, setFileDocVehicleSelect] = useState<File[]>([])
+
   // BI
-  const [filBISelect, setFilBISelect] = useState<string>('')
-  const [filBIName, setFilBIName] = useState<string>('')
+  const [fileBISelect, setFileBISelect] = useState<File[]>([])
 
   // Image
   const onImageChangeDrag = (event: any) => {
@@ -120,35 +119,41 @@ function BecomeDriver() {
   }
 
   // DocVehicle
-  const onFileDocVehicleChangeDrag = (event: any) => {
+  const onFileDocVehicleChangeDrag = (
+    event: React.DragEvent<HTMLLabelElement>
+  ) => {
     event.preventDefault()
-
-    const [file] = event.dataTransfer.files
-
-    setFileDocVehicleSelect(file)
-    setFileDocVehicleName(file.name)
+    const files = event.dataTransfer.files
+    if (files) {
+      const selectedFiles = Array.from(files)
+      setFileDocVehicleSelect([...fileDocVehicleSelect, ...selectedFiles])
+    }
   }
-  const onFileDocVehicleChange = (event: any) => {
-    const [file] = event.target.files
-
-    setFileDocVehicleSelect(file)
-    setFileDocVehicleName(file.name)
+  const onFileDocVehicleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files
+    if (files) {
+      const selectedFiles = Array.from(files)
+      setFileDocVehicleSelect(selectedFiles)
+    }
   }
 
   // BI
-  const onFileBIChangeDrag = (event: any) => {
+  const onFileBIChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault()
-
-    const [file] = event.dataTransfer.files
-
-    setFilBISelect(file)
-    setFilBIName(file.name)
+    const files = event.dataTransfer.files
+    if (files) {
+      const selectedFiles = Array.from(files)
+      setFileBISelect([...fileBISelect, ...selectedFiles])
+    }
   }
-  const onFileBIChange = (event: any) => {
-    const [file] = event.target.files
-
-    setFilBISelect(file)
-    setFilBIName(file.name)
+  const onFileBIChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    if (files) {
+      const selectedFiles = Array.from(files)
+      setFileBISelect(selectedFiles)
+    }
   }
 
   const handleDragOver = (event: any) => {
@@ -164,7 +169,7 @@ function BecomeDriver() {
 
       return (
         <div
-          onClick={() => alert('rrr')}
+          // onClick={() => alert('rrr')}
           key={index}
           className="containerPhotos"
         >
@@ -194,11 +199,14 @@ function BecomeDriver() {
     } else {
       // >> IdentityCard <<
       const identityCardData = new FormData()
-      identityCardData.append('identityCardData', filBISelect)
+
+      for (let i = 0; i < fileBISelect.length; i++) {
+        identityCardData.append('identityCardData[]', fileBISelect[i])
+      }
 
       const resIdentityCard = await uploadPdfIdentityCard(identityCardData)
 
-      const identityCardUrl = resIdentityCard.pdfUrl
+      const identityCardUrl = resIdentityCard.pdfUrl as string[]
       const messageIdentityCard = resIdentityCard.msg
 
       console.log('resIdentityCard => ', resIdentityCard)
@@ -210,11 +218,14 @@ function BecomeDriver() {
       } else {
         // >> VehicleDoc <<
         const docVehicle = new FormData()
-        docVehicle.append('docVehicle', fileDocVehicleSelect)
+
+        for (let i = 0; i < fileDocVehicleSelect.length; i++) {
+          docVehicle.append('docVehicle[]', fileDocVehicleSelect[i])
+        }
 
         const resVehicleDoc = await uploadPdfVehicleDoc(docVehicle)
 
-        const curriculumUrl = resVehicleDoc.pdfUrl
+        const curriculumUrl = resVehicleDoc.pdfUrl as string[]
         const messageVehicleDoc = resVehicleDoc.msg
 
         if (resVehicleDoc.error) {
@@ -223,13 +234,16 @@ function BecomeDriver() {
           })
         } else {
           // >> Vehicle <<
-          const vehicleData = new FormData()
+          const photosVehicleData = new FormData()
 
           for (let i = 0; i < filePhotoVehicleSelect.length; i++) {
-            vehicleData.append('photosVehicle[]', filePhotoVehicleSelect[i])
+            photosVehicleData.append(
+              'photosVehicle[]',
+              filePhotoVehicleSelect[i]
+            )
           }
 
-          const resVehicle = await uploadPdfVehicle(vehicleData)
+          const resVehicle = await uploadPdfVehicle(photosVehicleData)
 
           const vehicleUrl = resVehicle.imagesUrl as string[]
           const messageVehicle = resVehicle.msg
@@ -241,8 +255,8 @@ function BecomeDriver() {
           } else {
             newCandidacy(
               imageUrl,
-              identityCardUrl,
-              curriculumUrl,
+              identityCardUrl.toString(),
+              curriculumUrl.toString(),
               vehicleUrl.toString()
             )
           }
@@ -281,6 +295,8 @@ function BecomeDriver() {
       vehicle_photo: vehicle_photo
     }
 
+    console.log(newData)
+
     const data = await sendCandidacy(newData)
 
     console.log(data)
@@ -303,7 +319,7 @@ function BecomeDriver() {
   }
 
   useEffect(() => {
-    Aos.init({ duration: 500 })
+    console.log(fileBISelect.map((item, index) => item.name))
   }, [])
 
   return (
@@ -466,8 +482,10 @@ function BecomeDriver() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {filBIName
-                      ? filBIName
+                    {fileBISelect.length >= 1
+                      ? fileBISelect.map((item, index) => (
+                          <span> {item.name}, </span>
+                        ))
                       : 'Adicionar seu Bilhete de identidade'}
                   </span>
 
@@ -476,6 +494,7 @@ function BecomeDriver() {
                     hidden
                     id="inputTagBI"
                     accept="image/*,.pdf"
+                    multiple
                     onChange={onFileBIChange}
                   />
                 </div>
@@ -493,8 +512,10 @@ function BecomeDriver() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileDocVehicleName
-                      ? fileDocVehicleName
+                    {fileDocVehicleSelect.length >= 1
+                      ? fileDocVehicleSelect.map((item, index) => (
+                          <span> {item.name}, </span>
+                        ))
                       : 'Adicionar documento da motorizada'}
                   </span>
 
@@ -502,6 +523,7 @@ function BecomeDriver() {
                     type="file"
                     id="inputTagDocVehicle"
                     accept="image/*,.pdf"
+                    multiple
                     onChange={onFileDocVehicleChange}
                     style={{ display: 'none' }}
                   />

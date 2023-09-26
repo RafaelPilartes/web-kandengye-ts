@@ -391,7 +391,7 @@ function Home() {
                   Oferecemos uma estratégia de marketing inovadora que irá
                   impulsionar suas vendas! Com o nosso aplicativo simplificado e
                   atendimento diferenciado, proporcionamos uma experiência
-                  prática e uma ímpar para os seus e nossos clientes.
+                  prática e ímpar para os seus e nossos clientes.
                 </p>
 
                 <ul>
