@@ -27,7 +27,8 @@ import { CandidacyInterface } from '../interfaces/ICandidacy'
 
 // Styles
 import { ContainerBecomeDriver } from '../styles/pages/BecomeDriverStyles'
-import { FaDownload } from 'react-icons/fa'
+import { FaDownload, FaTimesCircle } from 'react-icons/fa'
+import { IoCloseCircle } from 'react-icons/io5'
 import { provinces } from '../data/labelProvince'
 
 // Api
@@ -168,6 +169,18 @@ function BecomeDriver() {
     setFileBISelect(prev => handleMultipleFiles(event, prev))
   }
 
+  const removeFilePhotoVehicle = (index: number) => {
+    setFilePhotoVehicleSelect(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const removeFileDocVehicle = (index: number) => {
+    setFileDocVehicleSelect(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const removeFileBI = (index: number) => {
+    setFileBISelect(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleDragOver = (event: any) => {
     event.preventDefault()
   }
@@ -175,16 +188,38 @@ function BecomeDriver() {
     // fazer algo quando o mouse sai da área de soltar
   }
 
-  const renderPhotos = filePhotoVehicleSelect.map(
-    (file: any, index: number) => {
-      const photo = URL.createObjectURL(file)
+  const [vehiclePhotoPreviews, setVehiclePhotoPreviews] = useState<string[]>([])
 
+  useEffect(() => {
+    const urls = filePhotoVehicleSelect.map(file => URL.createObjectURL(file))
+    setVehiclePhotoPreviews(urls)
+
+    return () => {
+      urls.forEach(url => URL.revokeObjectURL(url))
+    }
+  }, [filePhotoVehicleSelect])
+
+  const renderPhotos = vehiclePhotoPreviews.map(
+    (photo: string, index: number) => {
       return (
-        <div
-          // onClick={() => alert('rrr')}
-          key={index}
-          className="containerPhotos"
-        >
+        <div key={index} className="containerPhotos" style={{ position: 'relative' }}>
+          <FaTimesCircle
+            size={24}
+            color="#C5161D"
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              right: '-10px',
+              zIndex: 10,
+              cursor: 'pointer',
+              background: '#fff',
+              borderRadius: '50%'
+            }}
+            onClick={(e) => {
+              e.preventDefault()
+              removeFilePhotoVehicle(index)
+            }}
+          />
           <img src={photo} alt="" />
         </div>
       )
@@ -461,7 +496,27 @@ function BecomeDriver() {
                   <span>
                     {fileBISelect.length >= 1
                       ? fileBISelect.map((item, index) => (
-                          <span key={index}> {item.name}, </span>
+                          <div
+                            key={index}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.4rem',
+                              background: 'rgba(0,0,0,0.05)',
+                              padding: '0.2rem 0.6rem',
+                              borderRadius: '1rem',
+                              marginRight: '0.4rem'
+                            }}
+                          >
+                            <span> {item.name} </span>
+                            <IoCloseCircle
+                              size={18}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                removeFileBI(index)
+                              }}
+                            />
+                          </div>
                         ))
                       : 'Adicionar Bilhete de identidade (BI)'}
                   </span>
@@ -488,7 +543,27 @@ function BecomeDriver() {
                   <span>
                     {fileDocVehicleSelect.length >= 1
                       ? fileDocVehicleSelect.map((item, index) => (
-                          <span key={index}> {item.name}, </span>
+                          <div
+                            key={index}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.4rem',
+                              background: 'rgba(0,0,0,0.05)',
+                              padding: '0.2rem 0.6rem',
+                              borderRadius: '1rem',
+                              marginRight: '0.4rem'
+                            }}
+                          >
+                            <span> {item.name} </span>
+                            <IoCloseCircle
+                              size={18}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                removeFileDocVehicle(index)
+                              }}
+                            />
+                          </div>
                         ))
                       : 'Adicionar documento do veículo'}
                   </span>

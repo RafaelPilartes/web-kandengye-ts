@@ -28,6 +28,7 @@ import { ApplicationInterface } from '../interfaces/IApplication'
 // Styles
 import { ContainerWorkWithUs } from '../styles/pages/WorkWithUsStyles'
 import { FaDownload } from 'react-icons/fa'
+import { IoCloseCircle } from 'react-icons/io5'
 import { provinces } from '../data/labelProvince'
 
 // Images
@@ -98,8 +99,17 @@ function WorkWithUs() {
     }
 
     setFilePhotoSelect(file)
-    setImagePreview(URL.createObjectURL(file))
+    const url = URL.createObjectURL(file)
+    setImagePreview(url)
   }
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview.startsWith('blob:')) {
+        URL.revokeObjectURL(imagePreview)
+      }
+    }
+  }, [imagePreview])
 
   // CV
   const onFileCVChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
@@ -147,6 +157,21 @@ function WorkWithUs() {
 
     setFilBISelect(file)
     setFilBIName(file.name)
+  }
+
+  const removeFilePhoto = () => {
+    setFilePhotoSelect(undefined)
+    setImagePreview('https://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg')
+  }
+
+  const removeFileCV = () => {
+    setFileCVSelect(undefined)
+    setFileCVName('')
+  }
+
+  const removeFileBI = () => {
+    setFilBISelect(undefined)
+    setFilBIName('')
   }
 
   const handleDragOver = (event: any) => {
@@ -344,6 +369,25 @@ function WorkWithUs() {
               >
                 <label className="containerPhotoUser" htmlFor="photoUser">
                   <img src={imagePreview} alt="" />
+                  {filePhotoSelect && (
+                    <IoCloseCircle
+                      size={32}
+                      color="#C5161D"
+                      style={{
+                        position: 'absolute',
+                        top: '0',
+                        right: '0',
+                        zIndex: 10,
+                        cursor: 'pointer',
+                        background: '#fff',
+                        borderRadius: '50%'
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        removeFilePhoto()
+                      }}
+                    />
+                  )}
 
                   <input
                     hidden
@@ -501,9 +545,29 @@ function WorkWithUs() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {filBIName
-                      ? filBIName
-                      : 'Adicionar seu Bilhete de identidade (BI)'}
+                    {filBIName ? (
+                      <div
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.4rem',
+                          background: 'rgba(0,0,0,0.05)',
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '1rem'
+                        }}
+                      >
+                        <span> {filBIName} </span>
+                        <IoCloseCircle
+                          size={18}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeFileBI()
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      'Adicionar seu Bilhete de identidade (BI)'
+                    )}
                   </span>
 
                   <input
@@ -525,7 +589,29 @@ function WorkWithUs() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileCVName ? fileCVName : 'Adicionar seu currículo (CV)'}
+                    {fileCVName ? (
+                      <div
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.4rem',
+                          background: 'rgba(0,0,0,0.05)',
+                          padding: '0.2rem 0.6rem',
+                          borderRadius: '1rem'
+                        }}
+                      >
+                        <span> {fileCVName} </span>
+                        <IoCloseCircle
+                          size={18}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeFileCV()
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      'Adicionar seu currículo (CV)'
+                    )}
                   </span>
 
                   <input

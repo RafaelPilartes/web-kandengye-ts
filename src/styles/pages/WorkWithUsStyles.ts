@@ -71,14 +71,12 @@ export const ContainerWorkWithUs = styled.div`
       form {
         width: 100%;
         max-width: 850px;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         border-radius: 2.5rem;
-        box-shadow: 
-          0 20px 50px rgba(0, 0, 0, 0.05),
-          0 1px 3px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 
         display: flex;
         flex-direction: column;
