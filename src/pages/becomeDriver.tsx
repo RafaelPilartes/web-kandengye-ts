@@ -329,10 +329,12 @@ function BecomeDriver() {
                     onChange={onImageChange}
                   />
                 </label>
-                <span className="bigText">Sua fotografia</span>
-                <span className="littleText">
-                  Selecione ou solte as imagens aqui
-                </span>
+                <div className="photoTexts">
+                  <span className="bigText">Sua fotografia</span>
+                  <span className="littleText">
+                    Selecione ou solte as imagens aqui
+                  </span>
+                </div>
               </div>
 
               <div className="row">
@@ -340,6 +342,7 @@ function BecomeDriver() {
                   name="first_name"
                   className="widCem"
                   required
+                  variant="outlined"
                   type="text"
                   id="outlined-required"
                   label="Primeiro Nome"
@@ -356,6 +359,7 @@ function BecomeDriver() {
                   name="last_name"
                   className="widCem"
                   required
+                  variant="outlined"
                   type="text"
                   id="outlined-required"
                   label="Ultimo Nome"
@@ -372,6 +376,7 @@ function BecomeDriver() {
                 name="email"
                 className="widCem"
                 required
+                variant="outlined"
                 id="outlined-required"
                 type="email"
                 label="E-mail"
@@ -386,6 +391,7 @@ function BecomeDriver() {
               <TextField
                 className="widCem"
                 required
+                variant="outlined"
                 id="outlined-required"
                 label="Número de telefone"
                 type="number"
@@ -402,9 +408,8 @@ function BecomeDriver() {
                 className="widCem"
                 id="combo-box-demo"
                 options={provinces}
-                sx={{ width: 300 }}
                 renderInput={params => (
-                  <TextField {...params} label="Província" />
+                  <TextField {...params} variant="outlined" label="Província" />
                 )}
                 onChange={(event, newValue) =>
                   setDriverData({
@@ -422,7 +427,7 @@ function BecomeDriver() {
                 >
                   <FormControlLabel
                     value="female"
-                    control={<Radio />}
+                    control={<Radio color="error" />}
                     label="Feminino"
                     onClick={() =>
                       setDriverData({
@@ -433,7 +438,7 @@ function BecomeDriver() {
                   />
                   <FormControlLabel
                     value="male"
-                    control={<Radio />}
+                    control={<Radio color="error" />}
                     label="Masculino"
                     onClick={() =>
                       setDriverData({
@@ -456,9 +461,9 @@ function BecomeDriver() {
                   <span>
                     {fileBISelect.length >= 1
                       ? fileBISelect.map((item, index) => (
-                          <span> {item.name}, </span>
+                          <span key={index}> {item.name}, </span>
                         ))
-                      : 'Adicionar seu Bilhete de identidade'}
+                      : 'Adicionar Bilhete de identidade (BI)'}
                   </span>
 
                   <input
@@ -470,9 +475,6 @@ function BecomeDriver() {
                     onChange={onFileBIChange}
                   />
                 </div>
-                <p className="littleText">
-                  ou solte o seu Bilhete de identidade aqui
-                </p>
               </label>
 
               <label
@@ -486,9 +488,9 @@ function BecomeDriver() {
                   <span>
                     {fileDocVehicleSelect.length >= 1
                       ? fileDocVehicleSelect.map((item, index) => (
-                          <span> {item.name}, </span>
+                          <span key={index}> {item.name}, </span>
                         ))
-                      : 'Adicionar documento da motorizada'}
+                      : 'Adicionar documento do veículo'}
                   </span>
 
                   <input
@@ -500,9 +502,6 @@ function BecomeDriver() {
                     style={{ display: 'none' }}
                   />
                 </div>
-                <p className="littleText">
-                  ou solte o documento da motorizada aqui
-                </p>
               </label>
 
               <label
@@ -512,13 +511,14 @@ function BecomeDriver() {
                 onDrop={onImageVehicleChangeDrag}
               >
                 <div className="areaPhotos">
-                  {filePhotoVehicleSelect.length <= 0 && (
-                    <>
+                  {filePhotoVehicleSelect.length <= 0 ? (
+                    <div className="placeholderPhotos">
                       <FaDownload />
                       <span>Fotografia do seu veiculo</span>
-                    </>
+                    </div>
+                  ) : (
+                    renderPhotos
                   )}
-                  {filePhotoVehicleSelect.length >= 1 && renderPhotos}
 
                   <input
                     type="file"
@@ -529,13 +529,10 @@ function BecomeDriver() {
                     onChange={onImageVehicleChange}
                   />
                 </div>
-                <span className="littleText">
-                  Selecione ou solte as imagens aqui
-                </span>
               </label>
 
               <BaseButton
-                name="Enviar formulário"
+                name="Enviar candidatura"
                 isLoading={isSend}
                 disabled={isSend}
                 colorTxt={defaultTheme.colors['base-white']}

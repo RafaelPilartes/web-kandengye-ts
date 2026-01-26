@@ -33,24 +33,24 @@ function FooterMain() {
 
             <div className="containerSocialMedia">
               <a
-                href="https://www.facebook.com/profile.php?id=100068921798475&mibextid=LQQJ4d"
+                href="https://www.facebook.com/share/1CnTiFmPFf/"
                 target="_blank"
               >
                 <BsFacebook />
               </a>
 
               <a
-                href="https://instagram.com/kandengue_atrevido_transporte?utm_source=qr&igshid=MThlNWY1MzQwNA=="
+                href="https://www.instagram.com/kandengueatrevido_delivery?igsh=M3FucGFraDl3ZjRw"
                 target="_blank"
               >
                 <BsInstagram />
               </a>
 
-              <a href="https://wa.me/244938624620" target="_blank">
+              <a href="https://wa.me/+244928888745" target="_blank">
                 <BsWhatsapp />
               </a>
 
-              <a href="">
+              <a href="https://www.tiktok.com/@kandenguedelivery?_r=1&_t=ZM-930J4VjCscS" target="_blank">
                 <FaTiktok />
               </a>
             </div>
@@ -93,21 +93,21 @@ function FooterMain() {
             <h3>Contacto</h3>
 
             <ul>
-              <a target="_blank" href="tel:938624620">
-                <IoCall /> +244 938 624 620
+              <a target="_blank" href="tel:+244928888745">
+                <IoCall /> +244 928 888 745
               </a>
-              <a target="_blank" href="mailto:info@kandengueatrevido.com">
-                <MdOutlineEmail /> info@kandengueatrevido.com
+              <a target="_blank" href="mailto:comercial@kandengueatrevido.ao">
+                <MdOutlineEmail /> comercial@kandengueatrevido.ao
               </a>
               <a target="_blank" href="https://goo.gl/maps/1Uvj3cRqNQPEKzoB7">
-                <MdGpsFixed /> Angola, Luanda, Nova Vida, Rua 16
+                <MdGpsFixed /> Angola - Luanda
               </a>
             </ul>
           </div>
         </div>
 
         <div className="containerBottom">
-          <p>Almeida & Menezes @ Todos direitos reservados 2023</p>
+          <p>Kandengue Atrevido© Todos direitos reservados 2023</p>
           <a
             href="https://rafaelpilartes.com/"
             target="_blank"

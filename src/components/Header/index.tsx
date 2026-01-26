@@ -87,20 +87,20 @@ function HeaderMain() {
         <div className="containerTop">
           <ul className="containerLeft">
             <li>
-              <a href="tel:929004006">
-                <BiPhoneCall /> (+244) 938 624 620
+              <a target="_blank" href="tel:+244928888745">
+                <BiPhoneCall /> (+244) 928 888 745
               </a>
             </li>
             <li> | </li>
             <li>
-              <a href="">
-                <IoLocation /> Angola, Luanda, Nova Vida, Rua 16
+              <a target="_blank" href="">
+                <IoLocation /> Angola - Luanda
               </a>
             </li>
             <li> | </li>
             <li>
-              <a href="">
-                <MdEmail /> info@kandengueatrevido.com
+              <a target="_blank" href="mailto:comercial@kandengueatrevido.ao">
+                <MdEmail /> comercial@kandengueatrevido.ao
               </a>
             </li>
           </ul>
@@ -108,27 +108,27 @@ function HeaderMain() {
           <div className="containerRight">
             Siga-nos:
             <a
-              href="https://www.facebook.com/profile.php?id=100068921798475&mibextid=LQQJ4d"
+              href="https://www.facebook.com/share/1CnTiFmPFf/"
               target="_blank"
               style={{ color: 'white' }}
             >
               <BsFacebook />
             </a>
             <a
-              href="https://instagram.com/kandengue_atrevido_transporte?utm_source=qr&igshid=MThlNWY1MzQwNA=="
+              href="https://www.instagram.com/kandengueatrevido_delivery?igsh=M3FucGFraDl3ZjRw"
               target="_blank"
               style={{ color: 'white' }}
             >
               <BsInstagram />
             </a>
             <a
-              href="https://wa.me/244938624620"
+              href="https://wa.me/+244928888745"
               target="_blank"
               style={{ color: 'white' }}
             >
               <BsWhatsapp />
             </a>
-            <a href="" target="_blank" style={{ color: 'white' }}>
+            <a href="https://www.tiktok.com/@kandenguedelivery?_r=1&_t=ZM-930J4VjCscS" target="_blank" style={{ color: 'white' }}>
               <FaTiktok />
             </a>
           </div>

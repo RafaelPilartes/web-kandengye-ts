@@ -354,10 +354,12 @@ function WorkWithUs() {
                     onChange={onImageChange}
                   />
                 </label>
-                <span className="bigText">Sua fotografia</span>
-                <span className="littleText">
-                  Selecione ou solte as imagens aqui
-                </span>
+                <div className="photoTexts">
+                  <span className="bigText">Sua fotografia</span>
+                  <span className="littleText">
+                    Selecione ou solte as imagens aqui
+                  </span>
+                </div>
               </div>
 
               <div className="row">
@@ -365,6 +367,7 @@ function WorkWithUs() {
                   name="name"
                   className="widCem"
                   required
+                  variant="outlined"
                   id="outlined-required"
                   label="Primeiro Nome"
                   onChange={e =>
@@ -380,6 +383,7 @@ function WorkWithUs() {
                   name="name"
                   className="widCem"
                   required
+                  variant="outlined"
                   id="outlined-required"
                   label="Ultimo Nome"
                   onChange={e =>
@@ -395,6 +399,7 @@ function WorkWithUs() {
                 name="email"
                 className="widCem"
                 required
+                variant="outlined"
                 id="outlined-required"
                 type="email"
                 label="E-mail"
@@ -409,6 +414,7 @@ function WorkWithUs() {
               <TextField
                 className="widCem"
                 required
+                variant="outlined"
                 id="outlined-required"
                 label="Número de telefone"
                 type="number"
@@ -425,9 +431,8 @@ function WorkWithUs() {
                 className="widCem"
                 id="combo-box-demo"
                 options={provinces}
-                sx={{ width: 300 }}
                 renderInput={params => (
-                  <TextField {...params} label="Província" />
+                  <TextField {...params} variant="outlined" label="Província" />
                 )}
                 onChange={(event, newValue) =>
                   setFormValues({
@@ -441,9 +446,12 @@ function WorkWithUs() {
                 className="widCem"
                 id="combo-box-demo"
                 options={areas}
-                sx={{ width: 300 }}
                 renderInput={params => (
-                  <TextField {...params} label="Áreas de candidatura" />
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Áreas de candidatura"
+                  />
                 )}
                 onChange={(event, newValue) =>
                   setFormValues({
@@ -461,7 +469,7 @@ function WorkWithUs() {
                 >
                   <FormControlLabel
                     value="female"
-                    control={<Radio />}
+                    control={<Radio color="error" />}
                     label="Feminino"
                     onClick={() =>
                       setFormValues({
@@ -472,7 +480,7 @@ function WorkWithUs() {
                   />
                   <FormControlLabel
                     value="male"
-                    control={<Radio />}
+                    control={<Radio color="error" />}
                     label="Masculino"
                     onClick={() =>
                       setFormValues({
@@ -495,7 +503,7 @@ function WorkWithUs() {
                   <span>
                     {filBIName
                       ? filBIName
-                      : 'Adicionar seu Bilhete de identidade'}
+                      : 'Adicionar seu Bilhete de identidade (BI)'}
                   </span>
 
                   <input
@@ -506,9 +514,6 @@ function WorkWithUs() {
                     onChange={onFileBIChange}
                   />
                 </div>
-                <p className="littleText">
-                  ou solte o seu Bilhete de identidade aqui
-                </p>
               </label>
 
               <label
@@ -520,7 +525,7 @@ function WorkWithUs() {
                 <div className="btnFile">
                   <FaDownload />
                   <span>
-                    {fileCVName ? fileCVName : 'Adicionar seu currículo'}
+                    {fileCVName ? fileCVName : 'Adicionar seu currículo (CV)'}
                   </span>
 
                   <input
@@ -531,11 +536,10 @@ function WorkWithUs() {
                     style={{ display: 'none' }}
                   />
                 </div>
-                <p className="littleText">ou solte o seu currículo aqui</p>
               </label>
 
               <BaseButton
-                name="Enviar formulário"
+                name="Enviar candidatura"
                 isLoading={isSend}
                 disabled={isSend}
                 colorTxt={defaultTheme.colors['base-white']}
