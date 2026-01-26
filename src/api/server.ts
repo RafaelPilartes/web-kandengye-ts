@@ -1,10 +1,9 @@
-import axios from 'axios'
-import { BaseURL } from '../utils/urlApi'
+import apiClient from './axios.config'
 
 export function loginUser(dataToLogin: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/user/login`
-    axios
+    const url = `/user/login`
+    apiClient
       .post(url, dataToLogin)
       .then(resData => {
         resolve(resData)
@@ -14,10 +13,11 @@ export function loginUser(dataToLogin: any): Promise<any> {
       })
   })
 }
+
 export function sendUser(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/user/create`
-    axios
+    const url = `/user/create`
+    apiClient
       .post(url, dataToSave)
       .then(resData => {
         resolve(resData)
@@ -27,10 +27,11 @@ export function sendUser(dataToSave: any): Promise<any> {
       })
   })
 }
+
 export function sendCandidacy(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/candidacy/create`
-    axios
+    const url = `/candidacy/create`
+    apiClient
       .post(url, dataToSave)
       .then(resData => {
         resolve(resData.data)
@@ -40,10 +41,11 @@ export function sendCandidacy(dataToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadImageUser(imageToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/image/user`
-    axios
+    const url = `/upload/image/user`
+    apiClient
       .post(url, imageToSave)
       .then(resData => {
         resolve(resData.data)
@@ -53,10 +55,11 @@ export function uploadImageUser(imageToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadImageCandidacy(imageToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/image/candidacy`
-    axios
+    const url = `/upload/image/candidacy`
+    apiClient
       .post(url, imageToSave)
       .then(resData => {
         resolve(resData.data)
@@ -66,10 +69,11 @@ export function uploadImageCandidacy(imageToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadPdfIdentityCard(docToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/doc/identityCard`
-    axios
+    const url = `/upload/doc/identityCard`
+    apiClient
       .post(url, docToSave)
       .then(resData => {
         resolve(resData.data)
@@ -79,10 +83,11 @@ export function uploadPdfIdentityCard(docToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadPdfCurriculum(docToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/doc/curriculum`
-    axios
+    const url = `/upload/doc/curriculum`
+    apiClient
       .post(url, docToSave)
       .then(resData => {
         resolve(resData.data)
@@ -92,10 +97,11 @@ export function uploadPdfCurriculum(docToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadPdfVehicle(imageToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/image/vehicle`
-    axios
+    const url = `/upload/image/vehicle`
+    apiClient
       .post(url, imageToSave)
       .then(resData => {
         resolve(resData.data)
@@ -105,10 +111,11 @@ export function uploadPdfVehicle(imageToSave: any): Promise<any> {
       })
   })
 }
+
 export function uploadPdfVehicleDoc(imageToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/upload/doc/docVehicle`
-    axios
+    const url = `/upload/doc/docVehicle`
+    apiClient
       .post(url, imageToSave)
       .then(resData => {
         resolve(resData.data)
@@ -121,8 +128,8 @@ export function uploadPdfVehicleDoc(imageToSave: any): Promise<any> {
 
 export function sendMessage(dataToSave: any): Promise<any> {
   return new Promise((resolve, reject) => {
-    const url = `${BaseURL}/message/send`
-    axios
+    const url = `/message/send`
+    apiClient
       .post(url, dataToSave)
       .then(resData => {
         resolve(resData.data)

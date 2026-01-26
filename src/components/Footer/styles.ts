@@ -193,8 +193,9 @@ export const FooterContainerStyles = styled.footer`
 
   .containerBottom {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     padding: 2.6rem 2rem;
 

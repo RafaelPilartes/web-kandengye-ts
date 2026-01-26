@@ -1,0 +1,112 @@
+// constants/firebaseCollections.ts
+export const firebaseCollections = {
+  // ============================================
+  // USERS
+  users: {
+    root: 'users',
+    single: (userId: string) => `users/${userId}`,
+    documents: (userId: string) => `users/${userId}/documents`,
+    transactions: (userId: string) => `users/${userId}/transactions`,
+    notifications: (userId: string) => `users/${userId}/notifications`
+  },
+  // APPLICATIONS
+  applications: {
+    root: 'applications',
+    single: (userId: string) => `applications/${userId}`,
+    documents: (userId: string) => `applications/${userId}/documents`,
+    transactions: (userId: string) => `applications/${userId}/transactions`,
+    notifications: (userId: string) => `applications/${userId}/notifications`
+  },
+
+  // ============================================
+  // ADMIN
+  admins: {
+    root: 'admins',
+    single: (adminId: string) => `admins/${adminId}`
+  },
+
+  // ============================================
+  // DRIVERS
+  drivers: {
+    root: 'drivers',
+    single: (driverId: string) => `drivers/${driverId}`
+  },
+
+  // ============================================
+  // VEHICLES
+  vehicles: {
+    root: 'vehicles',
+    single: (vehicleId: string) => `vehicles/${vehicleId}`,
+    documents: (vehicleId: string) => `vehicles/${vehicleId}/documents`
+  },
+
+  // ============================================
+  // RIDES
+  rides: {
+    root: 'rides',
+    single: (rideId: string) => `rides/${rideId}`
+  },
+
+  // =============================================
+  // RIDERATES
+  rideRates: {
+    root: 'rideRates',
+    single: (rideRateId: string) => `rideRates/${rideRateId}`
+  },
+
+  // =============================================
+  // RIDETRACKINGS
+  rideTrackings: {
+    root: 'rideTrackings',
+    single: (rideTrackingId: string) => `rideTrackings/${rideTrackingId}`
+  },
+
+  // ============================================
+  // TRANSACTIONS
+  transactions: {
+    root: 'transactions',
+    single: (transactionId: string) => `transactions/${transactionId}`
+  },
+
+  // ============================================
+  // WALLET
+  wallets: {
+    root: 'wallets',
+    single: (walletId: string) => `wallets/${walletId}`
+  },
+
+  // =============================================
+  // WALLET TOPUP REQUESTS
+  requests: {
+    root: 'topupRequests',
+    single: (requestId: string) => `topupRequests/${requestId}`
+  },
+
+  // ============================================
+  // DOCUMENTS
+  documents: {
+    root: 'documents',
+    single: (documentId: string) => `documents/${documentId}`
+  },
+
+  // ============================================
+  // NOTIFICATIONS
+  notifications: {
+    root: 'notifications',
+    single: (notificationId: string) => `notifications/${notificationId}`
+  },
+
+  // ============================================
+  // RATES
+  rates: {
+    root: 'rates',
+    current: 'rates/current'
+  },
+
+  // ============================================
+  // SYSTEM LOGS
+  logs: {
+    root: 'logs',
+    single: (logId: string) => `logs/${logId}`
+  }
+}

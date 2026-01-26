@@ -3,7 +3,12 @@ import styled from 'styled-components'
 export const LoadingContainer = styled.section`
   width: 100%;
   height: 100vh;
-  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 
   #load {
     position: absolute;

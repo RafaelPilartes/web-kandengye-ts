@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { memo } from 'react'
 
 import { CardContainer } from './styles'
 
@@ -9,16 +9,16 @@ interface RenderServicesInterface {
   icon: any
 }
 
-const RenderServices: React.FC<RenderServicesInterface> = ({
+const RenderSolutions = memo<RenderServicesInterface>(({
   imgUrl,
   title,
   description,
   icon
-}): JSX.Element => {
+}) => {
   return (
     <CardContainer>
       <div className="containerImg">
-        <img src={imgUrl} alt="" />
+        <img src={imgUrl} alt={title} loading="lazy" />
         <div className="shadow"></div>
       </div>
       <div className="containerFloat">
@@ -29,6 +29,8 @@ const RenderServices: React.FC<RenderServicesInterface> = ({
       </div>
     </CardContainer>
   )
-}
+})
 
-export default RenderServices
+RenderSolutions.displayName = 'RenderSolutions'
+
+export default RenderSolutions

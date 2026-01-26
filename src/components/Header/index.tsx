@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FaTiktok } from 'react-icons/fa'
 
 // Mui
@@ -47,7 +48,7 @@ import { GiGps } from 'react-icons/gi'
 import { IoLocation } from 'react-icons/io5'
 import { AiFillCar } from 'react-icons/ai'
 import { IoIosArrowDown } from 'react-icons/io'
-import { ListItemIcon } from '@material-ui/core'
+import { ListItemIcon } from '@mui/material'
 import { FiLogOut } from 'react-icons/fi'
 
 const settings = ['P', 'Account', 'Dashboard', 'Logout']
@@ -134,15 +135,15 @@ function HeaderMain() {
         </div>
 
         <div className="containerButton">
-          <a href="/" className="containerLogo">
+          <Link to="/" className="containerLogo">
             <img src={imgLogoSemNOme} alt="Tchossy" />
-          </a>
+          </Link>
 
           <nav className="containerCenter">
-            <a href={routsNameMain.home}>Inicio</a>
-            <a href={routsNameMain.about}>Sobre nós</a>
-            <a href={routsNameMain.services}>Serviços</a>
-            <a href={routsNameMain.contact}>Contactos</a>
+            <Link to={routsNameMain.home as string}>Inicio</Link>
+            <Link to={routsNameMain.about as string}>Sobre nós</Link>
+            <Link to={routsNameMain.services as string}>Serviços</Link>
+            <Link to={routsNameMain.contact as string}>Contactos</Link>
 
             <div className="dropdown">
               <span className="dropbtn">
@@ -159,7 +160,11 @@ function HeaderMain() {
               </div>
             </div>
 
-            <a href={''} className="btn btn-border">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.kandengueatrevido.ride&hl=pt"
+              target="_blank"
+              className="btn btn-border"
+            >
               <span>
                 <FaDownload /> Baixar App
               </span>
@@ -173,18 +178,18 @@ function HeaderMain() {
 
             {!user && (
               <>
-                <a
+                <Link
                   className="btn-background"
-                  href={routsNameMain.login as string}
+                  to={routsNameMain.login as string}
                 >
                   Entrar
-                </a>
-                <a
+                </Link>
+                <Link
                   className="btn-border"
-                  href={routsNameMain.register as string}
+                  to={routsNameMain.register as string}
                 >
                   Registrar
-                </a>
+                </Link>
               </>
             )}
             {user && (
@@ -219,7 +224,7 @@ function HeaderMain() {
                     </MenuItem>
                   </Menu>
                   <div className="containerBaseInfo">
-                    <h4>{` ${user.name}`}</h4>
+                    <h4>{` ${user.first_name} ${user.last_name}`}</h4>
                     <p>{user.email}</p>
                   </div>
                 </div>

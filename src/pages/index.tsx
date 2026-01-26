@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 
 // Navegação
 import { useNavigate } from 'react-router-dom'
@@ -12,21 +12,10 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 // Modulos de Icons
-import { SiOpenai } from 'react-icons/si'
 import { BsFillCheckCircleFill, BsFillPlayFill } from 'react-icons/bs'
-import { GiSmartphone, GiSpikesFull } from 'react-icons/gi'
-import {
-  MdComputer,
-  MdDesignServices,
-  MdOutlineSupportAgent,
-  MdOutlineWork
-} from 'react-icons/md'
-import { AiFillCode, AiFillStar } from 'react-icons/ai'
-import { TfiWorld } from 'react-icons/tfi'
 
-// Modulos de aos animação de scroll
-import Aos, { init } from 'aos'
-import 'aos/dist/aos.css'
+// Lazy-loaded AOS hook
+import { useAOS } from '../hooks/useAOS'
 
 // AliceCarousel
 import AliceCarousel from 'react-alice-carousel'
@@ -97,9 +86,12 @@ function Home() {
       role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
     }
   ]
-  const listService = docService.map((item, index) => (
-    <RenderServices key={index} services={item} />
-  ))
+  const listService = useMemo(
+    () => docService.map((item) => (
+      <RenderServices key={item._id} services={item} />
+    )),
+    []
+  )
 
   const docVeicules = [
     {
@@ -127,9 +119,12 @@ function Home() {
       role: 'Experimente uma corrida de luxo privativa com os Motoqueiros mais bem-avaliados, serviço de alta qualidade e espaço adicional para as pernas.'
     }
   ]
-  const listVeicules = docVeicules.map((item, index) => (
-    <RenderVeicules key={index} veicules={item} />
-  ))
+  const listVeicules = useMemo(
+    () => docVeicules.map((item) => (
+      <RenderVeicules key={item._id} veicules={item} />
+    )),
+    []
+  )
 
   function goTo(path: string) {
     router(path)
@@ -139,10 +134,11 @@ function Home() {
     // console.log(resUserData)
   }
 
+  // Use lazy-loaded AOS hook
+  useAOS({ duration: 1500 })
+
   useEffect(() => {
     getData('123')
-
-    Aos.init({ duration: 1500 })
   }, [])
 
   return (
@@ -470,7 +466,10 @@ function Home() {
               </ul>
 
               <div className="containerBtn">
-                <a href="">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.kandengueatrevido.ride&hl=pt"
+                  target="_blank"
+                >
                   <img src={btnGoogle} alt="" />
                 </a>
                 <a href="">

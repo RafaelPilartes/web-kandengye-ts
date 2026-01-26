@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 // Icons
 import { MdOutlineEmail, MdGpsFixed } from 'react-icons/md'
 import { BsFacebook, BsInstagram, BsWhatsapp } from 'react-icons/bs'
@@ -59,11 +60,11 @@ function FooterMain() {
             <h3>Links</h3>
 
             <ul>
-              <a href={routsNameMain.about}>Sobre nós</a>
-              <a href={routsNameMain.services}>Serviço</a>
-              <a href={routsNameMain.becomeDriver}>Tornar-se estafeta</a>
+              <Link to={routsNameMain.about as string}>Sobre nós</Link>
+              <Link to={routsNameMain.services as string}>Serviço</Link>
+              <Link to={routsNameMain.becomeDriver as string}>Tornar-se estafeta</Link>
 
-              <a href={routsNameMain.contact}>Contacto</a>
+              <Link to={routsNameMain.contact as string}>Contacto</Link>
             </ul>
           </div>
 
@@ -106,16 +107,14 @@ function FooterMain() {
         </div>
 
         <div className="containerBottom">
-          <p>
-            <a
-              href="https://rafaelpilartes.com/"
-              target="_blank"
-              style={{ color: '#C5161D', fontWeight: 600 }}
-            >
-              Dev RP❤️
-            </a>
-            - Almeida & Menezes @ Todos direitos reservados 2023
-          </p>
+          <p>Almeida & Menezes @ Todos direitos reservados 2023</p>
+          <a
+            href="https://rafaelpilartes.com/"
+            target="_blank"
+            style={{ color: '#C5161D', fontWeight: 600 }}
+          >
+            Desenvolvido por Rafael Pilartes
+          </a>
         </div>
       </FooterContainerStyles>
     </>

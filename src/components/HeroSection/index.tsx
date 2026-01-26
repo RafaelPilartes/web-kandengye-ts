@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { IoIosArrowForward } from 'react-icons/io'
 
 import { routsNameMain } from '../../data/routsName'
@@ -26,7 +27,7 @@ function HeroSection({
         <h1 data-aos="zoom-in-up">{title}</h1>
 
         <div className="path">
-          <a href={routsNameMain.home as string}>Casa</a>
+          <Link to={routsNameMain.home as string}>Casa</Link>
           {base1 && (
             <>
               <p>

@@ -22,7 +22,7 @@ import { defaultTheme } from '../themes/default'
 import BaseButton from '../components/BaseButton'
 
 // Interface
-import { UserInterface } from '../interfaces/IUser'
+// import { ApplicationInterface } from '../interfaces/IApplication'
 
 // Styles
 import { ContainerNullArea } from '../styles/pages/NullStyles'
@@ -31,17 +31,19 @@ import { sendUser, uploadImageUser } from '../api/server'
 import { AppContext } from '../provider/AppProvider'
 
 function Register() {
-  const initialValues: UserInterface = {
+  const initialValues: any = {
     photo: '',
-    name: '',
-    number: '',
+    first_name: '',
+    last_name: '',
+    phone: '',
     email: '',
     province: '',
     gender: '',
+    status: 'pending',
     password: ''
   }
 
-  const [formValues, setFormValues] = useState<UserInterface>(initialValues)
+  const [formValues, setFormValues] = useState<any>(initialValues)
   const [confirmePass, setConfirmePass] = useState<string>('')
   const [isSend, setIsSend] = useState<boolean>(false)
 
@@ -108,13 +110,15 @@ function Register() {
   }
 
   async function newUser(photo: string) {
-    const newData: UserInterface = {
+    const newData: any = {
       photo: photo,
-      name: formValues.name,
-      number: formValues.number,
+      first_name: formValues.first_name,
+      last_name: formValues.last_name,
+      phone: formValues.phone,
       email: formValues.email,
       province: formValues.province,
       gender: formValues.gender,
+      status: 'pending',
       password: formValues.password
     }
 

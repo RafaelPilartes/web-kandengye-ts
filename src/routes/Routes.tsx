@@ -14,6 +14,7 @@ const Services = React.lazy(() => import('../pages/services'))
 const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
 const WorkWithUs = React.lazy(() => import('../pages/workWithUs'))
 const Contacts = React.lazy(() => import('../pages/contacts'))
+const Privacy = React.lazy(() => import('../pages/privacy'))
 
 type Props = {
   children: JSX.Element
@@ -107,6 +108,16 @@ export function Router() {
             element={
               <React.Suspense fallback={<Loading />}>
                 <WorkWithUs />
+              </React.Suspense>
+            }
+          />
+
+          {/* Privacy */}
+          <Route
+            path={routsNameMain.privacy}
+            element={
+              <React.Suspense fallback={<Loading />}>
+                <Privacy />
               </React.Suspense>
             }
           />

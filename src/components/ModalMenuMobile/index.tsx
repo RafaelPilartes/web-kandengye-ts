@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { MenuContainer, SLink, SLinkContainer } from './styles'
 import { AiFillCar, AiOutlineClose } from 'react-icons/ai'
@@ -59,12 +60,15 @@ const ModalMenuMobile: React.FC<ModalMenuMobileInterface> = ({
         <ul>
           {mapLinks}
           <button className="btn-background">
-            <a href={routsNameMain.becomeDriver}>
+            <Link onClick={closeNave} to={routsNameMain.becomeDriver as string}>
               <FaMotorcycle /> Torna-se estafeta
-            </a>
+            </Link>
           </button>
           <button className="btn-border">
-            <a href={''}>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.kandengueatrevido.ride&hl=pt"
+              target="_blank"
+            >
               <FaDownload /> Baixar App
             </a>
           </button>

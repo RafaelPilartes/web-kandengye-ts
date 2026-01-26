@@ -41,9 +41,17 @@ import {
 
 // Images
 import heroBg4 from '../assets/header/hero_bg_1.jpg'
+import { useApplicationsViewModel } from '../viewModels/ApplicationViewModel'
+import { useFileUploadViewModel } from '../viewModels/FileUploadViewModel'
+import { showToast, showToastLoading, updateToast } from '../utils/toasts'
+import { validationFile } from '../utils/file'
+import { ApplicationInterface } from '../interfaces/IApplication'
 
 function BecomeDriver() {
-  const initialValues: CandidacyInterface = {
+  const { createApplication } = useApplicationsViewModel()
+  const { uploadByUserRef, isUploading, uploadError } = useFileUploadViewModel()
+
+  const initialValues: ApplicationInterface = {
     photo: '',
     first_name: '',
     last_name: '',
@@ -51,6 +59,7 @@ function BecomeDriver() {
     phone: '',
     province: '',
     gender: '',
+    status: 'pending',
     identity_card: '',
     vehicle_Doc: '',
     vehicle_photo: '',
@@ -58,7 +67,7 @@ function BecomeDriver() {
   }
 
   const [driverData, setDriverData] =
-    useState<CandidacyInterface>(initialValues)
+    useState<ApplicationInterface>(initialValues)
 
   const [isSend, setIsSend] = useState<boolean>(false)
   const [haveError, setHaveError] = useState<boolean>(false)
@@ -80,6 +89,34 @@ function BecomeDriver() {
   // BI
   const [fileBISelect, setFileBISelect] = useState<File[]>([])
 
+  function handleMultipleFiles(
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.DragEvent<HTMLLabelElement>,
+    currentFiles: File[],
+    maxPerUpload = 6 // limite opcional
+  ) {
+    event.preventDefault()
+
+    const fileList =
+      'dataTransfer' in event ? event.dataTransfer.files : event.target.files
+
+    if (!fileList) return currentFiles
+
+    const newFiles = Array.from(fileList)
+
+    // validação individual
+    for (const file of newFiles) {
+      const { error, message } = validationFile(file, maxPerUpload)
+      if (error) {
+        showToast('error', message)
+        return currentFiles
+      }
+    }
+
+    return [...currentFiles, ...newFiles]
+  }
+
   // Image
   const onImageChangeDrag = (event: any) => {
     event.preventDefault()
@@ -99,61 +136,36 @@ function BecomeDriver() {
   }
 
   // Image Vehicle
+  const onImageVehicleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilePhotoVehicleSelect(prev => handleMultipleFiles(event, prev))
+  }
+
   const onImageVehicleChangeDrag = (
     event: React.DragEvent<HTMLLabelElement>
   ) => {
-    const files = event.dataTransfer.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFilePhotoVehicleSelect([...filePhotoVehicleSelect, ...selectedFiles])
-    }
-  }
-  const onImageVehicleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault()
-
-    const files = event.target.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFilePhotoVehicleSelect(selectedFiles)
-    }
+    setFilePhotoVehicleSelect(prev => handleMultipleFiles(event, prev))
   }
 
   // DocVehicle
-  const onFileDocVehicleChangeDrag = (
-    event: React.DragEvent<HTMLLabelElement>
-  ) => {
-    event.preventDefault()
-    const files = event.dataTransfer.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFileDocVehicleSelect([...fileDocVehicleSelect, ...selectedFiles])
-    }
-  }
   const onFileDocVehicleChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const files = event.target.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFileDocVehicleSelect(selectedFiles)
-    }
+    setFileDocVehicleSelect(prev => handleMultipleFiles(event, prev))
+  }
+
+  const onFileDocVehicleChangeDrag = (
+    event: React.DragEvent<HTMLLabelElement>
+  ) => {
+    setFileDocVehicleSelect(prev => handleMultipleFiles(event, prev))
   }
 
   // BI
-  const onFileBIChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
-    event.preventDefault()
-    const files = event.dataTransfer.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFileBISelect([...fileBISelect, ...selectedFiles])
-    }
-  }
   const onFileBIChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (files) {
-      const selectedFiles = Array.from(files)
-      setFileBISelect(selectedFiles)
-    }
+    setFileBISelect(prev => handleMultipleFiles(event, prev))
+  }
+
+  const onFileBIChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
+    setFileBISelect(prev => handleMultipleFiles(event, prev))
   }
 
   const handleDragOver = (event: any) => {
@@ -179,147 +191,104 @@ function BecomeDriver() {
     }
   )
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-    setIsSend(true)
+  async function uploadMultipleFiles(
+    selectedFiles: File[],
+    folder: string
+  ): Promise<{ urlFile: string; pathFile: string }[]> {
+    if (!selectedFiles) showToast('error', 'Ficheiros não selecionados')
 
-    // >> Image candidacy <<
-    const imageData = new FormData()
-    imageData.append('photoUser', filePhotoSelect)
+    try {
+      const results: { urlFile: string; pathFile: string }[] = []
 
-    const resImage = await uploadImageCandidacy(imageData)
-
-    const imageUrl = resImage.imageUrl
-    const message = resImage.msg
-
-    if (resImage.error) {
-      toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT
-      })
-    } else {
-      // >> IdentityCard <<
-      const identityCardData = new FormData()
-
-      for (let i = 0; i < fileBISelect.length; i++) {
-        identityCardData.append('identityCardData[]', fileBISelect[i])
-      }
-
-      const resIdentityCard = await uploadPdfIdentityCard(identityCardData)
-
-      const identityCardUrl = resIdentityCard.pdfUrl as string[]
-      const messageIdentityCard = resIdentityCard.msg
-
-      console.log('resIdentityCard => ', resIdentityCard)
-
-      if (resIdentityCard.error) {
-        toast.error(messageIdentityCard, {
-          position: toast.POSITION.TOP_RIGHT
+      for (const file of selectedFiles) {
+        const toastId = showToastLoading(`Fazendo upload de ${file.name}`)
+        const { url, path } = await uploadByUserRef({
+          file,
+          uploadType: 'applications',
+          userRef: driverData.email,
+          folder
         })
-      } else {
-        // >> VehicleDoc <<
-        const docVehicle = new FormData()
-
-        for (let i = 0; i < fileDocVehicleSelect.length; i++) {
-          docVehicle.append('docVehicle[]', fileDocVehicleSelect[i])
-        }
-
-        const resVehicleDoc = await uploadPdfVehicleDoc(docVehicle)
-
-        const curriculumUrl = resVehicleDoc.pdfUrl as string[]
-        const messageVehicleDoc = resVehicleDoc.msg
-
-        if (resVehicleDoc.error) {
-          toast.error(messageVehicleDoc, {
-            position: toast.POSITION.TOP_RIGHT
-          })
-        } else {
-          // >> Vehicle <<
-          const photosVehicleData = new FormData()
-
-          for (let i = 0; i < filePhotoVehicleSelect.length; i++) {
-            photosVehicleData.append(
-              'photosVehicle[]',
-              filePhotoVehicleSelect[i]
-            )
-          }
-
-          const resVehicle = await uploadPdfVehicle(photosVehicleData)
-
-          const vehicleUrl = resVehicle.imagesUrl as string[]
-          const messageVehicle = resVehicle.msg
-
-          if (resVehicle.error) {
-            toast.error(messageVehicle, {
-              position: toast.POSITION.TOP_RIGHT
-            })
-          } else {
-            newCandidacy(
-              imageUrl,
-              identityCardUrl.toString(),
-              curriculumUrl.toString(),
-              vehicleUrl.toString()
-            )
-          }
-
-          // >> END -> Vehicle <<
-        }
-
-        // >> END -> VehicleDoc <<
+        results.push({
+          urlFile: url as string,
+          pathFile: path as string
+        })
+        updateToast(
+          toastId,
+          'success',
+          `Ficheiro ${file.name} carregado com sucesso`
+        )
       }
-      // >> END -> IdentityCard <<
-    }
-    // >> END -> Image candidacy <<
 
-    setTimeout(() => {
-      setIsSend(false)
-    }, 2000)
+      return results
+    } catch (err) {
+      console.error('Erro no upload:', err)
+      showToast('error', 'Erro ao carregar ficheiros')
+      throw err // mantém consistência de Promise
+    }
   }
 
-  async function newCandidacy(
-    photo: string,
-    identity_card: string,
-    vehicle_Doc: string,
-    vehicle_photo: string
-  ) {
-    const newData = {
-      photo: photo,
-      first_name: driverData.first_name,
-      last_name: driverData.last_name,
-      email: driverData.email,
-      phone: driverData.phone,
-      province: driverData.province,
-      gender: driverData.gender,
-      type_candidacy: driverData.type_candidacy,
-      identity_card: identity_card,
-      vehicle_Doc: vehicle_Doc,
-      vehicle_photo: vehicle_photo
-    }
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!filePhotoVehicleSelect.length)
+      return showToast('warning', 'Adicione fotos do veículo')
 
-    console.log(newData)
+    if (!fileDocVehicleSelect.length)
+      return showToast('warning', 'Adicione documentos do veículo')
 
-    const data = await sendCandidacy(newData)
+    if (!fileBISelect.length) return showToast('warning', 'Adicione BI')
 
-    console.log(data)
+    setIsSend(true)
 
-    if (data.error) {
-      toast.error(data.msg, {
-        position: toast.POSITION.TOP_RIGHT
-      })
-    } else {
-      toast.success(data.msg, {
-        position: toast.POSITION.TOP_RIGHT
-      })
+    const toastId = showToastLoading(`Enviando candidatura`)
 
+    try {
+      // >> IdentityCard <<
+      const vehiclePhotos = await uploadMultipleFiles(
+        filePhotoVehicleSelect,
+        'driver/vehicle_photos'
+      )
+
+      // >> VehicleDoc <<
+      const vehicleDocs = await uploadMultipleFiles(
+        fileDocVehicleSelect,
+        'driver/vehicle_docs'
+      )
+
+      // >> Vehicle <<
+      const biDocs = await uploadMultipleFiles(
+        fileBISelect,
+        'driver/identity_card'
+      )
+
+      // agora tens arrays certinhos de urls
+      const newDriverData: any = {
+        ...driverData,
+        vehicle_photos: vehiclePhotos.map(f => f.urlFile),
+        vehicle_docs: vehicleDocs.map(f => f.urlFile),
+        identities_card: biDocs.map(f => f.urlFile)
+      }
+
+      await createApplication.mutateAsync(newDriverData)
+
+      if (createApplication.isError) {
+        updateToast(
+          toastId,
+          'error',
+          'Houve algum erro ao enviar a candidatura'
+        )
+      } else {
+        updateToast(toastId, 'success', 'Candidatura enviada com sucesso')
+      }
+    } catch (err) {
+      updateToast(toastId, 'error', 'Erro ao enviar candidatura')
+      console.error(err)
+    } finally {
       setIsSend(false)
-
-      setTimeout(() => {
-        window.location.reload()
-      }, 4000)
     }
   }
 
   useEffect(() => {
-    console.log(fileBISelect.map((item, index) => item.name))
+    // console.log(fileBISelect.map((item, index) => item.name))
   }, [])
 
   return (
@@ -368,8 +337,10 @@ function BecomeDriver() {
 
               <div className="row">
                 <TextField
-                  name="name"
+                  name="first_name"
                   className="widCem"
+                  required
+                  type="text"
                   id="outlined-required"
                   label="Primeiro Nome"
                   onChange={e =>
@@ -382,9 +353,10 @@ function BecomeDriver() {
                 />
 
                 <TextField
-                  name="name"
+                  name="last_name"
                   className="widCem"
                   required
+                  type="text"
                   id="outlined-required"
                   label="Ultimo Nome"
                   onChange={e =>

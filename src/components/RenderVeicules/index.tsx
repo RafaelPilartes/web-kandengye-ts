@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { memo, useCallback } from 'react'
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
 import { FaShareAlt } from 'react-icons/fa'
 import { routsNameMain } from '../../data/routsName'
@@ -7,7 +7,9 @@ import { defaultTheme } from '../../themes/default'
 import ButtonSeeMore from '../buttons/ButtonSeeMore'
 import { VeiculesContainer } from './styles'
 
-function RenderVeicules({ veicules }: veiculesType) {
+const RenderVeicules = memo(({ veicules }: veiculesType) => {
+  const handleClick = useCallback(() => null, [])
+
   return (
     <VeiculesContainer>
       <a
@@ -20,14 +22,14 @@ function RenderVeicules({ veicules }: veiculesType) {
             <h2> {veicules.name} </h2>
 
             <div className="containerImgVeicules">
-              <img src={veicules.imgUrl} alt="" />
+              <img src={veicules.imgUrl} alt={veicules.name} loading="lazy" />
             </div>
 
             <p> {veicules.role} </p>
 
             <ButtonSeeMore
               value={'Agendar esta corrida'}
-              onClick={() => null}
+              onClick={handleClick}
               colorBase={defaultTheme.colors['brand-primary']}
               colorSecondary={defaultTheme.colors['brand-super-dark']}
             />
@@ -36,6 +38,8 @@ function RenderVeicules({ veicules }: veiculesType) {
       </a>
     </VeiculesContainer>
   )
-}
+})
+
+RenderVeicules.displayName = 'RenderVeicules'
 
 export default RenderVeicules

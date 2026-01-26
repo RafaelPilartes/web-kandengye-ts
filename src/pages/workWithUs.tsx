@@ -5,14 +5,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 // Modulos do material
-import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import { Autocomplete } from '@mui/material'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
-import FormLabel from '@mui/material/FormLabel'
 
 // Modulos de aos animação de scroll
 import Aos from 'aos'
@@ -26,25 +23,25 @@ import HeroSection from '../components/HeroSection'
 import BaseButton from '../components/BaseButton'
 
 // Interface
-import { CandidacyInterface } from '../interfaces/ICandidacy'
+import { ApplicationInterface } from '../interfaces/IApplication'
 
 // Styles
 import { ContainerWorkWithUs } from '../styles/pages/WorkWithUsStyles'
 import { FaDownload } from 'react-icons/fa'
 import { provinces } from '../data/labelProvince'
-import axios from 'axios'
-import {
-  sendCandidacy,
-  uploadImageCandidacy,
-  uploadPdfCurriculum,
-  uploadPdfIdentityCard
-} from '../api/server'
 
 // Images
 import heroBg4 from '../assets/header/hero_bg_1.jpg'
+import { useApplicationsViewModel } from '../viewModels/ApplicationViewModel'
+import { useFileUploadViewModel } from '../viewModels/FileUploadViewModel'
+import { validationFile, validationFileImage } from '../utils/file'
+import { showToast, showToastLoading, updateToast } from '../utils/toasts'
 
 function WorkWithUs() {
-  const initialValues: CandidacyInterface = {
+  const { createApplication } = useApplicationsViewModel()
+  const { uploadByUserRef, isUploading, uploadError } = useFileUploadViewModel()
+
+  const initialValues: ApplicationInterface = {
     photo: '',
     first_name: '',
     last_name: '',
@@ -52,6 +49,7 @@ function WorkWithUs() {
     phone: '',
     province: '',
     gender: '',
+    status: 'pending',
     identity_card: '',
     curriculum: '',
     vehicle_photo: '',
@@ -69,43 +67,42 @@ function WorkWithUs() {
   ]
 
   const [formValues, setFormValues] =
-    useState<CandidacyInterface>(initialValues)
+    useState<ApplicationInterface>(initialValues)
   const [isSend, setIsSend] = useState<boolean>(false)
   const [haveError, setHaveError] = useState<boolean>(false)
 
   // Photo
-  const [filePhotoSelect, setFilePhotoSelect] = useState<string>('')
-  const [photoSelect, setPhotoSelect] = useState<string>(
+  const [filePhotoSelect, setFilePhotoSelect] = useState<File | undefined>()
+  const [imagePreview, setImagePreview] = useState<string>(
     'httpss://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
   )
 
   // CV
-  const [fileCVSelect, setFileCVSelect] = useState<string>('')
+  const [fileCVSelect, setFileCVSelect] = useState<File | undefined>()
   const [fileCVName, setFileCVName] = useState<string>('')
   // BI
-  const [filBISelect, setFilBISelect] = useState<string>('')
+  const [filBISelect, setFilBISelect] = useState<File | undefined>()
   const [filBIName, setFilBIName] = useState<string>('')
 
   // Image
-  const onImageChangeDrag = (event: any) => {
-    event.preventDefault()
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
 
-    const [file] = event.dataTransfer.files
+    if (!file) return
+
+    const { error, message } = validationFileImage(file, 6)
+
+    if (error) {
+      showToast('error', message)
+      return
+    }
 
     setFilePhotoSelect(file)
-
-    setPhotoSelect(URL.createObjectURL(file))
-  }
-  const onImageChange = (event: any) => {
-    const [file] = event.target.files
-
-    setFilePhotoSelect(file)
-
-    setPhotoSelect(URL.createObjectURL(file))
+    setImagePreview(URL.createObjectURL(file))
   }
 
   // CV
-  const onFileCVChangeDrag = (event: any) => {
+  const onFileCVChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
@@ -113,15 +110,23 @@ function WorkWithUs() {
     setFileCVSelect(file)
     setFileCVName(file.name)
   }
-  const onFileCVChange = (event: any) => {
-    const [file] = event.target.files
+  const onFileCVChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const { error, message } = validationFile(file, 6)
+
+    if (error) {
+      showToast('error', message)
+      return
+    }
 
     setFileCVSelect(file)
     setFileCVName(file.name)
   }
 
   // BI
-  const onFileBIChangeDrag = (event: any) => {
+  const onFileBIChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
     event.preventDefault()
 
     const [file] = event.dataTransfer.files
@@ -129,8 +134,16 @@ function WorkWithUs() {
     setFilBISelect(file)
     setFilBIName(file.name)
   }
-  const onFileBIChange = (event: any) => {
-    const [file] = event.target.files
+  const onFileBIChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const { error, message } = validationFile(file, 6)
+
+    if (error) {
+      showToast('error', message)
+      return
+    }
 
     setFilBISelect(file)
     setFilBIName(file.name)
@@ -143,67 +156,111 @@ function WorkWithUs() {
     // fazer algo quando o mouse sai da área de soltar
   }
 
+  // Function Upload Photo
+  async function handleUpload(
+    selectedFile: File,
+    folder?: string
+  ): Promise<{
+    urlFile: string
+    pathFile: string
+  }> {
+    if (!selectedFile) showToast('error', 'Ficheiro não selecionada')
+
+    const toastId = showToastLoading(`Fazendo upload de ${selectedFile.name}`)
+    try {
+      const { url, path } = await uploadByUserRef({
+        file: selectedFile,
+        uploadType: 'applications',
+        userRef: formValues.email,
+        folder: folder
+      })
+
+      if (!url || !path) {
+        updateToast(
+          toastId,
+          'error',
+          uploadError ? uploadError : 'Houve algum erro no upload do ficheiro'
+        )
+        throw new Error('Erro ao carregar ficheiro: retorno inválido')
+      }
+
+      const urlFile = url as string
+      const pathFile = path as string
+
+      updateToast(
+        toastId,
+        'success',
+        `Ficheiro ${selectedFile.name} carregado com sucesso`
+      )
+      return {
+        urlFile,
+        pathFile
+      }
+    } catch (err) {
+      console.error('Erro no upload:', err)
+      updateToast(toastId, 'error', 'Erro ao carregar ficheiro')
+      throw err // mantém consistência de Promise
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    setIsSend(true)
 
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + ': ' + pair[1])
-    // }
-
-    // >> Image candidacy <<
-
-    const imageData = new FormData()
-    imageData.append('photoUser', filePhotoSelect)
-
-    const resImage = await uploadImageCandidacy(imageData)
-
-    const imageUrl = resImage.imageUrl
-    const message = resImage.msg
-
-    if (resImage.error) {
-      toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT
-      })
-    } else {
-      // >> IdentityCard <<
-
-      const identityCardData = new FormData()
-      identityCardData.append('identityCardData', filBISelect)
-      const resIdentityCard = await uploadPdfIdentityCard(identityCardData)
-
-      const identityCardUrl = resIdentityCard.pdfUrl
-      const messageIdentityCard = resIdentityCard.msg
-
-      if (resIdentityCard.error) {
-        toast.error(messageIdentityCard, {
-          position: toast.POSITION.TOP_RIGHT
-        })
-      } else {
-        // >> Curriculum <<
-
-        const curriculumData = new FormData()
-        curriculumData.append('curriculumData', fileCVSelect)
-
-        const resCurriculum = await uploadPdfCurriculum(curriculumData)
-
-        const curriculumUrl = resCurriculum.pdfUrl
-        const messageCurriculum = resCurriculum.msg
-
-        if (resCurriculum.error) {
-          toast.error(messageCurriculum, {
-            position: toast.POSITION.TOP_RIGHT
-          })
-        } else {
-          newCandidacy(imageUrl, identityCardUrl, curriculumUrl)
-        }
-        // >> END -> Curriculum <<
-      }
-      // >> END -> IdentityCard <<
+    if (!filePhotoSelect) {
+      showToast('warning', 'Imagem nao selecionada')
+      return
     }
-    // >> END -> Image candidacy <<
+    if (!filBISelect) {
+      showToast('warning', 'BI nao selecionada')
+      return
+    }
+    if (!fileCVSelect) {
+      showToast('warning', 'CV nao selecionada')
+      return
+    }
 
-    setIsSend(false)
+    try {
+      setIsSend(true)
+
+      // >> Image candidacy <<
+      const { urlFile: imageUrl } = await handleUpload(
+        filePhotoSelect,
+        'general_services/photo_candidacy'
+      )
+
+      if (!imageUrl) {
+        showToast('error', 'Houve algum erro no upload da imagem')
+        return
+      }
+
+      // >> IdentityCard <<
+      const { urlFile: identityCardUrl } = await handleUpload(
+        filBISelect,
+        'general_services/identity_card'
+      )
+
+      if (!identityCardUrl) {
+        showToast('error', 'Houve algum erro no upload do BI')
+        return
+      }
+
+      // >> Curriculum <<
+      const { urlFile: curriculumUrl } = await handleUpload(
+        fileCVSelect,
+        'general_services/curriculum'
+      )
+
+      if (!curriculumUrl) {
+        showToast('error', 'Houve algum erro no upload do CV')
+        return
+      }
+
+      newCandidacy(imageUrl, identityCardUrl, curriculumUrl)
+    } catch (error: any) {
+      showToast('error', error.message || 'Erro ao salvar documento')
+    } finally {
+      setIsSend(false)
+    }
   }
 
   async function newCandidacy(
@@ -211,7 +268,7 @@ function WorkWithUs() {
     identity_card: string,
     curriculum: string
   ) {
-    const newData: CandidacyInterface = {
+    const newData: any = {
       photo: photo,
       first_name: formValues.first_name,
       last_name: formValues.last_name,
@@ -219,6 +276,7 @@ function WorkWithUs() {
       phone: formValues.phone,
       province: formValues.province,
       gender: formValues.gender,
+      status: 'pending',
       identity_card: identity_card,
       curriculum: curriculum,
       application_areas: formValues.application_areas,
@@ -226,31 +284,29 @@ function WorkWithUs() {
     }
 
     if (newData.application_areas == '') {
-      toast.error('Não selecionou a sua áreas de candidatura', {
-        position: toast.POSITION.TOP_RIGHT
-      })
+      showToast('warning', 'Seleciona uma area de candidatura')
     }
 
+    const toastId = showToastLoading(`Enviando candidatura`)
     try {
-      const data = await sendCandidacy(newData)
+      await createApplication.mutateAsync(newData)
 
-      if (data.error) {
-        toast.error(data.msg, {
-          position: toast.POSITION.TOP_RIGHT
-        })
+      if (createApplication.isError) {
+        showToast('error', 'Houve algum erro ao enviar a candidatura')
       } else {
-        toast.success(data.msg, {
-          position: toast.POSITION.TOP_RIGHT
-        })
+        showToast('success', 'Candidatura enviada com sucesso!')
 
         setIsSend(false)
+
+        updateToast(toastId, 'success', 'Candidatura enviada com sucesso!')
 
         setTimeout(() => {
           window.location.reload()
         }, 4000)
       }
     } catch (error) {
-      // Lógica para tratar erros de requisição
+      updateToast(toastId, 'error', 'Erro ao carregar ficheiros')
+
       console.error(error)
     }
   }
@@ -284,17 +340,17 @@ function WorkWithUs() {
                 className="sectionPhoto"
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={onImageChangeDrag}
+                // onDrop={onImageChangeDrag}
               >
                 <label className="containerPhotoUser" htmlFor="photoUser">
-                  <img src={photoSelect} alt="" />
+                  <img src={imagePreview} alt="" />
 
                   <input
                     hidden
                     type="file"
                     id="photoUser"
                     name="photoUser"
-                    accept="image"
+                    accept="image/*"
                     onChange={onImageChange}
                   />
                 </label>

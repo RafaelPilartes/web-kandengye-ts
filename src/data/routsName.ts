@@ -9,5 +9,6 @@ export const routsNameMain = {
   workWithUs: `/workWithUs`,
   contact: `/contact`,
   login: `/login`,
-  register: `/register`
+  register: `/register`,
+  privacy: `/privacy`
 }

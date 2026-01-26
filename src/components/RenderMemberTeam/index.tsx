@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { memo } from 'react'
 
 import { CardContainer } from './styles'
 
@@ -8,15 +8,15 @@ interface RenderMemberTeamInterface {
   memberFunction: string
 }
 
-const RenderMemberTeam: React.FC<RenderMemberTeamInterface> = ({
+const RenderMemberTeam = memo<RenderMemberTeamInterface>(({
   photo,
   name,
   memberFunction
-}): JSX.Element => {
+}) => {
   return (
     <CardContainer>
       <div className="containerImg">
-        <img src={photo} alt="" />
+        <img src={photo} alt={name} loading="lazy" />
       </div>
       <div className="containerRight">
         {/* <h2> {name} </h2> */}
@@ -24,6 +24,8 @@ const RenderMemberTeam: React.FC<RenderMemberTeamInterface> = ({
       </div>
     </CardContainer>
   )
-}
+})
+
+RenderMemberTeam.displayName = 'RenderMemberTeam'
 
 export default RenderMemberTeam

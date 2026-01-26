@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { IChildren } from '../interfaces/children'
-import { UserInterface } from '../interfaces/IUser'
+import { ApplicationInterface } from '../interfaces/IApplication'
 import { defaultTheme } from '../themes/default'
 
 interface AppContextInterface {
   isSignedIn: boolean
   setIsSignedIn: (value: any) => void
-  user: UserInterface | null
+  user: ApplicationInterface | null
   setUser: (value: any) => void
   logoutAccunt: () => void
   menuIsVisible: boolean
@@ -18,7 +18,7 @@ const AppContext = createContext<AppContextInterface>({} as AppContextInterface)
 const AppProvider: React.FC<IChildren> = ({ children }): JSX.Element => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(true)
 
-  const [user, setUser] = useState<UserInterface | null>(null)
+  const [user, setUser] = useState<ApplicationInterface | null>(null)
 
   const [menuIsVisible, setMenuIsVisible] = useState<boolean>(false)
 
@@ -29,7 +29,7 @@ const AppProvider: React.FC<IChildren> = ({ children }): JSX.Element => {
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem('userInfo')
-    const userInfo: UserInterface = storedUserInfo
+    const userInfo: ApplicationInterface = storedUserInfo
       ? JSON.parse(storedUserInfo)
       : null
 

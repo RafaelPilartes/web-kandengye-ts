@@ -4,14 +4,19 @@ import { AppContext, AppProvider } from './provider/AppProvider'
 import { Router } from './routes/Routes'
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './themes/default'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <AppProvider>
-      <ThemeProvider theme={defaultTheme}>
-        <GlobalStyle />
-        <Router />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={defaultTheme}>
+          <GlobalStyle />
+          <Router />
+        </ThemeProvider>
+      </QueryClientProvider>
     </AppProvider>
   )
 }

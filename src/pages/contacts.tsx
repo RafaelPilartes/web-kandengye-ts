@@ -184,21 +184,25 @@ const Contacts: React.FC = (): JSX.Element => {
               <strong>
                 <FiPhoneCall /> Telefone :
               </strong>
-              <a href="tel:938624620">(+244) 938 624 620</a>
+              <p>
+              <a href="tel:938624620">(+244) 928 888 745</a>
+              </p>
             </div>
 
             <div className="field">
               <strong>
                 <MdOutlineAttachEmail /> E-mail :
               </strong>
-              <a href="mailto:info@kandengue.com">info@kandengue.com</a>
+              <p>
+                <a href="mailto:comercial@kandengueatrevido.ao">comercial@kandengueatrevido.ao</a>
+              </p>
             </div>
 
             <div className="field">
               <strong>
                 <GoLocation /> Endereço :
               </strong>
-              <p>Angola, Luanda, Benfica, Av. 21 de Janeiro</p>
+              <p>Luanda - Angola</p>
             </div>
           </div>
         </ContainerRight>

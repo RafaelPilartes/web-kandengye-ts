@@ -18,7 +18,7 @@ import { defaultTheme } from '../themes/default'
 import BaseButton from '../components/BaseButton'
 
 // Interface
-import { UserCredencialInterface } from '../interfaces/IUser'
+import { ApplicationCredencialInterface } from '../interfaces/IApplication'
 
 // Styles
 import { ContainerNullArea } from '../styles/pages/NullStyles'
@@ -31,19 +31,19 @@ import { AppContext } from '../provider/AppProvider'
 function Login() {
   const { setUser } = useContext(AppContext)
 
-  const initialValues: UserCredencialInterface = {
+  const initialValues: ApplicationCredencialInterface = {
     email: '',
     password: ''
   }
 
   const [formValues, setFormValues] =
-    useState<UserCredencialInterface>(initialValues)
+    useState<ApplicationCredencialInterface>(initialValues)
   const [isSend, setIsSend] = useState<boolean>(false)
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
 
-    const credencial: UserCredencialInterface = {
+    const credencial: ApplicationCredencialInterface = {
       email: formValues.email,
       password: formValues.password
     }

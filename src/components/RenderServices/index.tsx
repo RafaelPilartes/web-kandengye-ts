@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { memo } from 'react'
 import { servicesType } from '../../models/types/servicesType'
 
 import { CardContainer } from './styles'
@@ -10,11 +10,11 @@ interface RenderServicesInterface {
   icon: any
 }
 
-function RenderServices({ services }: servicesType) {
+const RenderServices = memo(({ services }: servicesType) => {
   return (
     <CardContainer>
       <div className="containerImg">
-        <img src={services.imgUrl} alt="" />
+        <img src={services.imgUrl} alt={services.name} loading="lazy" />
         <div className="shadow"></div>
       </div>
       <div className="containerFloat">
@@ -25,6 +25,8 @@ function RenderServices({ services }: servicesType) {
       </div>
     </CardContainer>
   )
-}
+})
+
+RenderServices.displayName = 'RenderServices'
 
 export default RenderServices
