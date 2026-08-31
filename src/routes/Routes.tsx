@@ -8,7 +8,7 @@ import Register from '../pages/register'
 import Login from '../pages/login'
 import { AppContext } from '../provider/AppProvider'
 
-const Home = React.lazy(() => import('../pages/'))
+const Home = React.lazy(() => import('../pages'))
 const About = React.lazy(() => import('../pages/about'))
 const Services = React.lazy(() => import('../pages/services'))
 const BecomeDriver = React.lazy(() => import('../pages/becomeDriver'))
