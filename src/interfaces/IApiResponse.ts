@@ -15,9 +15,15 @@ export interface ApiResponse<T> {
 
 export type paginationType = {
   limit: number | null
-  offset: any | null
+  offset?: any | null
+  /** Nº de itens NESTA página — não o total da colecção. Para o total, pedir
+   *  `withTotal: true` e ler `total`. */
   count: number
-  total?: number | undefined // total de registros na base
+  total?: number | undefined
+  /** ID do último documento devolvido — passar em `after` para a página seguinte. */
+  cursor?: string | null
+  /** `true` se existe pelo menos mais um documento para lá desta página. */
+  hasMore?: boolean
 } | null
 
 export interface ListResponseType<T> {

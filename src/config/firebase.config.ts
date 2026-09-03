@@ -1,7 +1,7 @@
 // src/config/firebase.config.ts
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { initializeFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 // 🔥 substitui pelas tuas credenciais do Firebase
@@ -19,5 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 
 export const auth = getAuth(app)
-export const db = getFirestore(app)
+// `ignoreUndefinedProperties` porque o motor não limpa objectos à mão: sem
+// isto o SDK lança excepção ao encontrar um campo `undefined`.
+export const db = initializeFirestore(app, { ignoreUndefinedProperties: true })
 export const storage = getStorage(app)

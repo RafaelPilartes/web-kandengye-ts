@@ -6,6 +6,7 @@ import type { ListResponseType } from '../interfaces/IApiResponse'
 import { firebaseCollections } from '../constants/firebaseCollections'
 import { useMemo } from 'react'
 import { getApplicationStatusLabel } from '../utils/gettersLabels'
+import type { FieldPath } from '../core/interfaces/IBaseRepository'
 
 const applicationService = new ApplicationService()
 
@@ -55,8 +56,8 @@ export function useApplicationsViewModel(
 
   /** Buscar lista de usuários por field */
   const fetchAllApplicationsByField = async (
-    field: string,
-    value: any,
+    field: FieldPath<ApplicationEntity>,
+    value: unknown,
     limit?: number,
     offset?: number
   ) => {
