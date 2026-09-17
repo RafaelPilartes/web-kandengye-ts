@@ -25,3 +25,7 @@ dist-ssr
 
 # AI context
 CLAUDE.md
+
+# nunca versionar .env (esteve versionado desde Janeiro de 2026)
+.env
+!.env.example
