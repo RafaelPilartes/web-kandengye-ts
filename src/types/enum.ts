@@ -6,7 +6,7 @@ export type currencyEnumType = 'AOA' | 'USD'
 // =========================================================================
 export type UserStatus = 'active' | 'inactive' | 'pending' | 'banned'
 
-export type ApplicationStatus = 'pending' | 'approved' | 'rejected'
+export type { ApplicationStatus } from '@rafaelpilartes/kandengue-shared/enums'
 
 // =========================================================================
 

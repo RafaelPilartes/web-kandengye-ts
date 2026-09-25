@@ -14,7 +14,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+
+    // O TypeScript aqui e o 4.9, anterior a "moduleResolution": "bundler",
+    // e o "node" classico nao le o campo "exports" de um pacote — por isso
+    // nao encontra os subpaths de @rafaelpilartes/kandengue-shared. O Vite
+    // resolve-os bem em build; so o compilador precisa desta pista. Quando
+    // este repo subir para o TypeScript 5, isto sai e "bundler" entra.
+    "paths": {
+      "@rafaelpilartes/kandengue-shared/*": [
+        "./node_modules/@rafaelpilartes/kandengue-shared/dist/*"
+      ]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
