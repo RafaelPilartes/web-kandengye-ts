@@ -4,7 +4,7 @@
 
 | Serviço              | Uso                                     |
 | -------------------- | --------------------------------------- |
-| **Firebase Auth**    | Login/registo de passageiros            |
+| ~~Firebase Auth~~    | Já não é usado — o login saiu em 2026-09-26 |
 | **Firestore**        | Submissão de candidaturas de motoristas |
 | **Firebase Storage** | Upload de documentos de candidatura     |
 

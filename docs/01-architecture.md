@@ -7,7 +7,7 @@ O website segue **Clean Architecture** com **Repository/DAO pattern**, adaptado 
 ```
 ┌──────────────────────────────────────────┐
 │           Pages / Views                  │
-│   pages/ (React + MUI)                  │
+│   pages/ (React + Tailwind)             │
 │   (renderização e composição)            │
 ├──────────────────────────────────────────┤
 │         ViewModel / Hook Layer           │
@@ -74,8 +74,6 @@ repository/
 /work-with-us      → workWithUs.tsx
 /contacts          → contacts.tsx
 /privacy           → privacy.tsx
-/register          → register.tsx
-/login             → login.tsx
 /*                 → 404.tsx
 ```
 

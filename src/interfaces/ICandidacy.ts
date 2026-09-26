@@ -1,5 +1,3 @@
-import { Gender } from '../models/enum/GenderTypes'
-
 export type CandidacyInterface = {
   id?: string
   photo?: string

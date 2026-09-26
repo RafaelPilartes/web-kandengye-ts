@@ -31,8 +31,6 @@ web-kandengue-ts/
 │   │   ├── workWithUs.tsx        # Trabalha Connosco
 │   │   ├── contacts.tsx          # Contactos
 │   │   ├── privacy.tsx           # Política de Privacidade
-│   │   ├── register.tsx          # Registo de passageiro
-│   │   ├── login.tsx             # Login
 │   │   ├── 404.tsx               # Página não encontrada
 │   │   └── loading.tsx           # Ecrã de carregamento
 │   │
@@ -44,7 +42,7 @@ web-kandengue-ts/
 │   │   ├── sections/            # Secções da landing (Hero, Features, ...)
 │   │   └── forms/               # Formulários (candidatura, contacto)
 │   │
-│   ├── styles/                   # CSS global e temas MUI
+│   ├── styles/global.css        # base + @layer components (Tailwind)
 │   ├── config/                   # Firebase config
 │   ├── constants/                # Constantes globais
 │   ├── helpers/                  # Funções auxiliares

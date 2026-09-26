@@ -10,14 +10,16 @@
 
 ## UI e Estilização
 
-| Lib                   | Uso                                      |
-| --------------------- | ---------------------------------------- |
-| **Material UI (MUI)** | Componentes base (buttons, inputs, grid) |
-| Styled Components     | Estilos customizados por componente      |
-| Emotion               | Motor de CSS-in-JS do MUI                |
-| Tailwind CSS          | Classes utilitárias para layout          |
+| Lib                  | Uso                                              |
+| -------------------- | ------------------------------------------------ |
+| **Tailwind CSS 3.4** | Toda a estilização, em classes utilitárias no JSX |
+| PostCSS + Autoprefixer | Pipeline do Tailwind                           |
 
-> **Nota**: Este projecto usa **MUI + Styled Components** para UI (ao contrário do Dashboard que usa Flowbite/Tailwind puro). É a stack mais "web clássico".
+> **Nota**: desde 2026-09-26 o Tailwind é a **única** forma de estilizar aqui.
+> O MUI, o Styled Components e o Emotion foram removidos — ver
+> `docs/decisions.md` na raiz do ecossistema. As primitivas de UI que o MUI
+> dava (`TextField`, `Select`, `Radio`, menus) vivem agora em
+> `src/components/ui/`, escritas sobre elementos nativos.
 
 ## Animações e UI
 
@@ -32,7 +34,7 @@
 | Módulo             | Uso                                 |
 | ------------------ | ----------------------------------- |
 | firebase/firestore | Submissão de candidaturas           |
-| firebase/auth      | Login/registo de passageiros        |
+| firebase/storage   | Ficheiros das candidaturas          |
 | firebase/storage   | Upload de documentos de candidatura |
 
 ## Formulários

@@ -1,38 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-AO">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/it_logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Title -->
-    <title>Kandengue</title>
+    <!-- A pasta `public` e servida na raiz pelo Vite: os caminhos nao levam
+         o prefixo /public, senao partem-se na build. -->
+    <link rel="icon" type="image/svg+xml" href="/it_logo.svg" />
+    <meta name="theme-color" content="#C5161D" />
 
-    <!-- Font Preconnect for better performance -->
+    <title>Kandengue Atrevido — Moto-Táxi e Entregas em Angola</title>
+
+    <meta
+      name="description"
+      content="Kandengue Atrevido: moto-táxi e entregas rápidas em Luanda. Peça uma corrida, envie uma encomenda ou candidate-se a motorista."
+    />
+
+    <!--
+      Baloo 2 para display (redonda e confiante — é a voz da marca) e Barlow
+      para texto corrido: desenhada para sinalética, lê-se depressa em
+      tamanhos pequenos e é claramente distinta da Baloo.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap"
+    />
 
-    <!-- Meta Tags -->
     <link
       as="image"
       rel="preload"
-      href="/public/it_logo_name.svg"
+      href="/it_logo_name.svg"
       fetchpriority="high"
     />
-    <meta property="og:url" content="/public/it_logo_name.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kandengue Atrevido" />
     <meta property="og:title" content="Kandengue Atrevido" />
-    <meta property="article:tag" content="Kandengue Atrevido" />
-    <meta property="article:tag" content="Kandengue" />
-    <meta property="article:tag" content="Atrevido" />
-    <meta property="article:tag" content="Tchossy" />
-    <meta property="article:tag" content="Tchossy Solution" />
-    <meta property="og:type" content="article" />
-    <meta name="author" content="https://www.tchossy.com/" />
+    <meta property="og:image" content="/it_logo_name.svg" />
     <meta
       property="og:description"
-      content="Descubra uma nova era de mobilidade com nosso sistema de serviços inteligentes. Oferecemos soluções inovadoras e eficientes para facilitar sua jornada, seja por meio de transporte público, compartilhado ou individual. Otimize seus deslocamentos, reduza o tempo gasto no trânsito e experimente a comodidade de uma mobilidade conectada. Descubra como podemos transformar sua experiência de locomoção hoje mesmo"
+      content="Descubra uma nova era de mobilidade. Moto-táxi e entregas rápidas em Luanda, com preços justos e acompanhamento em tempo real."
     />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content="https://www.tchossy.com/" />
   </head>
   <body>
     <div id="root"></div>

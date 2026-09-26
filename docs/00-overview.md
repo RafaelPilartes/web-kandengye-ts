@@ -16,7 +16,7 @@ O website precisa de:
 
 ## Contexto no Ecossistema
 
-- É o único projecto **sem autenticação obrigatória** (login é opcional)
+- É o único projecto **sem autenticação nenhuma** — o login e o registo foram removidos em 2026-09-26
 - As candidaturas de motoristas são guardadas em Firestore `applications/{id}` e depois aprovadas no Dashboard Admin
 - Comunica com Firebase Firestore para submissão de formulários e uploads
 - Não tem acesso a `rides`, `rideTracking` ou outros dados operacionais
@@ -32,8 +32,6 @@ O website precisa de:
 | `/work-with-us` | Trabalha Connosco | Recrutamento interno |
 | `/contacts` | Contactos | Formulário de contacto |
 | `/privacy` | Privacidade | Política de privacidade RGPD |
-| `/register` | Registo | Criação de conta de passageiro |
-| `/login` | Login | Acesso à conta |
 
 ## Deploy
 

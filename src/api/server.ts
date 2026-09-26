@@ -1,141 +1,42 @@
 import apiClient from './axios.config'
 
-export function loginUser(dataToLogin: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/user/login`
-    apiClient
-      .post(url, dataToLogin)
-      .then(resData => {
-        resolve(resData)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+/*
+ * Chamadas REST à API. As que serviam a autenticação (`loginUser`,
+ * `sendUser`, `uploadImageUser`) sairam com o fluxo de login — este site
+ * nao tem sessao.
+ */
+
+export async function sendCandidacy(dataToSave: unknown) {
+  const { data } = await apiClient.post('/candidacy/create', dataToSave)
+  return data
 }
 
-export function sendUser(dataToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/user/create`
-    apiClient
-      .post(url, dataToSave)
-      .then(resData => {
-        resolve(resData)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function uploadImageCandidacy(imageToSave: FormData) {
+  const { data } = await apiClient.post('/upload/image/candidacy', imageToSave)
+  return data
 }
 
-export function sendCandidacy(dataToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/candidacy/create`
-    apiClient
-      .post(url, dataToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function uploadPdfIdentityCard(docToSave: FormData) {
+  const { data } = await apiClient.post('/upload/doc/identityCard', docToSave)
+  return data
 }
 
-export function uploadImageUser(imageToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/image/user`
-    apiClient
-      .post(url, imageToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function uploadPdfCurriculum(docToSave: FormData) {
+  const { data } = await apiClient.post('/upload/doc/curriculum', docToSave)
+  return data
 }
 
-export function uploadImageCandidacy(imageToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/image/candidacy`
-    apiClient
-      .post(url, imageToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function uploadPdfVehicle(imageToSave: FormData) {
+  const { data } = await apiClient.post('/upload/image/vehicle', imageToSave)
+  return data
 }
 
-export function uploadPdfIdentityCard(docToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/doc/identityCard`
-    apiClient
-      .post(url, docToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function uploadPdfVehicleDoc(docToSave: FormData) {
+  const { data } = await apiClient.post('/upload/doc/docVehicle', docToSave)
+  return data
 }
 
-export function uploadPdfCurriculum(docToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/doc/curriculum`
-    apiClient
-      .post(url, docToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-export function uploadPdfVehicle(imageToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/image/vehicle`
-    apiClient
-      .post(url, imageToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-export function uploadPdfVehicleDoc(imageToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/upload/doc/docVehicle`
-    apiClient
-      .post(url, imageToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-export function sendMessage(dataToSave: any): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const url = `/message/send`
-    apiClient
-      .post(url, dataToSave)
-      .then(resData => {
-        resolve(resData.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
+export async function sendMessage(dataToSave: unknown) {
+  const { data } = await apiClient.post('/message/send', dataToSave)
+  return data
 }

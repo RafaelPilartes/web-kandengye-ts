@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -10,22 +10,21 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+
+    // "bundler" le o campo `exports` dos pacotes, e por isso encontra
+    // sozinho os subpaths de @rafaelpilartes/kandengue-shared. O `paths` que
+    // estava aqui era a muleta de que o resolvedor "node" classico precisava
+    // no TypeScript 4.9 — ver `docs/decisions.md`, 2026-09-25.
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
-    // O TypeScript aqui e o 4.9, anterior a "moduleResolution": "bundler",
-    // e o "node" classico nao le o campo "exports" de um pacote — por isso
-    // nao encontra os subpaths de @rafaelpilartes/kandengue-shared. O Vite
-    // resolve-os bem em build; so o compilador precisa desta pista. Quando
-    // este repo subir para o TypeScript 5, isto sai e "bundler" entra.
-    "paths": {
-      "@rafaelpilartes/kandengue-shared/*": [
-        "./node_modules/@rafaelpilartes/kandengue-shared/dist/*"
-      ]
-    }
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

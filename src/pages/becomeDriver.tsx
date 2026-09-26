@@ -1,623 +1,198 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, useState } from 'react'
 
-// toastify
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
-// Modulos do material
-import TextField from '@mui/material/TextField'
-import { Autocomplete } from '@mui/material'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-
-// Modulos de aos animação de scroll
-import Aos from 'aos'
-import 'aos/dist/aos.css'
-
-// Theme
-import { defaultTheme } from '../themes/default'
-
-// Component
-import HeroSection from '../components/HeroSection'
-import BaseButton from '../components/BaseButton'
-
-// Interface
-import { CandidacyInterface } from '../interfaces/ICandidacy'
-
-// Styles
-import { ContainerBecomeDriver } from '../styles/pages/BecomeDriverStyles'
-import { FaDownload, FaTimesCircle } from 'react-icons/fa'
-import { IoCloseCircle } from 'react-icons/io5'
-import { provinces } from '../data/labelProvince'
-
-// Api
+import ApplicationFormLayout from '../components/forms/ApplicationFormLayout'
+import StepForm, { FormStep } from '../components/forms/StepForm'
 import {
-  sendCandidacy,
-  uploadImageCandidacy,
-  uploadPdfVehicleDoc,
-  uploadPdfIdentityCard,
-  uploadPdfVehicle
-} from '../api/server'
-
-// Images
-import heroBg4 from '../assets/header/hero_bg_1.jpg'
-import { useApplicationsViewModel } from '../viewModels/ApplicationViewModel'
-import { useFileUploadViewModel } from '../viewModels/FileUploadViewModel'
+  ApplicantContactFields,
+  ApplicantIdentity,
+  ApplicantPersonalFields,
+  emptyApplicantIdentity
+} from '../components/forms/ApplicantIdentityFields'
+import FileDropField from '../components/ui/FileDropField'
+import { useApplicationUpload } from '../hooks/useApplicationUpload'
 import { showToast, showToastLoading, updateToast } from '../utils/toasts'
-import { validationFile } from '../utils/file'
-import { ApplicationInterface } from '../interfaces/IApplication'
+import { validationFile, validationFileImage } from '../utils/file'
+import { useApplicationsViewModel } from '../viewModels/ApplicationViewModel'
+
+import heroBg from '../assets/header/hero_bg_1.jpg'
+
+// O segundo argumento de `validationFile` e o tamanho maximo em MB. Antes
+// chamava-se `maxPerUpload`, o que fazia parecer um limite de quantidade.
+const MAX_FILE_SIZE_MB = 6
 
 function BecomeDriver() {
   const { createApplication } = useApplicationsViewModel()
-  const { uploadByUserRef, isUploading, uploadError } = useFileUploadViewModel()
 
-  const initialValues: ApplicationInterface = {
-    photo: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    province: '',
-    gender: '',
-    status: 'pending',
-    identity_card: '',
-    vehicle_Doc: '',
-    vehicle_photo: '',
-    type_candidacy: 'Motorista'
-  }
-
-  const [driverData, setDriverData] =
-    useState<ApplicationInterface>(initialValues)
-
-  const [isSend, setIsSend] = useState<boolean>(false)
-  const [haveError, setHaveError] = useState<boolean>(false)
-
-  // Photo
-  const [filePhotoSelect, setFilePhotoSelect] = useState<string>('')
-  const [photoSelect, setPhotoSelect] = useState<string>(
-    'httpss://miro.medium.com/max/1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg'
+  const [identity, setIdentity] = useState<ApplicantIdentity>(
+    emptyApplicantIdentity
   )
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [identityCards, setIdentityCards] = useState<File[]>([])
+  const [vehicleDocs, setVehicleDocs] = useState<File[]>([])
+  const [vehiclePhotos, setVehiclePhotos] = useState<File[]>([])
+  const [isSending, setIsSending] = useState(false)
 
-  // Photo Vehicle
-  const [filePhotoVehicleSelect, setFilePhotoVehicleSelect] = useState<File[]>(
-    []
-  )
+  const { uploadMany } = useApplicationUpload(identity.email)
 
-  // DocVehicle
-  const [fileDocVehicleSelect, setFileDocVehicleSelect] = useState<File[]>([])
-
-  // BI
-  const [fileBISelect, setFileBISelect] = useState<File[]>([])
-
-  function handleMultipleFiles(
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.DragEvent<HTMLLabelElement>,
-    currentFiles: File[],
-    maxPerUpload = 6 // limite opcional
-  ) {
-    event.preventDefault()
-
-    const fileList =
-      'dataTransfer' in event ? event.dataTransfer.files : event.target.files
-
-    if (!fileList) return currentFiles
-
-    const newFiles = Array.from(fileList)
-
-    // validação individual
-    for (const file of newFiles) {
-      const { error, message } = validationFile(file, maxPerUpload)
-      if (error) {
-        showToast('error', message)
-        return currentFiles
-      }
-    }
-
-    return [...currentFiles, ...newFiles]
+  /** Aceita apenas o que passa a validacao; o resto e recusado com aviso. */
+  function acceptFiles(
+    incoming: File[],
+    validate: typeof validationFile
+  ): File[] {
+    return incoming.filter(file => {
+      const { error, message } = validate(file, MAX_FILE_SIZE_MB)
+      if (error) showToast('error', message)
+      return !error
+    })
   }
 
-  // Image
-  const onImageChangeDrag = (event: any) => {
-    event.preventDefault()
-
-    const [file] = event.dataTransfer.files
-
-    setFilePhotoSelect(file)
-
-    setPhotoSelect(URL.createObjectURL(file))
-  }
-  const onImageChange = (event: any) => {
-    const [file] = event.target.files
-
-    setFilePhotoSelect(file)
-
-    setPhotoSelect(URL.createObjectURL(file))
-  }
-
-  // Image Vehicle
-  const onImageVehicleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilePhotoVehicleSelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  const onImageVehicleChangeDrag = (
-    event: React.DragEvent<HTMLLabelElement>
-  ) => {
-    setFilePhotoVehicleSelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  // DocVehicle
-  const onFileDocVehicleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFileDocVehicleSelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  const onFileDocVehicleChangeDrag = (
-    event: React.DragEvent<HTMLLabelElement>
-  ) => {
-    setFileDocVehicleSelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  // BI
-  const onFileBIChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFileBISelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  const onFileBIChangeDrag = (event: React.DragEvent<HTMLLabelElement>) => {
-    setFileBISelect(prev => handleMultipleFiles(event, prev))
-  }
-
-  const removeFilePhotoVehicle = (index: number) => {
-    setFilePhotoVehicleSelect(prev => prev.filter((_, i) => i !== index))
-  }
-
-  const removeFileDocVehicle = (index: number) => {
-    setFileDocVehicleSelect(prev => prev.filter((_, i) => i !== index))
-  }
-
-  const removeFileBI = (index: number) => {
-    setFileBISelect(prev => prev.filter((_, i) => i !== index))
-  }
-
-  const handleDragOver = (event: any) => {
-    event.preventDefault()
-  }
-  const handleDragLeave = () => {
-    // fazer algo quando o mouse sai da área de soltar
-  }
-
-  const [vehiclePhotoPreviews, setVehiclePhotoPreviews] = useState<string[]>([])
-
-  useEffect(() => {
-    const urls = filePhotoVehicleSelect.map(file => URL.createObjectURL(file))
-    setVehiclePhotoPreviews(urls)
-
-    return () => {
-      urls.forEach(url => URL.revokeObjectURL(url))
-    }
-  }, [filePhotoVehicleSelect])
-
-  const renderPhotos = vehiclePhotoPreviews.map(
-    (photo: string, index: number) => {
-      return (
-        <div key={index} className="containerPhotos" style={{ position: 'relative' }}>
-          <FaTimesCircle
-            size={24}
-            color="#C5161D"
-            style={{
-              position: 'absolute',
-              top: '-10px',
-              right: '-10px',
-              zIndex: 10,
-              cursor: 'pointer',
-              background: '#fff',
-              borderRadius: '50%'
-            }}
-            onClick={(e) => {
-              e.preventDefault()
-              removeFilePhotoVehicle(index)
-            }}
+  const steps: FormStep[] = [
+    {
+      title: 'Os seus dados',
+      description: 'Como se chama e uma fotografia sua.',
+      validate: () => {
+        if (!photo) return 'Adicione a sua fotografia.'
+        if (!identity.first_name.trim() || !identity.last_name.trim())
+          return 'Preencha o primeiro e o último nome.'
+        if (!identity.gender) return 'Escolha o género.'
+        return null
+      },
+      fields: (
+        <ApplicantPersonalFields
+          values={identity}
+          onChange={setIdentity}
+          photo={photo}
+          onPhotoChange={setPhoto}
+        />
+      )
+    },
+    {
+      title: 'Contacto',
+      description: 'Por onde falamos consigo e onde costuma trabalhar.',
+      validate: () => {
+        if (!identity.email.includes('@')) return 'Escreva um e-mail válido.'
+        if (identity.phone.trim().length < 9)
+          return 'Escreva o número de telefone completo.'
+        if (!identity.province) return 'Escolha a província.'
+        return null
+      },
+      fields: <ApplicantContactFields values={identity} onChange={setIdentity} />
+    },
+    {
+      title: 'Documentos',
+      description: 'O seu bilhete de identidade e os documentos do veículo.',
+      validate: () => {
+        if (!identityCards.length) return 'Adicione o bilhete de identidade.'
+        if (!vehicleDocs.length)
+          return 'Adicione os documentos do veículo.'
+        return null
+      },
+      fields: (
+        <>
+          <FileDropField
+            label="Bilhete de identidade (BI)"
+            accept="image/*,.pdf"
+            required
+            files={identityCards}
+            onFilesChange={files =>
+              setIdentityCards(acceptFiles(files, validationFile))
+            }
           />
-          <img src={photo} alt="" />
-        </div>
+
+          <FileDropField
+            label="Documentos do veículo"
+            accept="image/*,.pdf"
+            required
+            files={vehicleDocs}
+            onFilesChange={files =>
+              setVehicleDocs(acceptFiles(files, validationFile))
+            }
+          />
+        </>
+      )
+    },
+    {
+      title: 'O veículo',
+      description: 'Fotografias da moto com que vai trabalhar.',
+      validate: () =>
+        vehiclePhotos.length ? null : 'Adicione fotografias do veículo.',
+      fields: (
+        <FileDropField
+          label="Fotografias do veículo"
+          accept="image/png, image/jpeg, image/jpg"
+          display="preview"
+          required
+          files={vehiclePhotos}
+          onFilesChange={files =>
+            setVehiclePhotos(acceptFiles(files, validationFileImage))
+          }
+        />
       )
     }
-  )
+  ]
 
-  async function uploadMultipleFiles(
-    selectedFiles: File[],
-    folder: string
-  ): Promise<{ urlFile: string; pathFile: string }[]> {
-    if (!selectedFiles) showToast('error', 'Ficheiros não selecionados')
-
-    try {
-      const results: { urlFile: string; pathFile: string }[] = []
-
-      for (const file of selectedFiles) {
-        const toastId = showToastLoading(`Fazendo upload de ${file.name}`)
-        const { url, path } = await uploadByUserRef({
-          file,
-          uploadType: 'applications',
-          userRef: driverData.email,
-          folder
-        })
-        results.push({
-          urlFile: url as string,
-          pathFile: path as string
-        })
-        updateToast(
-          toastId,
-          'success',
-          `Ficheiro ${file.name} carregado com sucesso`
-        )
-      }
-
-      return results
-    } catch (err) {
-      console.error('Erro no upload:', err)
-      showToast('error', 'Erro ao carregar ficheiros')
-      throw err // mantém consistência de Promise
-    }
-  }
-
-  const handleSubmit = async (event: React.FormEvent) => {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
-    if (!filePhotoVehicleSelect.length)
-      return showToast('warning', 'Adicione fotos do veículo')
 
-    if (!fileDocVehicleSelect.length)
-      return showToast('warning', 'Adicione documentos do veículo')
-
-    if (!fileBISelect.length) return showToast('warning', 'Adicione BI')
-
-    setIsSend(true)
-
-    const toastId = showToastLoading(`Enviando candidatura`)
+    setIsSending(true)
+    const toastId = showToastLoading('A enviar a candidatura')
 
     try {
-      // >> IdentityCard <<
-      const vehiclePhotos = await uploadMultipleFiles(
-        filePhotoVehicleSelect,
+      const [photoUrl] = await uploadMany([photo!], 'driver/photo_candidacy')
+      const identityCardUrls = await uploadMany(
+        identityCards,
+        'driver/identity_card'
+      )
+      const vehicleDocUrls = await uploadMany(vehicleDocs, 'driver/vehicle_docs')
+      const vehiclePhotoUrls = await uploadMany(
+        vehiclePhotos,
         'driver/vehicle_photos'
       )
 
-      // >> VehicleDoc <<
-      const vehicleDocs = await uploadMultipleFiles(
-        fileDocVehicleSelect,
-        'driver/vehicle_docs'
-      )
+      await createApplication.mutateAsync({
+        ...identity,
+        photo: photoUrl,
+        status: 'pending',
+        type_candidacy: 'Motorista',
+        identities_card: identityCardUrls,
+        vehicle_docs: vehicleDocUrls,
+        vehicle_photos: vehiclePhotoUrls
+      })
 
-      // >> Vehicle <<
-      const biDocs = await uploadMultipleFiles(
-        fileBISelect,
-        'driver/identity_card'
-      )
+      // `mutateAsync` lanca em caso de erro, por isso chegar aqui ja e
+      // sucesso. O ramo `if (createApplication.isError)` que aqui estava lia
+      // um estado ainda nao actualizado e nunca disparava.
+      updateToast(toastId, 'success', 'Candidatura enviada com sucesso')
 
-      // agora tens arrays certinhos de urls
-      const newDriverData: any = {
-        ...driverData,
-        vehicle_photos: vehiclePhotos.map(f => f.urlFile),
-        vehicle_docs: vehicleDocs.map(f => f.urlFile),
-        identities_card: biDocs.map(f => f.urlFile)
-      }
-
-      await createApplication.mutateAsync(newDriverData)
-
-      if (createApplication.isError) {
-        updateToast(
-          toastId,
-          'error',
-          'Houve algum erro ao enviar a candidatura'
-        )
-      } else {
-        updateToast(toastId, 'success', 'Candidatura enviada com sucesso')
-      }
-    } catch (err) {
-      updateToast(toastId, 'error', 'Erro ao enviar candidatura')
-      console.error(err)
+      setIdentity(emptyApplicantIdentity)
+      setPhoto(null)
+      setIdentityCards([])
+      setVehicleDocs([])
+      setVehiclePhotos([])
+    } catch (error) {
+      console.error(error)
+      updateToast(toastId, 'error', 'Erro ao enviar a candidatura')
     } finally {
-      setIsSend(false)
+      setIsSending(false)
     }
   }
 
-  useEffect(() => {
-    // console.log(fileBISelect.map((item, index) => item.name))
-  }, [])
-
   return (
-    <ContainerBecomeDriver>
-      <ToastContainer />
-
-      <HeroSection
-        backgroundImage={heroBg4}
-        title="Formulário"
-        base1="Torne-se um motorista"
+    <ApplicationFormLayout
+      heroImage={heroBg}
+      heroTitle="Formulário"
+      breadcrumb={['Torne-se um motorista']}
+      title="Candidatura a estafeta"
+      description="São quatro passos. A equipa entra em contacto depois de analisar a candidatura."
+    >
+      <StepForm
+        steps={steps}
+        isSubmitting={isSending}
+        submitLabel="Enviar candidatura"
+        onSubmit={handleSubmit}
+        onInvalid={message => showToast('warning', message)}
       />
-
-      <section className="BecomeDriver">
-        <div className="containerContent">
-          <div className="containerBecomeDriver">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                <strong>CANDIDATURA À ESTAFETA</strong>
-              </h1>
-            </div>
-
-            <form onSubmit={handleSubmit} id="registerForm">
-              <div
-                className="sectionPhoto"
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={onImageChangeDrag}
-              >
-                <label className="containerPhotoUser" htmlFor="photoUser">
-                  <img src={photoSelect} alt="" />
-
-                  <input
-                    hidden
-                    type="file"
-                    id="photoUser"
-                    name="photoUser"
-                    accept="image"
-                    onChange={onImageChange}
-                  />
-                </label>
-                <div className="photoTexts">
-                  <span className="bigText">Sua fotografia</span>
-                  <span className="littleText">
-                    Selecione ou solte as imagens aqui
-                  </span>
-                </div>
-              </div>
-
-              <div className="row">
-                <TextField
-                  name="first_name"
-                  className="widCem"
-                  required
-                  variant="outlined"
-                  type="text"
-                  id="outlined-required"
-                  label="Primeiro Nome"
-                  onChange={e =>
-                    setDriverData({
-                      ...driverData,
-                      first_name: e.target.value
-                    })
-                  }
-                  error={haveError}
-                />
-
-                <TextField
-                  name="last_name"
-                  className="widCem"
-                  required
-                  variant="outlined"
-                  type="text"
-                  id="outlined-required"
-                  label="Ultimo Nome"
-                  onChange={e =>
-                    setDriverData({
-                      ...driverData,
-                      last_name: e.target.value
-                    })
-                  }
-                />
-              </div>
-
-              <TextField
-                name="email"
-                className="widCem"
-                required
-                variant="outlined"
-                id="outlined-required"
-                type="email"
-                label="E-mail"
-                onChange={e =>
-                  setDriverData({
-                    ...driverData,
-                    email: e.target.value
-                  })
-                }
-              />
-
-              <TextField
-                className="widCem"
-                required
-                variant="outlined"
-                id="outlined-required"
-                label="Número de telefone"
-                type="number"
-                onChange={e =>
-                  setDriverData({
-                    ...driverData,
-                    phone: e.target.value
-                  })
-                }
-              />
-
-              <Autocomplete
-                disablePortal
-                className="widCem"
-                id="combo-box-demo"
-                options={provinces}
-                renderInput={params => (
-                  <TextField {...params} variant="outlined" label="Província" />
-                )}
-                onChange={(event, newValue) =>
-                  setDriverData({
-                    ...driverData,
-                    province: newValue?.label as string
-                  })
-                }
-              />
-
-              <div className="col">
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio color="error" />}
-                    label="Feminino"
-                    onClick={() =>
-                      setDriverData({
-                        ...driverData,
-                        gender: 'Feminino'
-                      })
-                    }
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio color="error" />}
-                    label="Masculino"
-                    onClick={() =>
-                      setDriverData({
-                        ...driverData,
-                        gender: 'Masculino'
-                      })
-                    }
-                  />
-                </RadioGroup>
-              </div>
-
-              <label
-                htmlFor="inputTagBI"
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={onFileBIChangeDrag}
-              >
-                <div className="btnFile">
-                  <FaDownload />
-                  <span>
-                    {fileBISelect.length >= 1
-                      ? fileBISelect.map((item, index) => (
-                          <div
-                            key={index}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              background: 'rgba(0,0,0,0.05)',
-                              padding: '0.2rem 0.6rem',
-                              borderRadius: '1rem',
-                              marginRight: '0.4rem'
-                            }}
-                          >
-                            <span> {item.name} </span>
-                            <IoCloseCircle
-                              size={18}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                removeFileBI(index)
-                              }}
-                            />
-                          </div>
-                        ))
-                      : 'Adicionar Bilhete de identidade (BI)'}
-                  </span>
-
-                  <input
-                    type="file"
-                    hidden
-                    id="inputTagBI"
-                    accept="image/*,.pdf"
-                    multiple
-                    onChange={onFileBIChange}
-                  />
-                </div>
-              </label>
-
-              <label
-                htmlFor="inputTagDocVehicle"
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={onFileDocVehicleChangeDrag}
-              >
-                <div className="btnFile">
-                  <FaDownload />
-                  <span>
-                    {fileDocVehicleSelect.length >= 1
-                      ? fileDocVehicleSelect.map((item, index) => (
-                          <div
-                            key={index}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              background: 'rgba(0,0,0,0.05)',
-                              padding: '0.2rem 0.6rem',
-                              borderRadius: '1rem',
-                              marginRight: '0.4rem'
-                            }}
-                          >
-                            <span> {item.name} </span>
-                            <IoCloseCircle
-                              size={18}
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                removeFileDocVehicle(index)
-                              }}
-                            />
-                          </div>
-                        ))
-                      : 'Adicionar documento do veículo'}
-                  </span>
-
-                  <input
-                    type="file"
-                    id="inputTagDocVehicle"
-                    accept="image/*,.pdf"
-                    multiple
-                    onChange={onFileDocVehicleChange}
-                    style={{ display: 'none' }}
-                  />
-                </div>
-              </label>
-
-              <label
-                htmlFor="imagesVehicle"
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={onImageVehicleChangeDrag}
-              >
-                <div className="areaPhotos">
-                  {filePhotoVehicleSelect.length <= 0 ? (
-                    <div className="placeholderPhotos">
-                      <FaDownload />
-                      <span>Fotografia do seu veiculo</span>
-                    </div>
-                  ) : (
-                    renderPhotos
-                  )}
-
-                  <input
-                    type="file"
-                    hidden
-                    id="imagesVehicle"
-                    accept="image/png, image/jpeg, image/jpg"
-                    multiple
-                    onChange={onImageVehicleChange}
-                  />
-                </div>
-              </label>
-
-              <BaseButton
-                name="Enviar candidatura"
-                isLoading={isSend}
-                disabled={isSend}
-                colorTxt={defaultTheme.colors['base-white']}
-                colorBg={defaultTheme.colors['brand-primary']}
-              />
-            </form>
-          </div>
-        </div>
-      </section>
-    </ContainerBecomeDriver>
+    </ApplicationFormLayout>
   )
 }
 

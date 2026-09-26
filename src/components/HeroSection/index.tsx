@@ -1,69 +1,61 @@
-import { Link } from 'react-router-dom'
+import { Fragment } from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 
 import { routsNameMain } from '../../data/routsName'
-import { HeroContainerStyles } from './styles'
 
-interface IHeroSection {
+interface HeroSectionProps {
   backgroundImage: string
   title?: string
-  base1?: string
-  base2?: string
-  base3?: string
-  base4?: string
+  /** Degraus do caminho depois de "Início". */
+  breadcrumb?: string[]
 }
 
-function HeroSection({
-  backgroundImage,
-  title,
-  base1,
-  base2,
-  base3,
-  base4
-}: IHeroSection) {
+/**
+ * Faixa de topo das páginas internas.
+ *
+ * O véu era preto opaco a 80% e apagava a fotografia por completo. Passou a
+ * um gradiente que escurece só o lado do texto, para a imagem continuar a
+ * ser uma imagem.
+ */
+function HeroSection({ backgroundImage, title, breadcrumb = [] }: HeroSectionProps) {
   return (
-    <HeroContainerStyles backgroundImage={backgroundImage}>
-      <div className="infoHero">
-        <h1 data-aos="zoom-in-up">{title}</h1>
+    <section className="relative isolate overflow-hidden bg-ink">
+      <img
+        src={backgroundImage}
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/80 to-ink/25"
+      />
 
-        <div className="path">
-          <Link to={routsNameMain.home as string}>Casa</Link>
-          {base1 && (
-            <>
-              <p>
-                <IoIosArrowForward />
-              </p>
-              <p> {base1} </p>
-            </>
-          )}
-          {base2 && (
-            <>
-              <p>
-                <IoIosArrowForward />
-              </p>
-              <p> {base2} </p>
-            </>
-          )}
-          {base3 && (
-            <>
-              <p>
-                <IoIosArrowForward />
-              </p>
-              <p> {base3} </p>
-            </>
-          )}
-          {base4 && (
-            <>
-              <p>
-                <IoIosArrowForward />
-              </p>
-              <p> {base4} </p>
-            </>
-          )}
-        </div>
+      <div className="container-page flex flex-col justify-end py-16 md:py-24">
+        <nav
+          aria-label="Caminho"
+          className="flex flex-row flex-wrap items-center gap-2 text-sm text-white/60"
+        >
+          <Link
+            to={routsNameMain.home}
+            className="transition-colors hover:text-white"
+          >
+            Início
+          </Link>
+
+          {breadcrumb.map(step => (
+            <Fragment key={step}>
+              <IoIosArrowForward aria-hidden className="text-white/30" />
+              <span className="text-white">{step}</span>
+            </Fragment>
+          ))}
+        </nav>
+
+        <h1 className="mt-4 font-title text-display-sm font-extrabold tracking-tight text-white">
+          {title}
+        </h1>
       </div>
-      <div className="shadow"></div>
-    </HeroContainerStyles>
+    </section>
   )
 }
 

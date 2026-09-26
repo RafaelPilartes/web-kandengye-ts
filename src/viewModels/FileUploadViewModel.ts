@@ -200,7 +200,7 @@ export function useFileUploadViewModel() {
       folder?: string
     }) => fileService.uploadByUserRef(file, userRef, uploadType, folder),
 
-    onSuccess: (data: UploadResult) => {
+    onSuccess: () => {
       console.log('✅ ViewModel: Documento enviado com sucesso')
     },
 

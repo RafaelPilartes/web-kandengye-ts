@@ -1,12 +1,10 @@
-import React, { useContext } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { routsNameMain } from '../data/routsName'
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import RootLayout from '../Layout/RootLayout'
 import FourOhFour from '../pages/404'
 import Loading from '../pages/loading'
-import Register from '../pages/register'
-import Login from '../pages/login'
-import { AppContext } from '../provider/AppProvider'
+import { routsNameMain } from '../data/routsName'
 
 const Home = React.lazy(() => import('../pages'))
 const About = React.lazy(() => import('../pages/about'))
@@ -16,18 +14,9 @@ const WorkWithUs = React.lazy(() => import('../pages/workWithUs'))
 const Contacts = React.lazy(() => import('../pages/contacts'))
 const Privacy = React.lazy(() => import('../pages/privacy'))
 
-type Props = {
-  children: JSX.Element
-}
-
-function PrivateLogin({ children }: Props) {
-  const { user } = useContext(AppContext)
-
-  if (user != null) {
-    return <Navigate to={'/'} />
-  }
-
-  return children
+/** Envolve cada página preguiçosa no mesmo ecrã de espera. */
+function lazyRoute(element: React.ReactNode) {
+  return <React.Suspense fallback={<Loading />}>{element}</React.Suspense>
 }
 
 export function Router() {
@@ -35,102 +24,31 @@ export function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<RootLayout />}>
-          {/* Home */}
-          <Route
-            index
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Home />
-              </React.Suspense>
-            }
-          />
-          {/* About */}
-          <Route
-            path={routsNameMain.about}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <About />
-              </React.Suspense>
-            }
-          />
-          {/* Services */}
+          <Route index element={lazyRoute(<Home />)} />
+          <Route path={routsNameMain.about} element={lazyRoute(<About />)} />
           <Route
             path={routsNameMain.services}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Services />
-              </React.Suspense>
-            }
+            element={lazyRoute(<Services />)}
           />
-          {/* Contacts */}
           <Route
             path={routsNameMain.contact}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Contacts />
-              </React.Suspense>
-            }
+            element={lazyRoute(<Contacts />)}
           />
-          {/* register */}
-          <Route
-            path={routsNameMain.register}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <PrivateLogin>
-                  <Register />
-                </PrivateLogin>
-              </React.Suspense>
-            }
-          />
-          {/* Login */}
-          <Route
-            path={routsNameMain.login}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <PrivateLogin>
-                  <Login />
-                </PrivateLogin>
-              </React.Suspense>
-            }
-          />
-          {/* BecomeDriver */}
           <Route
             path={routsNameMain.becomeDriver}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <BecomeDriver />
-              </React.Suspense>
-            }
+            element={lazyRoute(<BecomeDriver />)}
           />
-          {/* WorkWithUs */}
           <Route
             path={routsNameMain.workWithUs}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <WorkWithUs />
-              </React.Suspense>
-            }
+            element={lazyRoute(<WorkWithUs />)}
           />
-
-          {/* Privacy */}
           <Route
             path={routsNameMain.privacy}
-            element={
-              <React.Suspense fallback={<Loading />}>
-                <Privacy />
-              </React.Suspense>
-            }
+            element={lazyRoute(<Privacy />)}
           />
         </Route>
 
-        <Route
-          path="*"
-          element={
-            <React.Suspense fallback={<Loading />}>
-              <FourOhFour />
-            </React.Suspense>
-          }
-        />
+        <Route path="*" element={lazyRoute(<FourOhFour />)} />
       </Routes>
     </BrowserRouter>
   )

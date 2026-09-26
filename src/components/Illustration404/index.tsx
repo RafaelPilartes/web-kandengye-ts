@@ -1,15 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-import { ContainerIllustration404 } from './styles'
-
+// As animacoes (`swing`, `swinghair`, `zeroanimation`) vivem em
+// `src/styles/global.css` — sao keyframes presas aos ids deste SVG.
 function Illustration404() {
-  const router = useNavigate()
-
-  async function goBack() {
-    router(-1)
-  }
-
   return (
-    <ContainerIllustration404>
+    <section className="w-full illustration-404">
       <svg
         width="100%"
         height="auto"
@@ -1180,7 +1173,7 @@ function Illustration404() {
           </linearGradient>
         </defs>
       </svg>
-    </ContainerIllustration404>
+    </section>
   )
 }
 

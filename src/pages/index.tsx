@@ -1,486 +1,327 @@
-import { useEffect, useRef, useState, useMemo } from 'react'
-
-// Navegação
-import { useNavigate } from 'react-router-dom'
-
-//Swiper
+import { useState } from 'react'
+import { BsFillCheckCircleFill } from 'react-icons/bs'
+import { IoArrowForward } from 'react-icons/io5'
+import { Autoplay, EffectFade } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Link } from 'react-router-dom'
 import 'swiper/css'
-import { Pagination, Grid } from 'swiper'
-import { Navigation } from 'swiper'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
+import 'swiper/css/effect-fade'
 
-// Modulos de Icons
-import { BsFillCheckCircleFill, BsFillPlayFill } from 'react-icons/bs'
-
-// Lazy-loaded AOS hook
-import { useAOS } from '../hooks/useAOS'
-
-// AliceCarousel
-import AliceCarousel from 'react-alice-carousel'
-import 'react-alice-carousel/lib/alice-carousel.css'
-
-// Theme
-import { defaultTheme } from '../themes/default'
-
-// Styles
-import { ContainerHome } from '../styles/pages/HomeStyles'
-
-// Routs
+import { DOWNLOAD_ANCHOR } from '../components/Header'
+import SectionHeading from '../components/SectionHeading'
+import StoreBadges from '../components/StoreBadges'
+import FeatureSection from '../components/home/FeatureSection'
 import { routsNameMain } from '../data/routsName'
+import { cn } from '../utils/cn'
 
-// Components
-import { NavLink } from '../components/NavLink'
-
-// images
 import heroBg1 from '../assets/background/hero_bg_2_1-4.jpg'
 import heroBg2 from '../assets/background/hero_bg_2_2-4.jpg'
 import heroBg3 from '../assets/background/hero_bg_2_3-4.jpg'
-
 import driverPhoto1 from '../assets/photos/driverBlack.jpg'
-import rider1 from '../assets/photos/riderBlack.jpg'
 import driverPhoto2 from '../assets/photos/driverRed.jpg'
 
-import ButtonSeeMore from '../components/buttons/ButtonSeeMore'
-import RenderServices from '../components/RenderServices'
-import RenderVeicules from '../components/RenderVeicules'
-import btnGoogle from '../../public/images/download/google.png'
-import btnApple from '../../public/images/download/App-Store.png'
+const heroSlides = [
+  { image: heroBg1, alt: 'Estafetas da Kandengue Atrevido em serviço' },
+  { image: heroBg2, alt: 'Entrega a ser recolhida em Luanda' },
+  { image: heroBg3, alt: 'Moto-táxi em circulação' }
+]
 
 function Home() {
-  const router = useNavigate()
+  return (
+    <div className="flex flex-col">
+      <Hero />
+      <Promise />
 
-  useEffect(() => {}, [])
+      <FeatureSection
+        title="Torne-se um kandengue e ganhe o seu kumbu numa boa"
+        paragraphs={[
+          'Venha a correr e habilite-se a facturar mais de 300 paus por mês.'
+        ]}
+        bullets={[
+          {
+            strong: 'Kumbu na hora',
+            text: 'Ganhe kumbu, fique com as suas gorjetas e levante tudo quando quiser.'
+          },
+          {
+            strong: 'Um horário flexível',
+            text: 'Faça o seu kumbu sem se preocupar com o horário. Seja o seu próprio boss.'
+          }
+        ]}
+        image={driverPhoto1}
+        imageAlt="Estafeta da Kandengue Atrevido"
+        action={{
+          label: 'Inscrever-se para conduzir',
+          href: routsNameMain.becomeDriver
+        }}
+      />
 
-  function solicitation() {}
+      <PartnerSection />
 
-  const responsive = {
-    0: { items: 1 },
-    500: { items: 2 },
-    1000: { items: 3 }
-  }
-  const responsiveCars = {
-    0: { items: 1 },
-    500: { items: 2 },
-    1000: { items: 3 }
-  }
+      <FeatureSection
+        title="Segurança em primeiro lugar, sempre"
+        paragraphs={[
+          'Simplifique a sua vida com a Kandengue Atrevido: a entrega que vai além das expectativas.',
+          'Cuidamos de si e da sua encomenda antes, durante e depois de cada corrida, e acompanhamos todas as viagens para ajudar a chegar ao destino. Se precisar, estamos prontos para ajudar.'
+        ]}
+        image={driverPhoto2}
+        imageAlt="Motorista da Kandengue Atrevido"
+      />
 
-  const docService = [
-    {
-      _id: 'g56rbe685j68r67',
-      imgUrl: 'images/services/service-4-1.jpg',
-      name: 'Moto-Táxi',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
-    },
-    {
-      _id: 'efWEFRQ3GGRGshh',
-      imgUrl: 'images/services/service-4-2.jpg',
-      name: 'Entrega de produtos',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
-    },
-    {
-      _id: 'f43gyh37h6jj6j',
-      imgUrl: 'images/services/service-4-4.jpg',
-      name: 'Retirada de endereço',
-      role: 'Produtize de forma convincente o e-business barato vis-à-vis os benefícios cooperativos. Manter esquemas de ponta globalmente e plagiar intrinsecamente.'
-    }
-  ]
-  const listService = useMemo(
-    () => docService.map((item) => (
-      <RenderServices key={item._id} services={item} />
-    )),
-    []
+      <DownloadBand />
+    </div>
   )
+}
 
-  const docVeicules = [
-    {
-      _id: 'g56rbe685j68r67',
-      imgUrl: 'images/cars/car1.svg',
-      name: 'Espere e Economize',
-      role: 'Sem pressa para embarcar? Garanta um preço mais baixo com facilidade. O/A melhor motoqueiro para sua rota e local de embarque.'
-    },
-    {
-      _id: 'efWEFRQ3GGRGshh',
-      imgUrl: 'images/cars/car2.svg',
-      name: 'Embarque Prioritário',
-      role: 'Faça o upgrade para o Embarque Prioritário para uma espera mais curta quando você estiver com pressa.'
-    },
-    {
-      _id: 'thw46h46hwthhyh',
-      imgUrl: 'images/cars/car3.svg',
-      name: 'Modo preferencial',
-      role: 'Leve sua corrida a um novo nível com mais espaço para as pernas, carros mais novos, os Motoqueiros mais bem-avaliados .'
-    },
-    {
-      _id: 'f43gyh37h6jj6j',
-      imgUrl: 'images/cars/car4.png',
-      name: 'Kandengue Lux',
-      role: 'Experimente uma corrida de luxo privativa com os Motoqueiros mais bem-avaliados, serviço de alta qualidade e espaço adicional para as pernas.'
-    }
-  ]
-  const listVeicules = useMemo(
-    () => docVeicules.map((item) => (
-      <RenderVeicules key={item._id} veicules={item} />
-    )),
-    []
-  )
-
-  function goTo(path: string) {
-    router(path)
-  }
-  async function getData(name: string) {
-    // const {  } = await getAllUsers('rafael')
-    // console.log(resUserData)
-  }
-
-  // Use lazy-loaded AOS hook
-  useAOS({ duration: 1500 })
-
-  useEffect(() => {
-    getData('123')
-  }, [])
+/**
+ * Herói em duas metades: o texto assenta sobre preto, e a fotografia sangra
+ * ao lado sem véu nenhum por cima.
+ */
+function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0)
 
   return (
-    <ContainerHome>
-      <div className="containerSwiper">
-        <Swiper
-          pagination={{
-            clickable: true,
-            dynamicBullets: true
-          }}
-          loop={true}
-          autoplay={true}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            <div className="description">
-              {/* <span data-aos="fade-down">
-                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
-                por semana
-              </span> */}
-              <h1 data-aos="fade-down">
-                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
-                do seu negócio
-              </h1>
-              <span data-aos="fade-up">
-                Kandengue atrevido, chegar atrasado? Duvido!
-              </span>
+    <section className="relative bg-ink">
+      {/*
+        `grid-cols-1` explicito: sem ele, a coluna implicita e `auto`, e o
+        Swiper — que dimensiona os slides pelo conteudo — esticava-a para
+        11 milhoes de px, atirando o texto do heroi para fora do ecra. So
+        acontecia abaixo de `lg`, onde o `minmax(0,…)` nao se aplica.
+      */}
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-stretch lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+        <div className="flex flex-col justify-center px-[6%] py-16 lg:py-20 xl:pl-[8%]">
+          {/*
+            Curto de propósito. A versão longa enchia cinco linhas e empurrava
+            o botão para fora do ecrã. (Português de Angola: nada de "você".)
+          */}
+          <h1 className="max-w-[12ch] font-title text-display font-extrabold text-white">
+            As entregas são connosco.
+          </h1>
 
-              <button data-aos="fade-up">
-                {' '}
-                <a href={routsNameMain.about}>Saber mais</a>
-              </button>
-            </div>
-            <img src={heroBg1} />
-            <div className="shadow"></div>
-          </SwiperSlide>
+          <p className="mt-7 max-w-[48ch] text-lede text-white/65">
+            Trate do seu negócio — a encomenda vai connosco. Moto-táxi e
+            entregas em Luanda, com o percurso acompanhado até à porta.
+          </p>
 
-          <SwiperSlide>
-            <div className="description">
-              {/* <span data-aos="fade-down">
-                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
-                por semana
-              </span> */}
-              <h1 data-aos="fade-down">
-                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
-                do seu negócio
-              </h1>
-              <span data-aos="fade-up">
-                Kandengue atrevido, chegar atrasado? Duvido!
-              </span>
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <Link
+              to={DOWNLOAD_ANCHOR}
+              className="inline-flex items-center gap-2 rounded-full bg-red px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-red-deep"
+            >
+              Descarregar a app
+              <IoArrowForward aria-hidden />
+            </Link>
 
-              <button data-aos="fade-up">
-                <a href={routsNameMain.about}>Saber mais</a>
-              </button>
-            </div>
+            <Link
+              to={routsNameMain.becomeDriver}
+              className="text-base font-semibold text-white underline decoration-red decoration-2 underline-offset-[6px] transition-colors duration-200 hover:text-red"
+            >
+              Quero ser estafeta
+            </Link>
+          </div>
+        </div>
 
-            <img src={heroBg2} />
-            <div className="shadow"></div>
-          </SwiperSlide>
+        <div className="relative min-h-[18rem] w-full min-w-0 overflow-hidden sm:min-h-[22rem] lg:min-h-[38rem]">
+          <Swiper
+            modules={[Autoplay, EffectFade]}
+            effect="fade"
+            fadeEffect={{ crossFade: true }}
+            loop
+            // O único movimento não pedido da página inteira, e é lento.
+            autoplay={{ delay: 6000, disableOnInteraction: false }}
+            onSlideChange={swiper => setActiveSlide(swiper.realIndex)}
+            className="h-full w-full"
+          >
+            {heroSlides.map(({ image, alt }) => (
+              <SwiperSlide key={image}>
+                <img
+                  src={image}
+                  alt={alt}
+                  className="h-full w-full object-cover"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-          <SwiperSlide>
-            <div className="description">
-              {/* <span data-aos="fade-down">
-                Serviço de reserva de Moto-Táxi on-line 24 horas por dia, 7 dias
-                por semana
-              </span> */}
-              <h1 data-aos="fade-down">
-                Deixe-nos cuidar das suas entregas <br /> enquanto cuidas
-                do seu negócio
-              </h1>
-              <span data-aos="fade-up">
-                Kandengue atrevido, chegar atrasado? Duvido!
-              </span>
-
-              <button data-aos="fade-up">
-                {' '}
-                <a href={routsNameMain.about}>Saber mais</a>
-              </button>
-            </div>
-            <img src={heroBg3} />
-            <div className="shadow"></div>
-          </SwiperSlide>
-        </Swiper>
+          {/* Indicador do carrossel: traços, não bolas. */}
+          <div className="absolute bottom-6 left-6 z-10 flex gap-2">
+            {heroSlides.map(({ image }, index) => (
+              <span
+                key={image}
+                className={cn(
+                  'h-1 rounded-full transition-all duration-500',
+                  index === activeSlide ? 'w-10 bg-red' : 'w-5 bg-white/40'
+                )}
+              />
+            ))}
+          </div>
+        </div>
       </div>
+    </section>
+  )
+}
 
-      {/*  
-      <section className="aboutUs">
-        <div className="containerContent">
-          <div className="containerAboutUs">
-            <div className="contentLeft">
-              <div className="containerImg1" data-aos="fade-right">
-                <img src="images/about01.jpg" alt="" />
-              </div>
+/** Três promessas, logo a seguir ao herói. Responde ao "porquê estes?". */
+function Promise() {
+  const items = [
+    {
+      title: 'Chega na hora',
+      text: 'A corrida é atribuída ao estafeta mais perto da recolha.'
+    },
+    {
+      title: 'Vê onde vai',
+      text: 'Acompanhe o percurso no mapa, do levantamento à entrega.'
+    },
+    {
+      title: 'Preço combinado à partida',
+      text: 'O valor aparece antes de confirmar. Sem surpresas no fim.'
+    }
+  ]
 
-              <div className="containerImg" data-aos="fade-left">
-                <img src="images/about02.jpg" alt="" />
-              </div>
-            </div>
+  return (
+    <section className="border-b border-mute-line bg-white">
+      <div className="container-page grid gap-x-10 gap-y-10 py-16 md:grid-cols-3 md:py-20">
+        {items.map(item => (
+          <div key={item.title} className="border-t-2 border-red pt-5">
+            <h2 className="font-title text-title-m font-bold text-ink">
+              {item.title}
+            </h2>
+            <p className="mt-2 max-w-[38ch] text-base leading-relaxed text-mute">
+              {item.text}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
 
-            <div className="contentRight" data-aos="fade-up">
-              <div className="containerTitleSection">
-                <h4>Sobre nossa empresa</h4>
-                <h1>KA EMPRESA DE Moto-Táxi MAIS CONFIÁVEL EM ANGOLA</h1>
-              </div>
+/*
+ * Tornar-se parceiro é mesmo uma sequência de três passos — é por isso que
+ * leva números. (Numerar o que não é sequência é só enfeite.)
+ */
+const partnerSteps = [
+  {
+    title: 'Fale connosco',
+    text: 'Conte-nos o que vende, de onde sai e para onde costuma entregar.'
+  },
+  {
+    title: 'Ligamos a sua operação',
+    text: 'A sua loja passa a ter estafetas disponíveis nos horários que definir.'
+  },
+  {
+    title: 'Acompanhe cada entrega',
+    text: 'Relatórios de venda e o percurso de cada encomenda, em tempo real.'
+  }
+]
 
-              <p>
-                Kandengue Atrevido ou simplesmente KA é uma organização criada
-                totalmente por jovens estudantes que ambicionam atingir o
-                sucesso no mundo dos negócios juntamente com a sua plataforma, é
-                uma organização que visa automatizar a vida do pacato cidadão
-              </p>
+/**
+ * Secção de parceria.
+ *
+ * Eram duas: uma faixa vermelha com um título e um botão, e logo a seguir
+ * uma secção "Vantagens de ser parceiro" com o conteúdo todo. A faixa
+ * anunciava o que a secção seguinte já dizia, e não acrescentava nada —
+ * daí parecer vazia. Agora é uma só, e diz como a coisa funciona.
+ */
+function PartnerSection() {
+  return (
+    <section className="bg-ink">
+      <div className="container-page grid gap-x-20 gap-y-14 py-20 md:py-28 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+        <div>
+          <SectionHeading
+            tone="light"
+            title="Torne-se parceiro"
+            description="Trabalhe com quem entende de entregas. Ligamos o seu negócio a quem já anda na rua de Luanda todos os dias."
+          />
 
-              <ul>
-                <li>
-                  <BsFillCheckCircleFill /> Soluções fáceis e de emergência a
-                  qualquer hora.
-                </li>
-                <li>
-                  <BsFillCheckCircleFill /> Obtendo preço acessível até 2 anos.
-                </li>
-                <li>
-                  <BsFillCheckCircleFill /> Equipes mais confiáveis ​​e
-                  experientes.
-                </li>
-              </ul>
+          <Link
+            to={routsNameMain.contact}
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-red px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-red-deep"
+          >
+            Falar connosco
+            <IoArrowForward aria-hidden />
+          </Link>
+        </div>
+
+        <ol className="flex flex-col">
+          {partnerSteps.map((step, index) => (
+            <li
+              key={step.title}
+              className="flex gap-6 border-t border-ink-line py-8 first:border-t-0 first:pt-0 last:pb-0 sm:gap-10"
+            >
+              {/* Largura fixa: sem ela o "01" e o "02" medem diferente na
+                  Baloo 2 e os títulos ficam desalinhados uns dos outros. */}
+              <span
+                aria-hidden
+                className="w-[2.4ch] shrink-0 font-title text-title-l font-extrabold leading-none text-red"
+              >
+                {String(index + 1).padStart(2, '0')}
+              </span>
 
               <div>
-                <ButtonSeeMore
-                  value={'Saber mais'}
-                  onClick={() => goTo(routsNameMain.home)}
-                  colorBase={defaultTheme.colors['brand-primary']}
-                  colorSecondary={defaultTheme.colors['brand-super-dark']}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      */}
-
-      <section className="driver">
-        <div className="containerContent">
-          <div className="section1">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                Se torne um kandengue e{' '}
-                <strong>ganhe o teu kumbu numa boa</strong>
-              </h1>
-
-              <div className="contentDescriptions">
-                <p>
-                  Vem correndo e habilita-se a faturar mais de 300 Paus no mês
-                </p>
-
-                <ul>
-                  <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Kumbu na hora:</strong>
-                      <br />
-                      Ganhe kumbu, fique com suas gorjetas e pegue tudo quando
-                      quiser.
-                    </p>
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Um horário flexível:</strong>
-                      <br />
-                      Faça o seu kumbo, sem precisar de se preocupar com o
-                      horário, seja seu próprio boss.
-                    </p>
-                  </li>
-                  {/* <li>
-                    <BsFillCheckCircleFill />
-                    <p>
-                      <strong>Receba instantaneamente:</strong>
-                      <br /> Resgate seus ganhos quando quiser.
-                    </p>
-                  </li> */}
-                </ul>
-
-                <button className="btn-background">
-                  <a href={routsNameMain.workWithUs}>
-                    Cadastre-se para dirigir
-                  </a>
-                </button>
-              </div>
-            </div>
-
-            <img data-aos="fade-up-left" src={driverPhoto1} alt="" />
-          </div>
-        </div>
-      </section>
-
-      <section className="freeConsulting">
-        <div className="containerLinesLeft" data-aos="fade-up">
-          <div className="line1"></div>
-          <div className="line2"></div>
-        </div>
-
-        <div className="containerLinesRight" data-aos="fade-down">
-          <div className="line1"></div>
-          <div className="line2"></div>
-          <div className="line3"></div>
-        </div>
-
-        <div className="containerLinesRightInvert">
-          <div className="line1"></div>
-        </div>
-
-        <div className="containerContent">
-          <div className="contentFreeConsulting">
-            <div data-aos="fade-right">
-              <h1>Torne-se parceiro</h1>
-              <h3>
-                Trabalhe com quem entende de entregas! Parceria com a kandengue
-                Atrevido é sinônimo de qualidade e confiança.
-              </h3>
-            </div>
-
-            <div data-aos="fade-left">
-              <ButtonSeeMore
-                value={'Contactar'}
-                onClick={() => goTo(routsNameMain.contact)}
-                colorBase={defaultTheme.colors['base-white']}
-                colorSecondary={defaultTheme.colors['brand-secondary']}
-                textColor={defaultTheme.colors['base-text-bold']}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="rider">
-        <div className="containerContent">
-          <div className="section3">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                Vantagens de ser <strong>Parceiro</strong>
-              </h1>
-
-              <div className="contentDescriptions">
-                <p data-aos="fade-right">
-                  Oferecemos uma estratégia de marketing inovadora que irá
-                  impulsionar suas vendas! Com o nosso aplicativo simplificado e
-                  atendimento diferenciado, proporcionamos uma experiência
-                  prática e ímpar para os seus e nossos clientes.
-                </p>
-
-                <ul>
-                  <li>
-                    <BsFillCheckCircleFill /> Relatório de venda
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill /> Entrega rápida e segura
-                  </li>
-                  <li>
-                    <BsFillCheckCircleFill /> Divulgação dos produtos
-                  </li>
-                </ul>
-
-                <button className="btn-background">
-                  <a href="">Contactar-nos</a>
-                </button>
-              </div>
-            </div>
-
-            <img data-aos="fade-up-left" src={rider1} alt="" />
-          </div>
-        </div>
-      </section>
-
-      <section className="security">
-        <div className="containerContent">
-          <div className="section1">
-            <div className="descriptionSection">
-              <h1 data-aos="fade-up">
-                Segurança em primeiro lugar <strong>Sempre</strong>
-              </h1>
-
-              <div className="contentDescriptions">
-                <p data-aos="fade-right">
-                  Simplifique sua vida com a kandengue Atrevido, a entrega que
-                  vai além das expectativas .
-                </p>
-                <p data-aos="fade-right">
-                  Nós cuidamos de você e sua encomenda antes, durante e depois
-                  de cada corrida. E monitoramos todas as corridas para ajudar a
-                  chegar ao seu destino. Caso precise, estamos prontos para
-                  ajudar.
+                <h3 className="font-title text-title-m font-bold text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-2 max-w-[46ch] text-base leading-relaxed text-white/60">
+                  {step.text}
                 </p>
               </div>
-            </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
 
-            <img data-aos="fade-up-left" src={driverPhoto2} alt="" />
-          </div>
+/**
+ * Faixa de fecho da página.
+ *
+ * Era branca: a mockup do telemóvel é clara e desaparecia no fundo, e a
+ * secção seguinte — o rodapé — já é escura, por isso a página acabava com
+ * um vazio e logo um bloco preto. Em vermelho, a mockup destaca-se e a
+ * transição para o rodapé fica marcada.
+ */
+function DownloadBand() {
+  const items = [
+    'O serviço de moto-táxi mais barato',
+    'Chegue ao seu destino rapidamente',
+    'É só descarregar e instalar'
+  ]
+
+  return (
+    <section id="descarregar" className="scroll-mt-24 overflow-hidden bg-red">
+      <div className="container-page grid items-end gap-10 pt-20 md:grid-cols-2 md:pt-24">
+        <div className="pb-20 md:pb-24">
+          <h2 className="max-w-[14ch] font-title text-display-sm font-extrabold text-white">
+            A Kandengue vai até onde desejar
+          </h2>
+
+          <ul className="mt-8 flex flex-col gap-3.5">
+            {items.map(item => (
+              <li
+                key={item}
+                className="flex items-center gap-3 text-lede text-white/85"
+              >
+                <BsFillCheckCircleFill aria-hidden className="shrink-0 text-white/60" />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <StoreBadges className="mt-10" />
         </div>
-      </section>
 
-      <section className="weAreReady">
-        <div className="contentWeAreReady">
-          <div className="coverBackground"></div>
-
-          <div className="containerImg">
-            <img src="images/mokup/mokup1.png" alt="" />
-          </div>
-
-          <div className="contentInfo">
-            <h1>KANDENGUE vai até onde desejares...!</h1>
-
-            <div>
-              <ul>
-                <li>
-                  <BsFillCheckCircleFill />O serviço de Moto-Táxi mais Barato
-                </li>
-                <li>
-                  <BsFillCheckCircleFill />
-                  Chegue ao seu destino rapidamente.
-                </li>
-                <li>
-                  <BsFillCheckCircleFill />É só baixar e instalar.
-                </li>
-              </ul>
-
-              <div className="containerBtn">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.kandengueatrevido.ride&hl=pt"
-                  target="_blank"
-                >
-                  <img src={btnGoogle} alt="" />
-                </a>
-                <a href="">
-                  <img src={btnApple} alt="" />
-                </a>
-              </div>
-            </div>
-          </div>
+        {/* A mockup assenta na aresta de baixo da faixa, em vez de flutuar. */}
+        <div className="justify-self-center self-end md:justify-self-end">
+          <img
+            src="/images/mokup/mokup1.png"
+            alt="A aplicação Kandengue Atrevido no telemóvel"
+            loading="lazy"
+            className="block w-full max-w-[17rem] drop-shadow-2xl lg:max-w-[20rem]"
+          />
         </div>
-      </section>
-    </ContainerHome>
+      </div>
+    </section>
   )
 }
 

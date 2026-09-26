@@ -8,18 +8,31 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
     react(),
+    /*
+     * Até agora este plugin não fazia nada: exige `sharp` e `svgo`, que não
+     * estavam instalados, e `vite >= 5`, que o repositório não tinha. Com as
+     * duas coisas resolvidas, passa a comprimir mesmo — as fotografias saíam
+     * daqui com 2,6 MB.
+     */
     ViteImageOptimizer({
-      png: {
-        quality: 80
-      },
-      jpeg: {
-        quality: 80
-      },
-      jpg: {
-        quality: 80
-      },
-      webp: {
-        quality: 80
+      test: /\.(jpe?g|png|gif|tiff|webp|svg|avif)$/i,
+      png: { quality: 72 },
+      jpeg: { quality: 72, mozjpeg: true },
+      jpg: { quality: 72, mozjpeg: true },
+      webp: { quality: 72 },
+      svg: {
+        multipass: true,
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                // Mexer no viewBox parte o dimensionamento dos ícones.
+                removeViewBox: false
+              }
+            }
+          }
+        ]
       }
     }),
     VitePWA({
@@ -89,9 +102,17 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'query-vendor': ['@tanstack/react-query'],
-          'ui-vendor': ['styled-components', 'swiper'],
-          'firebase-vendor': ['firebase'],
-          'icons': ['react-icons', 'phosphor-react']
+          'ui-vendor': ['swiper'],
+          // O firebase 12 nao exporta ".", so subpaths: listar 'firebase'
+          // aqui partia a build com "Missing export". Estas sao as entradas
+          // que o site usa de facto.
+          'firebase-vendor': [
+            'firebase/app',
+            'firebase/auth',
+            'firebase/firestore',
+            'firebase/storage'
+          ],
+          icons: ['react-icons']
         }
       }
     },

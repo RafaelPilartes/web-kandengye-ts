@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios'
 import { BaseURL } from '../utils/urlApi'
 
 // Create axios instance with default configuration

@@ -11,9 +11,10 @@
 - Formulário "Trabalha Connosco" (`/work-with-us`)
 - Página de Contactos
 - Política de Privacidade
-- Registo de passageiros
-- Login de passageiros
 - Deploy contínuo no Netlify
+
+> O registo e o login de passageiros chegaram a existir e foram removidos
+> em 2026-09-26 — o site não tem sessão. Ver `docs/decisions.md` na raiz.
 
 ### 🔧 Em Progresso / Planeado
 

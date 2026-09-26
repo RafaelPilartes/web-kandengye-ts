@@ -1,0 +1,312 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Base — o que antes vivia no `createGlobalStyle` do styled-components.
+   --------------------------------------------------------------------------- */
+@layer base {
+  * {
+    outline: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /*
+   * `overflow-x: hidden` no `html` obriga o `overflow-y` a `auto`, o que faz
+   * do `html` um contentor de scroll — e isso mata o `position: sticky` do
+   * cabecalho. Vinha do estilo global antigo, como rede de seguranca contra
+   * transbordo horizontal.
+   *
+   * `clip` corta na mesma mas nao cria contentor de scroll, por isso o
+   * sticky continua a funcionar. E a rede fica.
+   */
+  body {
+    overflow-x: clip;
+  }
+
+  body {
+    @apply bg-base-background font-sans text-base font-normal text-ink antialiased;
+  }
+
+  /* A Baloo 2 assenta alto na caixa; sem isto os titulos ficam com uma
+     almofada visivel por cima e nenhuma por baixo. */
+  .font-title {
+    font-feature-settings: 'kern';
+  }
+
+  /*
+   * O `text-base` do body fixa `line-height: 1.5rem` em pixeis, e os titulos
+   * herdavam-no: a 2.8rem as linhas sobrepunham-se. Um titulo tem sempre o
+   * seu proprio entrelinhamento, proporcional ao tamanho.
+   */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply leading-tight;
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    font: inherit;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  ul li {
+    @apply list-none;
+  }
+
+  /* Tira as setas dos inputs numericos. */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-base-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-[2rem] bg-ink-line;
+  }
+
+  /* Foco visivel e consistente — antes nao existia em lado nenhum. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-red;
+    outline-style: solid;
+  }
+
+  ::selection {
+    @apply bg-red text-white;
+  }
+
+  /* Respeita quem pediu menos movimento ao sistema. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Componentes — padroes que se repetiam em dezenas de blocos styled.
+   --------------------------------------------------------------------------- */
+@layer components {
+  /* Faixa central do conteudo: 85% da largura, travada em 1390px. */
+  .container-page {
+    @apply mx-auto w-[88%] max-w-page;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  /* Botoes ------------------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-0 px-7 py-3.5
+           text-base font-semibold transition-colors duration-200
+           disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-red text-white hover:bg-red-deep;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-ink bg-transparent text-ink hover:bg-ink hover:text-white;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-ink hover:text-red;
+  }
+
+  /* Titulos de seccao --------------------------------------------------- */
+  .section-title {
+    @apply font-title text-display-sm font-extrabold text-ink;
+  }
+
+  .section-subtitle {
+    @apply max-w-[62ch] text-lede text-mute;
+  }
+
+  /* Formularios --------------------------------------------------------- */
+  .field-label {
+    @apply mb-2 block text-sm font-semibold text-ink;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-mute-line bg-white px-4 py-3.5
+           text-base text-ink transition-colors
+           placeholder:text-mute-light
+           focus:border-red focus:ring-2 focus:ring-red/20
+           disabled:cursor-not-allowed disabled:bg-mute-line/40;
+  }
+
+  .field-error {
+    @apply border-base-error focus:border-base-error focus:ring-base-error/20;
+  }
+
+  .field-hint {
+    @apply mt-1.5 block text-sm text-base-error;
+  }
+
+  /* Cartoes -------------------------------------------------------------- */
+  .card {
+    @apply rounded-2xl border border-mute-line bg-white p-6;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Ilustracao da pagina 404 — keyframes presos aos ids do SVG, que nao tem
+   equivalente em utilitarios.
+   --------------------------------------------------------------------------- */
+.illustration-404 #handboy {
+  width: 100%;
+  animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 98% 98%;
+  transform-box: fill-box;
+}
+
+.illustration-404 #girllight {
+  animation: swing ease-in-out 1.3s infinite alternate;
+  transform-origin: 0% 97%;
+  transform-box: fill-box;
+}
+
+.illustration-404 #hairgirl {
+  animation: swinghair ease-in-out 1.3s infinite alternate;
+  transform-origin: 60% 0%;
+  transform-box: fill-box;
+}
+
+.illustration-404 #zero {
+  transform-origin: bottom;
+  transform-box: fill-box;
+  animation: zeroanimation ease 1.3s infinite alternate;
+}
+
+@keyframes zeroanimation {
+  0% {
+    scale: 1;
+    transform: rotateY(180deg);
+  }
+  50% {
+    scale: 1.4;
+  }
+  100% {
+    scale: 1;
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes swinghair {
+  0% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Ecra de espera — as letras atravessam a faixa a rodar.
+   --------------------------------------------------------------------------- */
+.loading-letter {
+  opacity: 0;
+  animation: loading-sweep 2s linear infinite;
+}
+
+@keyframes loading-sweep {
+  0% {
+    left: 0;
+    transform: rotate(180deg);
+    opacity: 0;
+  }
+  35% {
+    left: 41%;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  65% {
+    left: 59%;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    transform: rotate(-180deg);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Documentos legais — a politica de privacidade e so texto corrido. Estilar
+   os filhos aqui evita centenas de `className` repetidos na pagina.
+   --------------------------------------------------------------------------- */
+@layer components {
+  .legal-content h2 {
+    @apply mb-4 mt-12 font-title text-title-m font-bold text-ink;
+  }
+
+  .legal-content h3 {
+    @apply mb-3 mt-7 font-title text-title-xs font-semibold text-ink;
+  }
+
+  .legal-content p {
+    @apply mb-4 max-w-[68ch] text-base leading-[1.75] text-mute;
+  }
+
+  .legal-content ul {
+    @apply mb-7 flex max-w-[68ch] flex-col gap-2.5 pl-5;
+  }
+
+  .legal-content li {
+    @apply relative text-base leading-[1.75] text-mute
+           before:absolute before:-left-5 before:top-3 before:h-1.5 before:w-1.5
+           before:rounded-full before:bg-red;
+  }
+
+  .legal-content li ul {
+    @apply mb-0 mt-2;
+  }
+
+  .legal-content strong {
+    @apply font-semibold text-ink;
+  }
+}
