@@ -15,14 +15,14 @@ export interface githubUser {
   repos_url: string
   events_url: string
   received_events_url: string
-  tipo: string
+  kind: string
   site_admin: boolean
   pontuação: number
 }
 
 export interface githubUserData {
   total_count: number
-  resultados_incompletos: boolean
+  incomplete_results: boolean
   items: githubUser[]
 }
 
