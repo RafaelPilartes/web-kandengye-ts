@@ -27,6 +27,17 @@ Website institucional da Kandengue: landing page, informação sobre os serviço
 
 ---
 
+## Versão
+
+Semver no `package.json`: **patch** corrige, **minor** acrescenta páginas ou
+secções sem partir nada, **major** muda a estrutura do site. Sobe no commit
+que fecha a fase, com tag `vX.Y.Z`. A versão vai no `<meta name="app-version">`
+do `index.html` gerado (plugin em `vite.config.ts`): depois de um upload,
+`curl -s <url> | grep app-version` diz o que está em produção. Regra comum:
+`CLAUDE.md` da raiz do ecossistema.
+
+---
+
 ## Como Rodar Localmente
 
 ```bash
