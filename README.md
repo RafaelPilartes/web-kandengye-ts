@@ -18,7 +18,7 @@ Serve como ponto de entrada web para utilizadores e potenciais motoristas, com p
 | Animações scroll | AOS (Animate On Scroll)     |
 | Base de dados    | Firebase Firestore          |
 | Autenticação     | Firebase Auth               |
-| Deploy           | Netlify                     |
+| Deploy           | cPanel (upload manual)      |
 
 ---
 
@@ -164,19 +164,10 @@ As candidaturas são visualizadas e aprovadas no **Painel Admin** (`web-kandengu
 
 ## Deploy
 
-O website é deployado automaticamente no **Netlify** via git push para `main`.
-
-```toml
-# netlify.toml
-[build]
-  command = "yarn build"
-  publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-```
+Alojamento **cPanel** (Apache), sem deploy automático: `corepack yarn build`
+e upload do conteúdo de `dist/` para o `public_html` do domínio. O
+`public/.htaccess` faz o redirect das rotas da SPA para o `index.html`.
+Passo a passo em [06 — Deploy](docs/06-deploy.md).
 
 ---
 

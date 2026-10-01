@@ -2,72 +2,59 @@
 
 ## Plataforma
 
-O website está deployado no **Netlify** com deploy contínuo via GitHub.
+O website está num alojamento **cPanel** (Apache), no mesmo alojamento do
+painel, cada um no `public_html` do seu domínio. **Não há deploy
+automático**: compila-se localmente e faz-se o upload à mão. O Netlify que
+aqui estava documentado já não se usa; o `netlify.toml` saiu do repositório
+a 2026-10-01.
 
 ---
 
-## Configuração Netlify
-
-```toml
-# netlify.toml
-[build]
-  command = "yarn build"
-  publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-```
-
-O redirect `/* → /index.html` é obrigatório para o React Router funcionar correctamente (SPA routing).
-
----
-
-## Variáveis de Ambiente no Netlify
-
-Configurar em **Netlify → Site Settings → Environment Variables**:
-
-```
-VITE_FIREBASE_API_KEY
-VITE_FIREBASE_AUTH_DOMAIN
-VITE_FIREBASE_PROJECT_ID
-VITE_FIREBASE_STORAGE_BUCKET
-VITE_FIREBASE_MESSAGING_SENDER_ID
-VITE_FIREBASE_APP_ID
-```
-
----
-
-## Fluxo de Deploy
-
-```
-git push origin main
-  │
-  ▼
-Netlify detecta push automáticamente
-  │
-  ▼
-yarn install + yarn build
-  │
-  ▼
-Testa se build tem sucesso
-  │
-  ▼
-Deploy para CDN Netlify (global edge)
-```
-
----
-
-## Build de Produção Manual
+## Build de produção
 
 ```bash
-yarn build
-# Output gerado em: dist/
-
-# Preview local do build:
-yarn preview
+corepack yarn install   # NUNCA `npm install` — reescreve o yarn.lock inteiro
+corepack yarn build     # tsc && vite build → dist/
+corepack yarn preview   # preview local do build
 ```
+
+As variáveis `VITE_FIREBASE_*` vêm do `.env` local (não versionado; ver
+`.env.example`). A API é a do Railway, fixa em `src/utils/urlApi.ts` — não
+existe nenhum subdomínio `api.*`.
+
+---
+
+## O que vai para o `public_html`
+
+O **conteúdo** de `dist/` (não a pasta), substituindo o que lá estiver:
+
+```
+.htaccess                 rotas da SPA + cabeçalhos (ficheiro oculto — ver nota)
+index.html
+assets/                   JS e CSS com hash no nome
+images/
+manifest.webmanifest, registerSW.js, sw.js, workbox-*.js   (PWA)
+it_logo*.svg e o resto do public/
+```
+
+O `.htaccess` substitui o redirect `/* → /index.html` que o Netlify fazia:
+sem ele, abrir uma rota do React Router directamente dá 404 no Apache. É um
+ficheiro oculto — no File Manager do cPanel é preciso "Show Hidden Files"
+para o ver e confirmar que subiu. Se o servidor já tiver um `.htaccess`
+próprio, juntar as regras em vez de o substituir.
+
+Apagar os ficheiros antigos de `assets/` antes do upload: os nomes levam
+hash e acumulam-se.
+
+---
+
+## Verificar depois do upload
+
+1. A raiz abre e o `index.html` servido referencia os `assets/index-*.js`
+   da build nova (ver o hash no código-fonte da página).
+2. Uma rota interna aberta directamente (por exemplo `/candidatura`) não dá
+   404.
+3. O formulário de candidatura submete (escreve em `applications`).
 
 ---
 

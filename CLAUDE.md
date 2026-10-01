@@ -96,7 +96,7 @@ src/
 ```
 
 - React 19, alinhado com o resto do ecossistema
-- Deploy: Netlify (`netlify.toml` presente)
+- Deploy: cPanel (Apache), build local e upload manual do `dist/`; rotas da SPA via `public/.htaccess`. Ver `docs/06-deploy.md`.
 - **Sem sessão.** Não há login nem registo — saíram em 2026-09-26. As
   candidaturas escrevem em `applications` sem autenticação.
 

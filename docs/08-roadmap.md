@@ -11,7 +11,7 @@
 - Formulário "Trabalha Connosco" (`/work-with-us`)
 - Página de Contactos
 - Política de Privacidade
-- Deploy contínuo no Netlify
+- Deploy manual no cPanel (build local + upload); deploy contínuo fica para quando houver pipeline
 
 > O registo e o login de passageiros chegaram a existir e foram removidos
 > em 2026-09-26 — o site não tem sessão. Ver `docs/decisions.md` na raiz.

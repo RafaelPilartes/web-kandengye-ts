@@ -35,7 +35,7 @@ O website precisa de:
 
 ## Deploy
 
-O website está deployado no **Netlify** com deploy automático via `git push` para `main`.
+O website está num alojamento **cPanel** (Apache), com build local e upload manual do `dist/` — ver [06 — Deploy](06-deploy.md).
 
 ---
 

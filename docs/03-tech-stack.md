@@ -54,8 +54,8 @@
 
 | Plataforma     | Config                                  |
 | -------------- | --------------------------------------- |
-| Netlify        | Deploy automático via `main` branch     |
-| `netlify.toml` | Redirects para SPA (`/* → /index.html`) |
+| cPanel (Apache) | Alojamento; build local, upload manual |
+| `public/.htaccess` | Rotas da SPA (`/* → /index.html`) e cabeçalhos no Apache |
 
 ---
 
