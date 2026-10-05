@@ -1884,9 +1884,9 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@rafaelpilartes/kandengue-shared@git+https://github.com/RafaelPilartes/lib_npm-kandengue_shared-ts.git#v2.9.0":
-  version "2.9.0"
-  resolved "git+https://github.com/RafaelPilartes/lib_npm-kandengue_shared-ts.git#c41ed856a82668463323dccea50f099b410c9598"
+"@rafaelpilartes/kandengue-shared@git+https://github.com/RafaelPilartes/lib_npm-kandengue_shared-ts.git#v2.10.0":
+  version "2.10.0"
+  resolved "git+https://github.com/RafaelPilartes/lib_npm-kandengue_shared-ts.git#b3fe0e5e5a767e9bec7f7b7f0941adae24f8194b"
 
 "@rolldown/pluginutils@1.0.0-rc.3":
   version "1.0.0-rc.3"
