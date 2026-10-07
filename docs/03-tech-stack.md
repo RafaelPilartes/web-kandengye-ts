@@ -6,7 +6,7 @@
 | --------------- | ------------ | ----------------------------------- |
 | Framework       | React (Vite) | —                                   |
 | Linguagem       | TypeScript   | —                                   |
-| Package Manager | **Yarn**     | Os outros usam npm                  |
+| Package Manager | **npm**      | Como os outros cinco                |
 
 ## UI e Estilização
 

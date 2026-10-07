@@ -5,9 +5,11 @@
 | Ferramenta | Versão mínima                    |
 | ---------- | -------------------------------- |
 | Node.js    | ≥ 16.x                           |
-| **Yarn**   | ≥ 1.22.x (`npm install -g yarn`) |
+| **npm**    | ≥ 10 (vem com o Node) |
 
-> ⚠️ Este projecto usa **Yarn**. Não usar `npm install` — usar `yarn install`.
+> ⚠️ Este projecto usa **npm**. A lib partilhada vem do GitHub Packages
+> (privado): precisas do `NPM_TOKEN` — um PAT clássico com `read:packages` —
+> no `~/.npmrc` ou exportado na shell, ou o `npm install` dá 401.
 
 ---
 
@@ -15,7 +17,7 @@
 
 ```bash
 cd web-kandengue-ts
-yarn install
+npm install
 ```
 
 ---
@@ -41,7 +43,7 @@ VITE_FIREBASE_APP_ID=...
 ## 3. Executar em Desenvolvimento
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 Disponível em: `http://localhost:5173`
@@ -52,10 +54,10 @@ Disponível em: `http://localhost:5173`
 
 | Comando        | Descrição                    |
 | -------------- | ---------------------------- |
-| `yarn dev`     | Servidor de desenvolvimento  |
-| `yarn build`   | Build de produção em `dist/` |
-| `yarn preview` | Preview do build de produção |
-| `yarn lint`    | ESLint                       |
+| `npm run dev`     | Servidor de desenvolvimento  |
+| `npm run build`   | Build de produção em `dist/` |
+| `npm run preview` | Preview do build de produção |
+| `npm run lint`    | ESLint                       |
 
 ---
 

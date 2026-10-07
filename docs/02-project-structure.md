@@ -54,11 +54,13 @@ web-kandengue-ts/
 ├── vite.config.ts
 ├── tailwind.config.js
 ├── tsconfig.json
-├── yarn.lock                     # ← usa Yarn (não npm)
+├── package-lock.json             # ← npm (era Yarn até 2026-10-07)
 └── package.json
 ```
 
-> ⚠️ Este projecto usa **Yarn** como package manager, não npm. Usar `yarn install` e `yarn dev`.
+> ⚠️ Este projecto usa **npm**. Era Yarn até 2026-10-07, por causa da
+> resolução `github:` por SSH do yarn 1 — com a lib no GitHub Packages essa
+> razão desapareceu. Ver `docs/decisions.md` na raiz do ecossistema.
 
 ---
 

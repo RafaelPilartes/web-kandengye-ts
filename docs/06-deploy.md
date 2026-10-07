@@ -13,9 +13,9 @@ a 2026-10-01.
 ## Build de produção
 
 ```bash
-corepack yarn install   # NUNCA `npm install` — reescreve o yarn.lock inteiro
-corepack yarn build     # tsc && vite build → dist/
-corepack yarn preview   # preview local do build
+npm install            # precisa do NPM_TOKEN (lib no GitHub Packages)
+npm run build          # tsc && vite build → dist/
+npm run preview        # preview local do build
 ```
 
 As variáveis `VITE_FIREBASE_*` vêm do `.env` local (não versionado; ver

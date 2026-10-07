@@ -4,7 +4,7 @@
 
 - **TypeScript** strict em toda a codebase
 - **ESLint** para linting
-- **Yarn** como package manager (não usar npm neste projecto)
+- **npm** como package manager (era Yarn até 2026-10-07)
 
 ## Nomenclatura
 
@@ -60,7 +60,7 @@ const url = await uploadFile(file, 'identity_card')
 ## Checklist antes de Commit
 
 - [ ] `npx tsc --noEmit` sem erros de tipos
-- [ ] `yarn lint` sem erros críticos
+- [ ] `npm run lint` sem erros críticos
 - [ ] Formulário `/become-driver` testado end-to-end (submissão + upload)
 - [ ] Verificar que `applications/{id}` criado no Firestore com `status: 'pending'`
 - [ ] Páginas testadas em mobile (responsive)

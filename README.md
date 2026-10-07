@@ -43,7 +43,7 @@ Serve como ponto de entrada web para utilizadores e potenciais motoristas, com p
 ### Pré-requisitos
 
 - Node.js ≥ 16.x
-- Yarn (este projecto usa Yarn — ver `yarn.lock`)
+- npm (ver `package-lock.json`) — e o `NPM_TOKEN` para a lib partilhada
 
 ### Instalação
 
@@ -51,8 +51,12 @@ Serve como ponto de entrada web para utilizadores e potenciais motoristas, com p
 git clone https://github.com/RafaelPilartes/web-kandengue-ts.git
 cd web-kandengue-ts
 
-yarn install
+npm install
 ```
+
+> A lib partilhada vem do **GitHub Packages**, que é privado: precisas do
+> `NPM_TOKEN` (PAT clássico com `read:packages`) no `~/.npmrc` ou exportado
+> na shell. Ver o `.npmrc` deste repositório.
 
 ### Configurar Variáveis de Ambiente
 
@@ -74,7 +78,7 @@ VITE_API_BASE_URL=https://api.kandengue.com
 ### Executar
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 Disponível em: `http://localhost:5173`
@@ -82,7 +86,7 @@ Disponível em: `http://localhost:5173`
 ### Build de Produção
 
 ```bash
-yarn build
+npm run build
 # Output: dist/
 ```
 
@@ -164,8 +168,8 @@ As candidaturas são visualizadas e aprovadas no **Painel Admin** (`web-kandengu
 
 ## Deploy
 
-Alojamento **cPanel** (Apache), sem deploy automático: `corepack yarn build`
-e upload do conteúdo de `dist/` para o `public_html` do domínio. O
+Alojamento **cPanel** (Apache), sem deploy automático: `npm run build` e
+upload do conteúdo de `dist/` para o `public_html` do domínio. O
 `public/.htaccess` faz o redirect das rotas da SPA para o `index.html`.
 Passo a passo em [06 — Deploy](docs/06-deploy.md).
 
