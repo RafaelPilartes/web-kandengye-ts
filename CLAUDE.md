@@ -41,12 +41,22 @@ do `index.html` gerado (plugin em `vite.config.ts`): depois de um upload,
 ## Como Rodar Localmente
 
 ```bash
-corepack yarn install   # NUNCA `npm install` — reescreve o yarn.lock inteiro
-corepack yarn dev       # Vite dev server
-corepack yarn build     # tsc && vite build
-corepack yarn typecheck # só o tsc
-corepack yarn preview   # preview da build
+npm install     # a lib partilhada vem do GitHub Packages — precisa do NPM_TOKEN
+npm run dev     # Vite dev server
+npm run build   # tsc && vite build
+npm run typecheck
+npm run preview
 ```
+
+> **Era yarn, e deixou de ser (2026-10-07).** O `corepack yarn` existia por
+> uma razão só: o yarn 1 resolvia a forma curta `github:owner/repo` por
+> **SSH**, que falha sem chaves, e por isso este repositório declarava a lib
+> como `git+https://`. Com a lib no GitHub Packages não há git nenhum a
+> resolver, e o site passou a npm como os outros cinco. O `yarn.lock` saiu;
+> o `package-lock.json` entrou.
+>
+> A lib precisa do `NPM_TOKEN` (PAT clássico, `read:packages`) no `~/.npmrc`
+> ou na shell — ver o `.npmrc` deste repositório.
 
 ---
 
