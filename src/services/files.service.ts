@@ -1,5 +1,6 @@
 // src/services/files.service.ts
 import { fileRepository } from '../modules/Api'
+import { ensureAnonymousSession } from './anonymousSession'
 
 /**
  * Resultado padrão do upload
@@ -91,9 +92,18 @@ export class FileService {
         throw new Error('Tipo de documento é obrigatório')
       }
 
+      /*
+       * ⚠️ A sessão anónima antes do envio — ver `ensureAnonymousSession`.
+       *
+       * Não se verifica o resultado de propósito: enquanto a regra do Storage
+       * for a saída (A), um envio sem sessão ainda passa, e abortar aqui
+       * partia o formulário por causa de um fornecedor desligado na consola.
+       */
+      await ensureAnonymousSession()
+
       const folder = `${uploadType}/${userRef}/${folderRef}/${Date.now()}_${fileName}`
-      console.log('✅ UseCase: Documento enviado com sucesso')
       const result = await fileRepository.uploadFile(file, folder)
+      console.log('✅ UseCase: Documento enviado com sucesso')
 
       return { path: folder, url: result }
     } catch (error: any) {
