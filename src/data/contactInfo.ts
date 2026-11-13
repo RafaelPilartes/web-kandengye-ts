@@ -7,8 +7,8 @@ export const contactInfo = {
   phone: '+244 928 888 745',
   phoneDisplay: '(+244) 928 888 745',
   phoneHref: 'tel:+244928888745',
-  email: 'comercial@kandengueatrevido.ao',
-  emailHref: 'mailto:comercial@kandengueatrevido.ao',
+  email: 'comercial@kandengueatrevido.com',
+  emailHref: 'mailto:comercial@kandengueatrevido.com',
   location: 'Angola - Luanda',
   locationHref: 'https://goo.gl/maps/1Uvj3cRqNQPEKzoB7',
 } as const
